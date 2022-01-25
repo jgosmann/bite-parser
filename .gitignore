@@ -1,0 +1,9 @@
+__pycache__
+.pytest_cache
+.vscode
+.*.swp
+.*.swo
+*.egg-info
+dist
+/.talismanrc
+/.idea
