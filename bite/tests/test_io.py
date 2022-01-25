@@ -67,3 +67,30 @@ async def test_parser_buffer_repeated_random_access():
     assert await buffer.get(1) == b"1"
     assert await buffer.get(2) == b"2"
     assert await buffer.get(8) == b"8"
+
+
+@pytest.mark.asyncio
+async def test_parser_buffer_drop_prefix():
+    buffer = ParserBuffer(MockReader(b"0123456789"))
+    await buffer.get(2)
+    await buffer.drop_prefix(4)
+    assert await buffer.get(0) == b"4"
+    await buffer.drop_prefix(6)
+    assert await buffer.get(slice(0, None)) == b""
+    assert buffer.at_eof()
+
+
+@pytest.mark.asyncio
+async def test_parser_buffer_cannot_drop_more_than_available():
+    buffer = ParserBuffer(MockReader(b"0123456789"))
+    with pytest.raises(IncompleteReadError):
+        await buffer.drop_prefix(11)
+
+
+@pytest.mark.asyncio
+async def test_parser_buffer_at_eof():
+    buffer = ParserBuffer(MockReader(b"0123456789"))
+    await buffer.get(9)
+    assert not buffer.at_eof()
+    await buffer.drop_prefix(10)
+    assert buffer.at_eof()

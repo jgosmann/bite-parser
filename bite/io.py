@@ -18,3 +18,13 @@ class ParserBuffer:
             self._buf.extend(await self._reader.read(max_index + 1 - len(self._buf)))
 
         return self._buf[key]
+
+    async def drop_prefix(self, n: int):
+        if len(self._buf) < n:
+            await self._reader.readexactly(n - len(self._buf))
+            self._buf = bytearray()
+        else:
+            self._buf = bytearray(self._buf[n:])
+
+    def at_eof(self) -> bool:
+        return len(self._buf) == 0 and self._reader.at_eof()
