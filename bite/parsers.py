@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Generic, Iterable, Optional, Protocol, TypeVar
+from typing import Generic, Iterable, Optional, Protocol, Tuple, TypeVar
 
 from bite.io import ParserBuffer
 
@@ -129,6 +129,34 @@ class MatchFirst(Parser[ParsedNode]):
             except UnmetExpectationError:
                 pass
         raise UnmetExpectationError(self, loc)
+
+
+@dataclass(frozen=True)
+class ParsedAnd(ParsedBaseNode[Tuple[ParsedNode, ...]]):
+    @property
+    def start_loc(self) -> int:
+        return self.value[0].start_loc
+
+    @property
+    def end_loc(self) -> int:
+        return self.value[-1].end_loc
+
+
+class And(Parser[Tuple[ParsedNode, ...]]):
+    def __init__(self, parsers: Iterable[Parser], *, name: str = None):
+        super().__init__(name)
+        self.parsers = parsers
+
+    def __str__(self):
+        return " + ".join(f"({parser})" for parser in self.parsers)
+
+    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedAnd:
+        current_loc = loc
+        parsed_nodes = []
+        for parser in self.parsers:
+            parsed_nodes.append(await parser.parse(buf, current_loc))
+            current_loc = parsed_nodes[-1].end_loc
+        return ParsedAnd(self.name, tuple(parsed_nodes))
 
 
 class ParseError(Exception):
