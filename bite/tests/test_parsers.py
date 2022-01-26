@@ -32,8 +32,13 @@ from bite.tests.mock_reader import MockReader
         # CharacterSet
         (
             b"123",
-            CharacterSet(b"0123456789", "charset"),
+            CharacterSet(b"0123456789", name="charset"),
             ParsedCharacterSet("charset", b"1", 0, 1),
+        ),
+        (
+            b"ABC",
+            CharacterSet(b"0123456789", invert=True, name="inverted charset"),
+            ParsedCharacterSet("inverted charset", b"A", 0, 1),
         ),
         # OneOf
         (
@@ -68,6 +73,7 @@ async def test_successful_parsing(input_buf, grammar, expected):
         (b"foo", Literal(b"LITERAL")),
         (b"C", OneOf([Literal(b"A"), Literal(b"B")])),
         (b"A", CharacterSet(b"0123456789")),
+        (b"0", CharacterSet(b"0123456789", invert=True)),
     ],
 )
 async def test_parsing_failure(input_buf, grammar):

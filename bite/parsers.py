@@ -80,13 +80,16 @@ ParsedCharacterSet = ParsedLeaf[bytes]
 
 
 class CharacterSet(Parser[bytes]):
-    def __init__(self, charset: Iterable[int], name: str = None):
+    def __init__(
+        self, charset: Iterable[int], *, invert: bool = False, name: str = None
+    ):
         super().__init__(name if name else f"CharacterSet({charset})")
         self.charset = frozenset(charset)
+        self.invert = invert
 
     async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedCharacterSet:
         char = await buf.get(loc)
-        if len(char) == 1 and char[0] in self.charset:
+        if len(char) == 1 and (char[0] in self.charset) != self.invert:
             return ParsedCharacterSet(self.name, char, loc, loc + 1)
         else:
             raise UnmetExpectationError(self, loc)
