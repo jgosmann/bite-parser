@@ -21,12 +21,12 @@ from bite.tests.mock_reader import MockReader
         # Literals
         (
             b"LITERAL",
-            Literal(b"LITERAL", "literal"),
+            Literal(b"LITERAL", name="literal"),
             ParsedLiteral("literal", b"LITERAL", 0, 7),
         ),
         (
             b"LiTeRaL",
-            CaselessLiteral(b"lItErAl", "literal"),
+            CaselessLiteral(b"lItErAl", name="literal"),
             ParsedLiteral("literal", b"lItErAl", 0, 7),
         ),
         # CharacterSet

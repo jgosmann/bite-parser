@@ -48,7 +48,7 @@ ParsedLiteral = ParsedLeaf[bytes]
 
 
 class Literal(Parser[bytes]):
-    def __init__(self, literal: bytes, name: str = None):
+    def __init__(self, literal: bytes, *, name: str = None):
         super().__init__(name if name else str(literal))
         self.literal = literal
 
@@ -62,7 +62,7 @@ class Literal(Parser[bytes]):
 
 
 class CaselessLiteral(Parser[bytes]):
-    def __init__(self, literal: bytes, name: str = None):
+    def __init__(self, literal: bytes, *, name: str = None):
         super().__init__(name if name else str(literal))
         self.literal = literal
         self._lowercased_literal = self.literal.lower()
@@ -109,7 +109,7 @@ class ParsedOneOf(ParsedBaseNode[ParsedNode]):
 
 
 class OneOf(Parser[ParsedNode]):
-    def __init__(self, choices: Iterable[Parser], name: str = None):
+    def __init__(self, choices: Iterable[Parser], *, name: str = None):
         super().__init__(name)
         self.choices = choices
 
