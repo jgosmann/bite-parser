@@ -3,12 +3,17 @@ from typing import Generic, Iterable, Optional, Protocol, TypeVar
 
 from bite.io import ParserBuffer
 
-T = TypeVar("T")
+T = TypeVar("T", covariant=True)
 
 
 class ParsedNode(Protocol[T]):
-    name: Optional[str]
-    value: T
+    @property
+    def name(self) -> Optional[str]:
+        ...
+
+    @property
+    def value(self) -> T:
+        ...
 
     @property
     def start_loc(self) -> int:
@@ -19,13 +24,13 @@ class ParsedNode(Protocol[T]):
         ...
 
 
-@dataclass
+@dataclass(frozen=True)
 class ParsedBaseNode(Generic[T]):
     name: Optional[str]
     value: T
 
 
-@dataclass
+@dataclass(frozen=True)
 class ParsedLeaf(ParsedBaseNode[T]):
     name: Optional[str]
     value: T
@@ -95,7 +100,7 @@ class CharacterSet(Parser[bytes]):
             raise UnmetExpectationError(self, loc)
 
 
-@dataclass
+@dataclass(frozen=True)
 class ParsedMatchFirst(ParsedBaseNode[ParsedNode]):
     choice_index: int
 
