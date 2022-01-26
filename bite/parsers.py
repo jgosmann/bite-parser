@@ -96,7 +96,7 @@ class CharacterSet(Parser[bytes]):
 
 
 @dataclass
-class ParsedOneOf(ParsedBaseNode[ParsedNode]):
+class ParsedMatchFirst(ParsedBaseNode[ParsedNode]):
     choice_index: int
 
     @property
@@ -108,7 +108,7 @@ class ParsedOneOf(ParsedBaseNode[ParsedNode]):
         return self.value.end_loc
 
 
-class OneOf(Parser[ParsedNode]):
+class MatchFirst(Parser[ParsedNode]):
     def __init__(self, choices: Iterable[Parser], *, name: str = None):
         super().__init__(name)
         self.choices = choices
@@ -116,11 +116,11 @@ class OneOf(Parser[ParsedNode]):
     def __str__(self):
         return " | ".join(f"({choice})" for choice in self.choices)
 
-    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedOneOf:
+    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedMatchFirst:
         for i, choice in enumerate(self.choices):
             try:
                 parsed_node = await choice.parse(buf, loc)
-                return ParsedOneOf(self.name, parsed_node, i)
+                return ParsedMatchFirst(self.name, parsed_node, i)
             except UnmetExpectationError:
                 pass
         raise UnmetExpectationError(self, loc)
