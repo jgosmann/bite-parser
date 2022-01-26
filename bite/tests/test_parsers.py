@@ -2,6 +2,7 @@ import pytest
 
 from bite.io import ParserBuffer
 from bite.parsers import (
+    CaselessLiteral,
     Literal,
     OneOf,
     ParsedLiteral,
@@ -20,6 +21,11 @@ from bite.tests.mock_reader import MockReader
             b"LITERAL",
             Literal(b"LITERAL", "literal"),
             ParsedLiteral("literal", b"LITERAL", 0, 7),
+        ),
+        (
+            b"LiTeRaL",
+            CaselessLiteral(b"lItErAl", "literal"),
+            ParsedLiteral("literal", b"lItErAl", 0, 7),
         ),
         # OneOf
         (

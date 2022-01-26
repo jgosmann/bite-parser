@@ -61,6 +61,21 @@ class Literal(Parser[bytes]):
             raise UnmetExpectationError(self, loc)
 
 
+class CaselessLiteral(Parser[bytes]):
+    def __init__(self, literal: bytes, name: str = None):
+        super().__init__(name if name else str(literal))
+        self.literal = literal
+        self._lowercased_literal = self.literal.lower()
+
+    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedLiteral:
+        end_loc = loc + len(self.literal)
+        peek = await buf.get(slice(loc, end_loc))
+        if peek.lower() == self._lowercased_literal:
+            return ParsedLiteral(self.name, self.literal, loc, end_loc)
+        else:
+            raise UnmetExpectationError(self, loc)
+
+
 @dataclass
 class ParsedOneOf(ParsedBaseNode[ParsedNode]):
     choice_index: int
