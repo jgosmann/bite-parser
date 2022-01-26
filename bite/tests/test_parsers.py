@@ -20,12 +20,12 @@ from bite.tests.mock_reader import MockReader
     [
         # Literals
         (
-            b"LITERAL",
+            b"LITERAL foo",
             Literal(b"LITERAL", name="literal"),
             ParsedLiteral("literal", b"LITERAL", 0, 7),
         ),
         (
-            b"LiTeRaL",
+            b"LiTeRaL foo",
             CaselessLiteral(b"lItErAl", name="literal"),
             ParsedLiteral("literal", b"lItErAl", 0, 7),
         ),
@@ -42,17 +42,17 @@ from bite.tests.mock_reader import MockReader
         ),
         # OneOf
         (
-            b"A",
+            b"A foo",
             OneOf([Literal(b"A"), Literal(b"B")]),
             ParsedOneOf(None, ParsedLiteral("b'A'", b"A", 0, 1), 0),
         ),
         (
-            b"B",
+            b"B foo",
             OneOf([Literal(b"A"), Literal(b"B")]),
             ParsedOneOf(None, ParsedLiteral("b'B'", b"B", 0, 1), 1),
         ),
         (
-            b"A",
+            b"A foo",
             OneOf(
                 [Literal(b"A", name="first"), Literal(b"A", name="second")],
                 name="precedence test",
