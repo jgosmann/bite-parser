@@ -3,8 +3,10 @@ import pytest
 from bite.io import ParserBuffer
 from bite.parsers import (
     CaselessLiteral,
+    CharacterSet,
     Literal,
     OneOf,
+    ParsedCharacterSet,
     ParsedLiteral,
     ParsedOneOf,
     UnmetExpectationError,
@@ -26,6 +28,12 @@ from bite.tests.mock_reader import MockReader
             b"LiTeRaL",
             CaselessLiteral(b"lItErAl", "literal"),
             ParsedLiteral("literal", b"lItErAl", 0, 7),
+        ),
+        # CharacterSet
+        (
+            b"123",
+            CharacterSet(b"0123456789", "charset"),
+            ParsedCharacterSet("charset", b"1", 0, 1),
         ),
         # OneOf
         (
@@ -56,7 +64,11 @@ async def test_successful_parsing(input_buf, grammar, expected):
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "input_buf,grammar",
-    [(b"foo", Literal(b"LITERAL")), (b"C", OneOf([Literal(b"A"), Literal(b"B")]))],
+    [
+        (b"foo", Literal(b"LITERAL")),
+        (b"C", OneOf([Literal(b"A"), Literal(b"B")])),
+        (b"A", CharacterSet(b"0123456789")),
+    ],
 )
 async def test_parsing_failure(input_buf, grammar):
     buffer = ParserBuffer(MockReader(input_buf))

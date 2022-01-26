@@ -76,6 +76,22 @@ class CaselessLiteral(Parser[bytes]):
             raise UnmetExpectationError(self, loc)
 
 
+ParsedCharacterSet = ParsedLeaf[bytes]
+
+
+class CharacterSet(Parser[bytes]):
+    def __init__(self, charset: Iterable[int], name: str = None):
+        super().__init__(name if name else f"CharacterSet({charset})")
+        self.charset = frozenset(charset)
+
+    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedCharacterSet:
+        char = await buf.get(loc)
+        if len(char) == 1 and char[0] in self.charset:
+            return ParsedCharacterSet(self.name, char, loc, loc + 1)
+        else:
+            raise UnmetExpectationError(self, loc)
+
+
 @dataclass
 class ParsedOneOf(ParsedBaseNode[ParsedNode]):
     choice_index: int
