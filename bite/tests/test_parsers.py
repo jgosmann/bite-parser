@@ -5,10 +5,12 @@ from bite.parsers import (
     And,
     CaselessLiteral,
     CharacterSet,
+    FixedByteCount,
     Literal,
     MatchFirst,
     ParsedAnd,
     ParsedCharacterSet,
+    ParsedFixedByteCount,
     ParsedLeaf,
     ParsedLiteral,
     ParsedMatchFirst,
@@ -43,6 +45,12 @@ from bite.transformers import ParsedTransform
             b"ABC",
             CharacterSet(b"0123456789", invert=True, name="inverted charset"),
             ParsedCharacterSet("inverted charset", b"A", 0, 1),
+        ),
+        # FixedByteCount
+        (
+            b"0123456789",
+            FixedByteCount(4, name="fixed length"),
+            ParsedFixedByteCount("fixed length", b"0123", 0, 4),
         ),
         # MatchFirst
         (
@@ -87,6 +95,7 @@ async def test_successful_parsing(input_buf, grammar, expected):
         (b"C", MatchFirst([Literal(b"A"), Literal(b"B")])),
         (b"A", CharacterSet(b"0123456789")),
         (b"0", CharacterSet(b"0123456789", invert=True)),
+        (b"0123", FixedByteCount(6)),
     ],
 )
 async def test_parsing_failure(input_buf, grammar):

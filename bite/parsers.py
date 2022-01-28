@@ -64,6 +64,22 @@ class CharacterSet(Parser[bytes, bytes]):
             raise UnmetExpectationError(self, loc)
 
 
+ParsedFixedByteCount = ParsedLeaf[bytes]
+
+
+class FixedByteCount(Parser[bytes, bytes]):
+    def __init__(self, count: int, *, name: str = None):
+        super().__init__(name if name else f"FixedByteCount({count})")
+        self.count = count
+
+    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedFixedByteCount:
+        read_bytes = await buf.get(slice(loc, self.count))
+        if len(read_bytes) == self.count:
+            return ParsedFixedByteCount(self.name, read_bytes, loc, len(read_bytes))
+        else:
+            raise UnmetExpectationError(self, loc)
+
+
 @dataclass(frozen=True)
 class ParsedMatchFirst(ParsedBaseNode[ParsedNode[T, T]]):
     choice_index: int
