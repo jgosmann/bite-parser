@@ -52,3 +52,18 @@ class Suppress(Transform[T, VIn, None]):
         super().__init__(
             parser, lambda _: None, name=name if name else f"Suppress({parser.name})"
         )
+
+
+class TransformValue(Transform[T, VIn, VOut]):
+    def __init__(
+        self,
+        parser: Parser[T, VIn],
+        transform: Callable[[VIn], VOut],
+        *,
+        name: str = None,
+    ):
+        super().__init__(
+            parser,
+            lambda parse_tree: transform(parse_tree.value),
+            name=name if name else f"TransformValue({parser.name})",
+        )

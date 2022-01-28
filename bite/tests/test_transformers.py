@@ -3,7 +3,7 @@ import pytest
 from bite.io import ParserBuffer
 from bite.parsers import Literal, ParsedLiteral
 from bite.tests.mock_reader import MockReader
-from bite.transformers import ParsedTransform, Suppress, Transform
+from bite.transformers import ParsedTransform, Suppress, Transform, TransformValue
 
 
 def test_parsed_transform():
@@ -34,6 +34,12 @@ def test_parsed_transform():
         (
             b"42",
             Transform(Literal(b"42"), lambda parse_tree: int(parse_tree.value)),
+            42,
+        ),
+        # TransformValue
+        (
+            b"42",
+            TransformValue(Literal(b"42"), int),
             42,
         ),
     ],
