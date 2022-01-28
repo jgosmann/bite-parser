@@ -15,6 +15,8 @@ from bite.parsers import (
     ParsedLeaf,
     ParsedLiteral,
     ParsedMatchFirst,
+    ParsedRepeat,
+    Repeat,
     UnmetExpectationError,
 )
 from bite.tests.mock_reader import MockReader
@@ -79,6 +81,62 @@ from bite.transformers import ParsedTransform, Suppress, TransformValue
             ParsedAnd(
                 "and",
                 (ParsedLiteral("b'A'", b"A", 4, 5), ParsedLiteral("b'B'", b"B", 5, 6)),
+            ),
+        ),
+        # Repeated
+        (
+            b"AA foo",
+            Repeat(
+                Literal(b"A", name="A"), min_repeats=2, max_repeats=3, name="repeated"
+            ),
+            ParsedRepeat(
+                "repeated",
+                (ParsedLiteral("A", b"A", 4, 5), ParsedLiteral("A", b"A", 5, 6)),
+            ),
+        ),
+        (
+            b"AAA foo",
+            Repeat(
+                Literal(b"A", name="A"), min_repeats=2, max_repeats=3, name="repeated"
+            ),
+            ParsedRepeat(
+                "repeated",
+                (
+                    ParsedLiteral("A", b"A", 4, 5),
+                    ParsedLiteral("A", b"A", 5, 6),
+                    ParsedLiteral("A", b"A", 6, 7),
+                ),
+            ),
+        ),
+        (
+            b"AAAAA foo",
+            Repeat(
+                Literal(b"A", name="A"), min_repeats=2, max_repeats=3, name="repeated"
+            ),
+            ParsedRepeat(
+                "repeated",
+                (
+                    ParsedLiteral("A", b"A", 4, 5),
+                    ParsedLiteral("A", b"A", 5, 6),
+                    ParsedLiteral("A", b"A", 6, 7),
+                ),
+            ),
+        ),
+        (
+            b"AAA foo",
+            Repeat(
+                Literal(b"A", name="A"),
+                min_repeats=2,
+                max_repeats=None,
+                name="repeated",
+            ),
+            ParsedRepeat(
+                "repeated",
+                (
+                    ParsedLiteral("A", b"A", 4, 5),
+                    ParsedLiteral("A", b"A", 5, 6),
+                    ParsedLiteral("A", b"A", 6, 7),
+                ),
             ),
         ),
     ],
@@ -172,6 +230,21 @@ async def test_parsing_failure_and():
     with pytest.raises(UnmetExpectationError) as excinfo:
         await grammar.parse(buffer)
     assert excinfo.value.expected == grammar.parsers[1]
+    assert excinfo.value.at_loc == 1
+
+
+@pytest.mark.asyncio
+async def test_parsing_failure_repeat():
+    grammar = Repeat(Literal(b"A"), min_repeats=2, max_repeats=3)
+
+    with pytest.raises(UnmetExpectationError) as excinfo:
+        await grammar.parse(ParserBuffer(MockReader(b"A")))
+    assert excinfo.value.expected == grammar.parser
+    assert excinfo.value.at_loc == 1
+
+    with pytest.raises(UnmetExpectationError) as excinfo:
+        await grammar.parse(ParserBuffer(MockReader(b"Abbb")))
+    assert excinfo.value.expected == grammar.parser
     assert excinfo.value.at_loc == 1
 
 
