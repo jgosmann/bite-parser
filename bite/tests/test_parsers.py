@@ -5,6 +5,7 @@ from bite.parsers import (
     And,
     CaselessLiteral,
     CharacterSet,
+    Counted,
     FixedByteCount,
     Literal,
     MatchFirst,
@@ -17,7 +18,7 @@ from bite.parsers import (
     UnmetExpectationError,
 )
 from bite.tests.mock_reader import MockReader
-from bite.transformers import ParsedTransform
+from bite.transformers import ParsedTransform, Suppress, TransformValue
 
 
 @pytest.mark.asyncio
@@ -85,6 +86,57 @@ from bite.transformers import ParsedTransform
 async def test_successful_parsing(input_buf, grammar, expected):
     buffer = ParserBuffer(MockReader(b"foo " + input_buf))
     assert await grammar.parse(buffer, 4) == expected
+
+
+@pytest.mark.asyncio
+async def test_successful_counted_parsing():
+    buffer = ParserBuffer(MockReader(b"foo [4]0123456789"))
+    grammar = Counted(
+        TransformValue(
+            And(
+                [
+                    Suppress(Literal(b"[")),
+                    CharacterSet(b"0123456789"),
+                    Suppress(Literal(b"]")),
+                ]
+            ),
+            lambda value: int(value[0]),
+            name="transform",
+        ),
+        lambda count: FixedByteCount(count, name="fixed byte count"),
+    )
+    parsed = await grammar.parse(buffer, 4)
+
+    assert parsed.parse_tree.count_expr.name == "transform"
+    assert parsed.parse_tree.count_expr.value == 4
+    assert parsed.parse_tree.counted_expr == ParsedFixedByteCount(
+        "fixed byte count", b"0123", 7, 11
+    )
+    assert parsed.value == b"0123"
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("input_buf, at_loc", [(b"[4x012345689]", 2), (b"[4]01", 3)])
+async def test_unsuccessful_counted_parsing(input_buf, at_loc):
+    buffer = ParserBuffer(MockReader(input_buf))
+    grammar = Counted(
+        TransformValue(
+            And(
+                [
+                    Suppress(Literal(b"[")),
+                    CharacterSet(b"0123456789"),
+                    Suppress(Literal(b"]")),
+                ]
+            ),
+            lambda value: int(value[0]),
+            name="transform",
+        ),
+        lambda count: FixedByteCount(count, name="fixed byte count"),
+    )
+
+    with pytest.raises(UnmetExpectationError) as excinfo:
+        await grammar.parse(buffer)
+    assert excinfo.value.at_loc == at_loc
 
 
 @pytest.mark.asyncio

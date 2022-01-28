@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Iterable, List, Tuple, TypeVar
+from typing import Any, Callable, Generic, Iterable, List, Tuple, TypeVar
 
 from bite.core import (
     ParsedBaseNode,
@@ -148,3 +148,54 @@ class And(Parser[Tuple[ParsedNode, ...], List]):
             parsed_nodes.append(await parser.parse(buf, current_loc))
             current_loc = parsed_nodes[-1].end_loc
         return ParsedAnd(self.name, tuple(parsed_nodes))
+
+
+@dataclass(frozen=True)
+class CountedParseTree:
+    count_expr: ParsedNode[Any, int]
+    counted_expr: ParsedNode
+
+    @property
+    def start_loc(self) -> int:
+        return self.count_expr.start_loc
+
+    @property
+    def end_loc(self) -> int:
+        return self.counted_expr.end_loc
+
+
+@dataclass(frozen=True)
+class ParsedCounted(ParsedBaseNode[CountedParseTree], Generic[V]):
+    @property
+    def value(self) -> V:
+        return self.parse_tree.counted_expr.value
+
+    @property
+    def start_loc(self) -> int:
+        return self.parse_tree.start_loc
+
+    @property
+    def end_loc(self) -> int:
+        return self.parse_tree.end_loc
+
+
+class Counted(Parser[CountedParseTree, V]):
+    def __init__(
+        self,
+        count_parser: Parser[Any, int],
+        counted_parser_factory: Callable[[int], Parser[Any, V]],
+        *,
+        name: str = None,
+    ):
+        super().__init__(
+            name if name else f"Counted({count_parser.name}, {counted_parser_factory})"
+        )
+        self.count_parser = count_parser
+        self.counted_parser_factory = counted_parser_factory
+
+    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedCounted[V]:
+        count = await self.count_parser.parse(buf, loc)
+        counted = await self.counted_parser_factory(count.value).parse(
+            buf, count.end_loc
+        )
+        return ParsedCounted(self.name, CountedParseTree(count, counted))
