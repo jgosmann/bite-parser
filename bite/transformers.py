@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Callable, Generic, TypeVar
+from typing import Callable, Generic, TypeVar
 
 from bite.core import ParsedBaseNode, ParsedNode, Parser
 from bite.io import ParserBuffer
@@ -27,14 +27,28 @@ class ParsedTransform(ParsedBaseNode[ParsedNode[T, VIn]], Generic[T, VIn, VOut])
         return self.parse_tree.end_loc
 
 
-class Suppress(Parser[ParsedNode[T, VIn], None]):
-    def __init__(self, parser: Parser[T, VIn], *, name: str = None):
-        super().__init__(name)
+class Transform(Parser[ParsedNode[T, VIn], VOut]):
+    def __init__(
+        self,
+        parser: Parser[T, VIn],
+        transform: Callable[[ParsedNode[T, VIn]], VOut],
+        *,
+        name: str = None,
+    ):
+        super().__init__(name if name else f"Transform({parser.name})")
         self.parser = parser
+        self.transform = transform
 
     async def parse(
         self, buf: ParserBuffer, loc: int = 0
-    ) -> ParsedTransform[Any, VIn, None]:
+    ) -> ParsedTransform[T, VIn, VOut]:
         return ParsedTransform(
-            self.name, await self.parser.parse(buf, loc), lambda _: None
+            self.name, await self.parser.parse(buf, loc), self.transform
+        )
+
+
+class Suppress(Transform[T, VIn, None]):
+    def __init__(self, parser: Parser[T, VIn], *, name: str = None):
+        super().__init__(
+            parser, lambda _: None, name=name if name else f"Suppress({parser.name})"
         )
