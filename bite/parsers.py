@@ -73,9 +73,11 @@ class FixedByteCount(Parser[bytes, bytes]):
         self.count = count
 
     async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedFixedByteCount:
-        read_bytes = await buf.get(slice(loc, self.count))
+        read_bytes = await buf.get(slice(loc, loc + self.count))
         if len(read_bytes) == self.count:
-            return ParsedFixedByteCount(self.name, read_bytes, loc, len(read_bytes))
+            return ParsedFixedByteCount(
+                self.name, read_bytes, loc, loc + len(read_bytes)
+            )
         else:
             raise UnmetExpectationError(self, loc)
 

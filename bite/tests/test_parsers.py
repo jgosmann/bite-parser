@@ -28,40 +28,40 @@ from bite.transformers import ParsedTransform
         (
             b"LITERAL foo",
             Literal(b"LITERAL", name="literal"),
-            ParsedLiteral("literal", b"LITERAL", 0, 7),
+            ParsedLiteral("literal", b"LITERAL", 4, 11),
         ),
         (
             b"LiTeRaL foo",
             CaselessLiteral(b"lItErAl", name="literal"),
-            ParsedLiteral("literal", b"lItErAl", 0, 7),
+            ParsedLiteral("literal", b"lItErAl", 4, 11),
         ),
         # CharacterSet
         (
             b"123",
             CharacterSet(b"0123456789", name="charset"),
-            ParsedCharacterSet("charset", b"1", 0, 1),
+            ParsedCharacterSet("charset", b"1", 4, 5),
         ),
         (
             b"ABC",
             CharacterSet(b"0123456789", invert=True, name="inverted charset"),
-            ParsedCharacterSet("inverted charset", b"A", 0, 1),
+            ParsedCharacterSet("inverted charset", b"A", 4, 5),
         ),
         # FixedByteCount
         (
             b"0123456789",
             FixedByteCount(4, name="fixed length"),
-            ParsedFixedByteCount("fixed length", b"0123", 0, 4),
+            ParsedFixedByteCount("fixed length", b"0123", 4, 8),
         ),
         # MatchFirst
         (
             b"A foo",
             MatchFirst([Literal(b"A"), Literal(b"B")]),
-            ParsedMatchFirst(None, ParsedLiteral("b'A'", b"A", 0, 1), 0),
+            ParsedMatchFirst(None, ParsedLiteral("b'A'", b"A", 4, 5), 0),
         ),
         (
             b"B foo",
             MatchFirst([Literal(b"A"), Literal(b"B")]),
-            ParsedMatchFirst(None, ParsedLiteral("b'B'", b"B", 0, 1), 1),
+            ParsedMatchFirst(None, ParsedLiteral("b'B'", b"B", 4, 5), 1),
         ),
         (
             b"A foo",
@@ -69,7 +69,7 @@ from bite.transformers import ParsedTransform
                 [Literal(b"A", name="first"), Literal(b"A", name="second")],
                 name="precedence test",
             ),
-            ParsedMatchFirst("precedence test", ParsedLiteral("first", b"A", 0, 1), 0),
+            ParsedMatchFirst("precedence test", ParsedLiteral("first", b"A", 4, 5), 0),
         ),
         # And
         (
@@ -77,14 +77,14 @@ from bite.transformers import ParsedTransform
             And([Literal(b"A"), Literal(b"B")], name="and"),
             ParsedAnd(
                 "and",
-                (ParsedLiteral("b'A'", b"A", 0, 1), ParsedLiteral("b'B'", b"B", 1, 2)),
+                (ParsedLiteral("b'A'", b"A", 4, 5), ParsedLiteral("b'B'", b"B", 5, 6)),
             ),
         ),
     ],
 )
 async def test_successful_parsing(input_buf, grammar, expected):
-    buffer = ParserBuffer(MockReader(input_buf))
-    assert await grammar.parse(buffer) == expected
+    buffer = ParserBuffer(MockReader(b"foo " + input_buf))
+    assert await grammar.parse(buffer, 4) == expected
 
 
 @pytest.mark.asyncio
