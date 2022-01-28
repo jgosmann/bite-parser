@@ -12,7 +12,7 @@ class ParsedNode(Protocol[T]):
         ...
 
     @property
-    def value(self) -> T:
+    def parse_tree(self) -> T:
         ...
 
     @property
@@ -27,13 +27,13 @@ class ParsedNode(Protocol[T]):
 @dataclass(frozen=True)
 class ParsedBaseNode(Generic[T]):
     name: Optional[str]
-    value: T
+    parse_tree: T
 
 
 @dataclass(frozen=True)
 class ParsedLeaf(ParsedBaseNode[T]):
     name: Optional[str]
-    value: T
+    parse_tree: T
     start_loc: int
     end_loc: int
 
@@ -106,11 +106,11 @@ class ParsedMatchFirst(ParsedBaseNode[ParsedNode]):
 
     @property
     def start_loc(self) -> int:
-        return self.value.start_loc
+        return self.parse_tree.start_loc
 
     @property
     def end_loc(self) -> int:
-        return self.value.end_loc
+        return self.parse_tree.end_loc
 
 
 class MatchFirst(Parser[ParsedNode]):
@@ -135,11 +135,11 @@ class MatchFirst(Parser[ParsedNode]):
 class ParsedAnd(ParsedBaseNode[Tuple[ParsedNode, ...]]):
     @property
     def start_loc(self) -> int:
-        return self.value[0].start_loc
+        return self.parse_tree[0].start_loc
 
     @property
     def end_loc(self) -> int:
-        return self.value[-1].end_loc
+        return self.parse_tree[-1].end_loc
 
 
 class And(Parser[Tuple[ParsedNode, ...]]):
