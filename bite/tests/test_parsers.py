@@ -15,6 +15,7 @@ from bite.parsers import (
     UnmetExpectationError,
 )
 from bite.tests.mock_reader import MockReader
+from bite.transformers import ParsedTransform
 
 
 @pytest.mark.asyncio
@@ -118,10 +119,21 @@ async def test_parsing_failure_and():
     [
         (ParsedLeaf("leaf", b"foo", 0, 3), b"foo"),
         (ParsedMatchFirst("match-first", ParsedLeaf("leaf", b"foo", 0, 3), 0), b"foo"),
-        (ParsedAnd("and", (ParsedLeaf("leaf", b"foo", 0, 3),)), [b"foo"]),
+        (
+            ParsedAnd(
+                "and",
+                (
+                    ParsedTransform(
+                        "suppress", ParsedLeaf("x", b"x", 0, 1), lambda _: None
+                    ),
+                    ParsedLeaf("leaf", b"foo", 1, 4),
+                ),
+            ),
+            [b"foo"],
+        ),
     ],
 )
-def test_parsed_leaf_vaule(parse_tree, expected_value):
+def test_parsed_vaule(parse_tree, expected_value):
     assert parse_tree.value == expected_value
 
 
