@@ -9,6 +9,7 @@ from bite.parsers import (
     MatchFirst,
     ParsedAnd,
     ParsedCharacterSet,
+    ParsedLeaf,
     ParsedLiteral,
     ParsedMatchFirst,
     UnmetExpectationError,
@@ -110,6 +111,18 @@ async def test_parsing_failure_and():
         await grammar.parse(buffer)
     assert excinfo.value.expected == grammar.parsers[1]
     assert excinfo.value.at_loc == 1
+
+
+@pytest.mark.parametrize(
+    "parse_tree,expected_value",
+    [
+        (ParsedLeaf("leaf", b"foo", 0, 3), b"foo"),
+        (ParsedMatchFirst("match-first", ParsedLeaf("leaf", b"foo", 0, 3), 0), b"foo"),
+        (ParsedAnd("and", (ParsedLeaf("leaf", b"foo", 0, 3),)), [b"foo"]),
+    ],
+)
+def test_parsed_leaf_vaule(parse_tree, expected_value):
+    assert parse_tree.value == expected_value
 
 
 def test_parsed_match_first_loc_range():

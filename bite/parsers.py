@@ -1,18 +1,23 @@
 from dataclasses import dataclass
-from typing import Generic, Iterable, Optional, Protocol, Tuple, TypeVar
+from typing import Any, Generic, Iterable, List, Optional, Protocol, Tuple, TypeVar
 
 from bite.io import ParserBuffer
 
 T = TypeVar("T", covariant=True)
+V = TypeVar("V", covariant=True)
 
 
-class ParsedNode(Protocol[T]):
+class ParsedNode(Protocol[T, V]):
     @property
     def name(self) -> Optional[str]:
         ...
 
     @property
     def parse_tree(self) -> T:
+        ...
+
+    @property
+    def value(self) -> V:
         ...
 
     @property
@@ -37,22 +42,26 @@ class ParsedLeaf(ParsedBaseNode[T]):
     start_loc: int
     end_loc: int
 
+    @property
+    def value(self) -> T:
+        return self.parse_tree
 
-class Parser(Generic[T]):
+
+class Parser(Generic[T, V]):
     def __init__(self, name=None):
         self.name = name
 
     def __str__(self) -> str:
         return self.name if self.name else super().__str__()
 
-    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedNode[T]:
+    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedNode[T, V]:
         raise NotImplementedError()
 
 
 ParsedLiteral = ParsedLeaf[bytes]
 
 
-class Literal(Parser[bytes]):
+class Literal(Parser[bytes, bytes]):
     def __init__(self, literal: bytes, *, name: str = None):
         super().__init__(name if name else str(literal))
         self.literal = literal
@@ -66,7 +75,7 @@ class Literal(Parser[bytes]):
             raise UnmetExpectationError(self, loc)
 
 
-class CaselessLiteral(Parser[bytes]):
+class CaselessLiteral(Parser[bytes, bytes]):
     def __init__(self, literal: bytes, *, name: str = None):
         super().__init__(name if name else str(literal))
         self.literal = literal
@@ -84,7 +93,7 @@ class CaselessLiteral(Parser[bytes]):
 ParsedCharacterSet = ParsedLeaf[bytes]
 
 
-class CharacterSet(Parser[bytes]):
+class CharacterSet(Parser[bytes, bytes]):
     def __init__(
         self, charset: Iterable[int], *, invert: bool = False, name: str = None
     ):
@@ -101,8 +110,12 @@ class CharacterSet(Parser[bytes]):
 
 
 @dataclass(frozen=True)
-class ParsedMatchFirst(ParsedBaseNode[ParsedNode]):
+class ParsedMatchFirst(ParsedBaseNode[ParsedNode[T, T]]):
     choice_index: int
+
+    @property
+    def value(self) -> T:
+        return self.parse_tree.value
 
     @property
     def start_loc(self) -> int:
@@ -113,7 +126,7 @@ class ParsedMatchFirst(ParsedBaseNode[ParsedNode]):
         return self.parse_tree.end_loc
 
 
-class MatchFirst(Parser[ParsedNode]):
+class MatchFirst(Parser[ParsedNode[Any, V], V]):
     def __init__(self, choices: Iterable[Parser], *, name: str = None):
         super().__init__(name)
         self.choices = choices
@@ -134,6 +147,10 @@ class MatchFirst(Parser[ParsedNode]):
 @dataclass(frozen=True)
 class ParsedAnd(ParsedBaseNode[Tuple[ParsedNode, ...]]):
     @property
+    def value(self) -> List:
+        return [node.value for node in self.parse_tree]
+
+    @property
     def start_loc(self) -> int:
         return self.parse_tree[0].start_loc
 
@@ -142,7 +159,7 @@ class ParsedAnd(ParsedBaseNode[Tuple[ParsedNode, ...]]):
         return self.parse_tree[-1].end_loc
 
 
-class And(Parser[Tuple[ParsedNode, ...]]):
+class And(Parser[Tuple[ParsedNode, ...], List]):
     def __init__(self, parsers: Iterable[Parser], *, name: str = None):
         super().__init__(name)
         self.parsers = parsers
