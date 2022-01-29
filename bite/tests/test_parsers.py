@@ -5,6 +5,7 @@ from bite.parsers import (
     And,
     CaselessLiteral,
     CharacterSet,
+    Combine,
     Counted,
     FixedByteCount,
     Literal,
@@ -13,6 +14,7 @@ from bite.parsers import (
     Opt,
     ParsedAnd,
     ParsedCharacterSet,
+    ParsedCombine,
     ParsedFixedByteCount,
     ParsedLeaf,
     ParsedLiteral,
@@ -213,6 +215,12 @@ from bite.transformers import ParsedTransform, Suppress, TransformValue
                 ),
                 loc=4,
             ),
+        ),
+        # Combine
+        (
+            b"AB",
+            Combine(OneOrMore(CharacterSet(b"ABC")), name="combine"),
+            ParsedCombine("combine", b"AB", 4, 6),
         ),
     ],
 )

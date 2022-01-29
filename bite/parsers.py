@@ -305,3 +305,21 @@ class Counted(Parser[CountedParseTree, V]):
             buf, count.end_loc
         )
         return ParsedCounted(self.name, CountedParseTree(count, counted))
+
+
+ParsedCombine = ParsedLeaf[bytes]
+
+
+class Combine(Parser[bytes, bytes]):
+    def __init__(self, parser: Parser[Any, Iterable[bytes]], *, name: str = None):
+        super().__init__(name if name else f"Combine({parser})")
+        self.parser = parser
+
+    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedCombine:
+        parse_tree = await self.parser.parse(buf, loc)
+        return ParsedCombine(
+            self.name,
+            b"".join(parse_tree.value),
+            parse_tree.start_loc,
+            parse_tree.end_loc,
+        )
