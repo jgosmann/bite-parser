@@ -120,6 +120,8 @@ class MatchFirst(Parser[ParsedNode[Any, V], V]):
 
 @dataclass(frozen=True)
 class ParsedList(ParsedBaseNode[Tuple[ParsedNode[T, V], ...]]):
+    loc: int
+
     @property
     def value(self) -> List[V]:
         values = (node.value for node in self.parse_tree)
@@ -127,11 +129,17 @@ class ParsedList(ParsedBaseNode[Tuple[ParsedNode[T, V], ...]]):
 
     @property
     def start_loc(self) -> int:
-        return self.parse_tree[0].start_loc
+        if len(self.parse_tree) > 0:
+            return self.parse_tree[0].start_loc
+        else:
+            return self.loc
 
     @property
     def end_loc(self) -> int:
-        return self.parse_tree[-1].end_loc
+        if len(self.parse_tree) > 0:
+            return self.parse_tree[-1].end_loc
+        else:
+            return self.loc
 
 
 ParsedAnd = ParsedList[Any, Any]
@@ -151,7 +159,7 @@ class And(Parser[Tuple[ParsedNode, ...], List]):
         for parser in self.parsers:
             parsed_nodes.append(await parser.parse(buf, current_loc))
             current_loc = parsed_nodes[-1].end_loc
-        return ParsedAnd(self.name, tuple(parsed_nodes))
+        return ParsedAnd(self.name, tuple(parsed_nodes), loc)
 
 
 ParsedRepeat = ParsedList
@@ -175,21 +183,22 @@ class Repeat(Parser[Tuple[ParsedNode[T, V], ...], List[V]]):
         return f"({self.parser})[{self.min_repeats}, {self.max_repeats}]"
 
     async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedRepeat:
+        current_loc = loc
         parsed = []
         for _ in range(self.min_repeats):
-            parsed.append(await self.parser.parse(buf, loc))
-            loc = parsed[-1].end_loc
+            parsed.append(await self.parser.parse(buf, current_loc))
+            current_loc = parsed[-1].end_loc
 
         for i in itertools.count(self.min_repeats):
             if self.max_repeats is not None and i >= self.max_repeats:
                 break
             try:
-                parsed.append(await self.parser.parse(buf, loc))
-                loc = parsed[-1].end_loc
+                parsed.append(await self.parser.parse(buf, current_loc))
+                current_loc = parsed[-1].end_loc
             except UnmetExpectationError:
                 break
 
-        return ParsedRepeat(self.name, tuple(parsed))
+        return ParsedRepeat(self.name, tuple(parsed), loc)
 
 
 @dataclass(frozen=True)

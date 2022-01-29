@@ -83,6 +83,7 @@ from bite.transformers import ParsedTransform, Suppress, TransformValue
             ParsedAnd(
                 "and",
                 (ParsedLiteral("b'A'", b"A", 4, 5), ParsedLiteral("b'B'", b"B", 5, 6)),
+                loc=4,
             ),
         ),
         # Repeated
@@ -94,6 +95,7 @@ from bite.transformers import ParsedTransform, Suppress, TransformValue
             ParsedRepeat(
                 "repeated",
                 (ParsedLiteral("A", b"A", 4, 5), ParsedLiteral("A", b"A", 5, 6)),
+                loc=4,
             ),
         ),
         (
@@ -108,6 +110,7 @@ from bite.transformers import ParsedTransform, Suppress, TransformValue
                     ParsedLiteral("A", b"A", 5, 6),
                     ParsedLiteral("A", b"A", 6, 7),
                 ),
+                loc=4,
             ),
         ),
         (
@@ -122,6 +125,7 @@ from bite.transformers import ParsedTransform, Suppress, TransformValue
                     ParsedLiteral("A", b"A", 5, 6),
                     ParsedLiteral("A", b"A", 6, 7),
                 ),
+                loc=4,
             ),
         ),
         (
@@ -139,6 +143,7 @@ from bite.transformers import ParsedTransform, Suppress, TransformValue
                     ParsedLiteral("A", b"A", 5, 6),
                     ParsedLiteral("A", b"A", 6, 7),
                 ),
+                loc=4,
             ),
         ),
         # Opt
@@ -275,6 +280,7 @@ async def test_parsing_failure_repeat():
                     ),
                     ParsedLeaf("leaf", b"foo", 1, 4),
                 ),
+                loc=0,
             ),
             [b"foo"],
         ),
@@ -292,10 +298,30 @@ def test_parsed_match_first_loc_range():
 
 def test_parsed_and_loc_range():
     parsed_and = ParsedAnd(
-        None, (ParsedLiteral(None, b"val", 4, 7), ParsedLiteral(None, b"val", 7, 10))
+        None,
+        (ParsedLiteral(None, b"val", 4, 7), ParsedLiteral(None, b"val", 7, 10)),
+        loc=4,
     )
     assert parsed_and.start_loc == 4
     assert parsed_and.end_loc == 10
+
+    parsed_and = ParsedAnd(None, (), loc=4)
+    assert parsed_and.start_loc == 4
+    assert parsed_and.end_loc == 4
+
+
+def test_parsed_repeat_loc_range():
+    parsed_and = ParsedRepeat(
+        None,
+        (ParsedLiteral(None, b"val", 4, 7), ParsedLiteral(None, b"val", 7, 10)),
+        loc=4,
+    )
+    assert parsed_and.start_loc == 4
+    assert parsed_and.end_loc == 10
+
+    parsed_and = ParsedRepeat(None, (), loc=4)
+    assert parsed_and.start_loc == 4
+    assert parsed_and.end_loc == 4
 
 
 def test_parsed_opt():
