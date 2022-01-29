@@ -222,6 +222,89 @@ from bite.transformers import ParsedTransform, Suppress, TransformValue
             Combine(OneOrMore(CharacterSet(b"ABC")), name="combine"),
             ParsedCombine("combine", b"AB", 4, 6),
         ),
+        # Operators
+        (
+            b"AB",
+            Literal(b"A", name="A") + Literal(b"B", name="B"),
+            ParsedAnd(
+                "(A) + (B)",
+                (ParsedLiteral("A", b"A", 4, 5), ParsedLiteral("B", b"B", 5, 6)),
+                loc=4,
+            ),
+        ),
+        (
+            b"ABC",
+            Literal(b"A", name="A") + Literal(b"B", name="B") + Literal(b"C", name="C"),
+            ParsedAnd(
+                "(A) + (B) + (C)",
+                (
+                    ParsedLiteral("A", b"A", 4, 5),
+                    ParsedLiteral("B", b"B", 5, 6),
+                    ParsedLiteral("C", b"C", 6, 7),
+                ),
+                loc=4,
+            ),
+        ),
+        (
+            b"B",
+            Literal(b"A", name="A") | Literal(b"B", name="B"),
+            ParsedMatchFirst(
+                "(A) | (B)", ParsedLiteral("B", b"B", 4, 5), choice_index=1
+            ),
+        ),
+        (
+            b"B",
+            Literal(b"A", name="A") | Literal(b"B", name="B") | Literal(b"C", name="C"),
+            ParsedMatchFirst(
+                "(A) | (B) | (C)", ParsedLiteral("B", b"B", 4, 5), choice_index=1
+            ),
+        ),
+        (
+            b"AA",
+            Literal(b"A", name="A")[0, 2],
+            ParsedRepeat(
+                "(A)[0, 2]",
+                (ParsedLiteral("A", b"A", 4, 5), ParsedLiteral("A", b"A", 5, 6)),
+                loc=4,
+            ),
+        ),
+        (
+            b"AA",
+            Literal(b"A", name="A")[0, ...],
+            ParsedRepeat(
+                "(A)[0, ...]",
+                (ParsedLiteral("A", b"A", 4, 5), ParsedLiteral("A", b"A", 5, 6)),
+                loc=4,
+            ),
+        ),
+        (
+            b"AA",
+            Literal(b"A", name="A")[0, None],
+            ParsedRepeat(
+                "(A)[0, ...]",
+                (ParsedLiteral("A", b"A", 4, 5), ParsedLiteral("A", b"A", 5, 6)),
+                loc=4,
+            ),
+        ),
+        (
+            b"AA",
+            Literal(b"A", name="A")[2, ...],
+            ParsedRepeat(
+                "(A)[2, ...]",
+                (ParsedLiteral("A", b"A", 4, 5), ParsedLiteral("A", b"A", 5, 6)),
+                loc=4,
+            ),
+        ),
+        (
+            b"AA",
+            Literal(b"A", name="A")[0, 1],
+            ParsedRepeat("(A)[0, 1]", (ParsedLiteral("A", b"A", 4, 5),), loc=4),
+        ),
+        (
+            b"AA",
+            Literal(b"A", name="A")[1],
+            ParsedRepeat("(A)[1, 1]", (ParsedLiteral("A", b"A", 4, 5),), loc=4),
+        ),
     ],
 )
 async def test_successful_parsing(input_buf, grammar, expected):

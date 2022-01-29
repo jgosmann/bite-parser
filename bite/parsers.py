@@ -1,15 +1,23 @@
-import itertools
 from dataclasses import dataclass
-from typing import Any, Callable, Generic, Iterable, List, Optional, Tuple, TypeVar
+from typing import Any, Callable, Generic, Iterable, Optional, TypeVar
 
 from bite.core import (
+    And,
+    MatchFirst,
+    ParsedAnd,
     ParsedBaseNode,
     ParsedLeaf,
+    ParsedMatchFirst,
     ParsedNode,
+    ParsedRepeat,
     Parser,
+    Repeat,
     UnmetExpectationError,
 )
 from bite.io import ParserBuffer
+
+assert ParsedAnd  # re-export
+assert ParsedMatchFirst  # re-export
 
 T = TypeVar("T", covariant=True)
 V = TypeVar("V", covariant=True)
@@ -81,124 +89,6 @@ class FixedByteCount(Parser[bytes, bytes]):
             )
         else:
             raise UnmetExpectationError(self, loc)
-
-
-@dataclass(frozen=True)
-class ParsedMatchFirst(ParsedBaseNode[ParsedNode[T, T]]):
-    choice_index: int
-
-    @property
-    def value(self) -> T:
-        return self.parse_tree.value
-
-    @property
-    def start_loc(self) -> int:
-        return self.parse_tree.start_loc
-
-    @property
-    def end_loc(self) -> int:
-        return self.parse_tree.end_loc
-
-
-class MatchFirst(Parser[ParsedNode[Any, V], V]):
-    def __init__(self, choices: Iterable[Parser], *, name: str = None):
-        super().__init__(name)
-        self.choices = choices
-
-    def __str__(self):
-        return " | ".join(f"({choice})" for choice in self.choices)
-
-    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedMatchFirst:
-        for i, choice in enumerate(self.choices):
-            try:
-                parsed_node = await choice.parse(buf, loc)
-                return ParsedMatchFirst(self.name, parsed_node, i)
-            except UnmetExpectationError:
-                pass
-        raise UnmetExpectationError(self, loc)
-
-
-@dataclass(frozen=True)
-class ParsedList(ParsedBaseNode[Tuple[ParsedNode[T, V], ...]]):
-    loc: int
-
-    @property
-    def value(self) -> List[V]:
-        values = (node.value for node in self.parse_tree)
-        return [value for value in values if value is not None]
-
-    @property
-    def start_loc(self) -> int:
-        if len(self.parse_tree) > 0:
-            return self.parse_tree[0].start_loc
-        else:
-            return self.loc
-
-    @property
-    def end_loc(self) -> int:
-        if len(self.parse_tree) > 0:
-            return self.parse_tree[-1].end_loc
-        else:
-            return self.loc
-
-
-ParsedAnd = ParsedList[Any, Any]
-
-
-class And(Parser[Tuple[ParsedNode, ...], List]):
-    def __init__(self, parsers: Iterable[Parser], *, name: str = None):
-        super().__init__(name)
-        self.parsers = parsers
-
-    def __str__(self):
-        return " + ".join(f"({parser})" for parser in self.parsers)
-
-    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedAnd:
-        current_loc = loc
-        parsed_nodes = []
-        for parser in self.parsers:
-            parsed_nodes.append(await parser.parse(buf, current_loc))
-            current_loc = parsed_nodes[-1].end_loc
-        return ParsedAnd(self.name, tuple(parsed_nodes), loc)
-
-
-ParsedRepeat = ParsedList
-
-
-class Repeat(Parser[Tuple[ParsedNode[T, V], ...], List[V]]):
-    def __init__(
-        self,
-        parser: Parser[T, V],
-        min_repeats: int = 0,
-        max_repeats: int = None,
-        *,
-        name: str = None,
-    ):
-        super().__init__(name)
-        self.parser = parser
-        self.min_repeats = min_repeats
-        self.max_repeats = max_repeats
-
-    def __str__(self):
-        return f"({self.parser})[{self.min_repeats}, {self.max_repeats}]"
-
-    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedRepeat:
-        current_loc = loc
-        parsed = []
-        for _ in range(self.min_repeats):
-            parsed.append(await self.parser.parse(buf, current_loc))
-            current_loc = parsed[-1].end_loc
-
-        for i in itertools.count(self.min_repeats):
-            if self.max_repeats is not None and i >= self.max_repeats:
-                break
-            try:
-                parsed.append(await self.parser.parse(buf, current_loc))
-                current_loc = parsed[-1].end_loc
-            except UnmetExpectationError:
-                break
-
-        return ParsedRepeat(self.name, tuple(parsed), loc)
 
 
 ParsedZeroOrMore = ParsedRepeat
@@ -323,3 +213,19 @@ class Combine(Parser[bytes, bytes]):
             parse_tree.start_loc,
             parse_tree.end_loc,
         )
+
+
+__all__ = [
+    "And",
+    "CaselessLiteral",
+    "CharacterSet",
+    "Combine",
+    "Counted",
+    "FixedByteCount",
+    "Literal",
+    "MatchFirst",
+    "OneOrMore",
+    "Opt",
+    "Repeat",
+    "ZeroOrMore",
+]
