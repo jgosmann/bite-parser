@@ -70,6 +70,10 @@ jobs:
             ${{ runner.os }}-py${{ matrix.python-version }}-venv-
       - uses: ./.github/actions/setup-project
 
+      - name: Test and measure coverage with pytest
+        run: poetry run pytest --verbose --cov=bite --cov-report=xml
+      - uses: codecov/codecov-action@v1
+
   release:
     runs-on: ubuntu-latest
     needs: [static-analysis, test]
