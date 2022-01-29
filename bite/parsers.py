@@ -201,6 +201,22 @@ class Repeat(Parser[Tuple[ParsedNode[T, V], ...], List[V]]):
         return ParsedRepeat(self.name, tuple(parsed), loc)
 
 
+ParsedZeroOrMore = ParsedRepeat
+
+
+class ZeroOrMore(Repeat[T, V]):
+    def __init__(self, parser: Parser[T, V], *, name: str = None):
+        super().__init__(parser, min_repeats=0, name=name)
+
+
+ParsedOneOrMore = ParsedRepeat
+
+
+class OneOrMore(Repeat[T, V]):
+    def __init__(self, parser: Parser[T, V], *, name: str = None):
+        super().__init__(parser, min_repeats=1, name=name)
+
+
 @dataclass(frozen=True)
 class ParsedOpt(ParsedBaseNode[Optional[ParsedNode[T, V]]]):
     loc: int

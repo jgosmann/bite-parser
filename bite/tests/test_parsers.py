@@ -9,6 +9,7 @@ from bite.parsers import (
     FixedByteCount,
     Literal,
     MatchFirst,
+    OneOrMore,
     Opt,
     ParsedAnd,
     ParsedCharacterSet,
@@ -16,10 +17,13 @@ from bite.parsers import (
     ParsedLeaf,
     ParsedLiteral,
     ParsedMatchFirst,
+    ParsedOneOrMore,
     ParsedOpt,
     ParsedRepeat,
+    ParsedZeroOrMore,
     Repeat,
     UnmetExpectationError,
+    ZeroOrMore,
 )
 from bite.tests.mock_reader import MockReader
 from bite.transformers import ParsedTransform, Suppress, TransformValue
@@ -157,6 +161,59 @@ from bite.transformers import ParsedTransform, Suppress, TransformValue
             Opt(Literal(b"A", name="A"), name="opt"),
             ParsedOpt("opt", ParsedLiteral("A", b"A", 4, 5), 4),
         ),
+        # ZeroOrMore
+        (
+            b"foo",
+            ZeroOrMore(Literal(b"A", name="A"), name="zero or more"),
+            ParsedZeroOrMore(
+                "zero or more",
+                (),
+                loc=4,
+            ),
+        ),
+        (
+            b"A foo",
+            ZeroOrMore(Literal(b"A", name="A"), name="zero or more"),
+            ParsedZeroOrMore(
+                "zero or more",
+                (ParsedLiteral("A", b"A", 4, 5),),
+                loc=4,
+            ),
+        ),
+        (
+            b"AA foo",
+            ZeroOrMore(Literal(b"A", name="A"), name="zero or more"),
+            ParsedZeroOrMore(
+                "zero or more",
+                (
+                    ParsedLiteral("A", b"A", 4, 5),
+                    ParsedLiteral("A", b"A", 5, 6),
+                ),
+                loc=4,
+            ),
+        ),
+        # OneOrMore
+        (
+            b"A foo",
+            OneOrMore(Literal(b"A", name="A"), name="one or more"),
+            ParsedOneOrMore(
+                "one or more",
+                (ParsedLiteral("A", b"A", 4, 5),),
+                loc=4,
+            ),
+        ),
+        (
+            b"AA foo",
+            OneOrMore(Literal(b"A", name="A"), name="one or more"),
+            ParsedOneOrMore(
+                "one or more",
+                (
+                    ParsedLiteral("A", b"A", 4, 5),
+                    ParsedLiteral("A", b"A", 5, 6),
+                ),
+                loc=4,
+            ),
+        ),
     ],
 )
 async def test_successful_parsing(input_buf, grammar, expected):
@@ -264,6 +321,16 @@ async def test_parsing_failure_repeat():
         await grammar.parse(ParserBuffer(MockReader(b"Abbb")))
     assert excinfo.value.expected == grammar.parser
     assert excinfo.value.at_loc == 1
+
+
+@pytest.mark.asyncio
+async def test_parsing_failure_one_or_more():
+    grammar = OneOrMore(Literal(b"A"))
+
+    with pytest.raises(UnmetExpectationError) as excinfo:
+        await grammar.parse(ParserBuffer(MockReader(b"B")))
+    assert excinfo.value.expected == grammar.parser
+    assert excinfo.value.at_loc == 0
 
 
 @pytest.mark.parametrize(
