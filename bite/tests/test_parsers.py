@@ -9,12 +9,14 @@ from bite.parsers import (
     FixedByteCount,
     Literal,
     MatchFirst,
+    Opt,
     ParsedAnd,
     ParsedCharacterSet,
     ParsedFixedByteCount,
     ParsedLeaf,
     ParsedLiteral,
     ParsedMatchFirst,
+    ParsedOpt,
     ParsedRepeat,
     Repeat,
     UnmetExpectationError,
@@ -138,6 +140,17 @@ from bite.transformers import ParsedTransform, Suppress, TransformValue
                     ParsedLiteral("A", b"A", 6, 7),
                 ),
             ),
+        ),
+        # Opt
+        (
+            b"foo",
+            Opt(Literal(b"A", name="A"), name="opt"),
+            ParsedOpt("opt", None, 4),  # type: ignore
+        ),
+        (
+            b"A foo",
+            Opt(Literal(b"A", name="A"), name="opt"),
+            ParsedOpt("opt", ParsedLiteral("A", b"A", 4, 5), 4),
         ),
     ],
 )
@@ -283,3 +296,15 @@ def test_parsed_and_loc_range():
     )
     assert parsed_and.start_loc == 4
     assert parsed_and.end_loc == 10
+
+
+def test_parsed_opt():
+    parsed_opt = ParsedOpt(None, ParsedLiteral(None, b"0123", 4, 8), 4)
+    assert parsed_opt.value == b"0123"
+    assert parsed_opt.start_loc == 4
+    assert parsed_opt.end_loc == 8
+
+    parsed_opt = ParsedOpt(None, None, 4)
+    assert parsed_opt.value is None
+    assert parsed_opt.start_loc == 4
+    assert parsed_opt.end_loc == 4

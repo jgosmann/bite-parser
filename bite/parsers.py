@@ -1,6 +1,6 @@
 import itertools
 from dataclasses import dataclass
-from typing import Any, Callable, Generic, Iterable, List, Tuple, TypeVar
+from typing import Any, Callable, Generic, Iterable, List, Optional, Tuple, TypeVar
 
 from bite.core import (
     ParsedBaseNode,
@@ -190,6 +190,45 @@ class Repeat(Parser[Tuple[ParsedNode[T, V], ...], List[V]]):
                 break
 
         return ParsedRepeat(self.name, tuple(parsed))
+
+
+@dataclass(frozen=True)
+class ParsedOpt(ParsedBaseNode[Optional[ParsedNode[T, V]]]):
+    loc: int
+
+    @property
+    def value(self) -> Optional[V]:
+        if self.parse_tree:
+            return self.parse_tree.value
+        else:
+            return None
+
+    @property
+    def start_loc(self) -> int:
+        if self.parse_tree:
+            return self.parse_tree.start_loc
+        else:
+            return self.loc
+
+    @property
+    def end_loc(self) -> int:
+        if self.parse_tree:
+            return self.parse_tree.end_loc
+        else:
+            return self.loc
+
+
+class Opt(Parser[Optional[ParsedNode[T, V]], Optional[V]]):
+    def __init__(self, parser: Parser[T, V], *, name: str = None):
+        super().__init__(name if name else f"Opt({parser})")
+        self.parser = parser
+
+    async def parse(self, buf: ParserBuffer, loc: int = 0):
+        try:
+            return ParsedOpt(self.name, await self.parser.parse(buf, loc), loc)
+        except UnmetExpectationError:
+            # Somehow mypy doesn't recognize the parse tree as optional
+            return ParsedOpt(self.name, None, loc)  # type: ignore
 
 
 @dataclass(frozen=True)
