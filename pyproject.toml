@@ -16,9 +16,12 @@ classifiers = [
 description = "Asynchronous parser taking incremental bites out of your byte input stream."
 keywords = ["asyncio", "parser", "PEG", "incremental", "parser expression grammar"]
 license = "MIT"
-name = "bite"
+name = "bite-parser"
+packages = [
+  {include = "bite"},
+]
 readme = "README.rst"
-repository = "https://github.com/jgosmann/bite/"
+repository = "https://github.com/jgosmann/bite-parser/"
 version = "0.1.0"
 
 [tool.poetry.dependencies]

@@ -36,9 +36,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: .venv
-          key: ${{ runner.os }}-py3.10-venv-${{ hashFiles('pyproject.toml') }}
+          key: ${{ runner.os }}-py3.10-venv-0-${{ hashFiles('pyproject.toml') }}
           restore-keys: |
-            ${{ runner.os }}-py3.10-venv-
+            ${{ runner.os }}-py3.10-venv-0-
       - uses: ./.github/actions/setup-project
 
       - name: ${{ matrix.check.name }}
@@ -65,9 +65,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: .venv
-          key: ${{ runner.os }}-py${{ matrix.python-version }}-venv-${{ hashFiles('pyproject.toml') }}
+          key: ${{ runner.os }}-py${{ matrix.python-version }}-venv-0-${{ hashFiles('pyproject.toml') }}
           restore-keys: |
-            ${{ runner.os }}-py${{ matrix.python-version }}-venv-
+            ${{ runner.os }}-py${{ matrix.python-version }}-venv-0-
       - uses: ./.github/actions/setup-project
 
       - name: Test and measure coverage with pytest
@@ -93,9 +93,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: .venv
-          key: ${{ runner.os }}-py3.10-venv-${{ hashFiles('pyproject.toml') }}
+          key: ${{ runner.os }}-py3.10-venv-0-${{ hashFiles('pyproject.toml') }}
           restore-keys: |
-            ${{ runner.os }}-py3.10-venv-
+            ${{ runner.os }}-py3.10-venv-0-
       - uses: ./.github/actions/setup-project
 
       - name: Publish to PyPI

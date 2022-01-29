@@ -14,7 +14,7 @@
   :target: https://pypi.org/project/bite/
   :alt: PyPI - License
 
-bite
-====
+bite parser
+===========
 
 Asynchronous parser taking incremental bites out of your byte input stream.
