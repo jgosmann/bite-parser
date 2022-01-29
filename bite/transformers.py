@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Callable, Generic, TypeVar
+from typing import Callable, Generic, Iterable, TypeVar
 
 from bite.core import ParsedBaseNode, ParsedNode, Parser
 from bite.io import ParserBuffer
@@ -67,3 +67,25 @@ class TransformValue(Transform[T, VIn, VOut]):
             lambda parse_tree: transform(parse_tree.value),
             name=name if name else f"TransformValue({parser.name})",
         )
+
+
+class OnlyValue(TransformValue[T, Iterable[VIn], VIn]):
+    def __init__(self, parser: Parser[T, Iterable[VIn]], *, name: str = None):
+        super().__init__(
+            parser,
+            self._extract_only_value,
+            name=name if name else f"OnlyValue({parser.name})",
+        )
+
+    @classmethod
+    def _extract_only_value(cls, values: Iterable[VIn]) -> VIn:
+        value_iter = iter(values)
+        try:
+            value = next(value_iter)
+        except StopIteration:
+            raise ValueError("expected exactly one value, found no values") from None
+        try:
+            next(value_iter)
+            raise ValueError("expected exactly one value, found multiple values")
+        except StopIteration:
+            return value
