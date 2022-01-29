@@ -1,16 +1,8 @@
 import itertools
 from dataclasses import dataclass
-from typing import (
-    Any,
-    Generic,
-    Iterable,
-    List,
-    Optional,
-    Protocol,
-    Tuple,
-    TypeVar,
-    Union,
-)
+from typing import Any, Generic, Iterable, List, Optional, Tuple, TypeVar, Union
+
+from typing_extensions import Protocol
 
 from bite.io import ParserBuffer
 

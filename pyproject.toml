@@ -32,6 +32,7 @@ pylint = "^2.6.0"
 pytest = "^6.2.1"
 pytest-asyncio = "^0.16.0"
 pytest-cov = "^3.0.0"
+typing-extensions = "^4.0.1"
 
 [tool.isort]
 force_grid_wrap = 0
