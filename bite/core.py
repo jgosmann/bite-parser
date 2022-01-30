@@ -247,6 +247,20 @@ class Not(Parser[None, NoReturn]):
             raise UnmetExpectationError(self, loc)
 
 
+class Forward(Parser[T, V]):
+    def __init__(self, parser: Parser[T, V] = None, *, name: str = None):
+        super().__init__(name if name else "forward")
+        self.parser = parser
+
+    def assign(self, parser: Parser[T, V]):
+        self.parser = parser
+
+    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedNode[T, V]:
+        if self.parser is None:
+            raise ValueError("unassigned forward parser")
+        return await self.parser.parse(buf, loc)
+
+
 class ParseError(Exception):
     pass
 

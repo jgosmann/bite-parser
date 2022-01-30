@@ -1,6 +1,6 @@
 import pytest
 
-from bite.core import Not, ParsedNil
+from bite.core import Forward, Not, ParsedNil
 from bite.io import ParserBuffer
 from bite.parsers import (
     And,
@@ -493,3 +493,59 @@ def test_parsed_opt():
     assert not parsed_opt.values
     assert parsed_opt.start_loc == 4
     assert parsed_opt.end_loc == 4
+
+
+@pytest.mark.asyncio
+async def test_forward():
+    buffer = ParserBuffer(MockReader(b" ((())) foo"))
+    forward = Forward()
+    forward.assign(Literal(b"(") + Opt(forward) + Literal(b")"))
+    parse_tree = await forward.parse(buffer, 1)
+
+    assert parse_tree == ParsedAnd(
+        "(b'(') + ((forward)[0, 1]) + (b')')",
+        (
+            ParsedLiteral("b'('", b"(", 1, 2),
+            ParsedOpt(
+                None,
+                (
+                    ParsedAnd(
+                        "(b'(') + ((forward)[0, 1]) + (b')')",
+                        (
+                            ParsedLiteral("b'('", b"(", 2, 3),
+                            ParsedOpt(
+                                None,
+                                (
+                                    ParsedAnd(
+                                        "(b'(') + ((forward)[0, 1]) + (b')')",
+                                        (
+                                            ParsedLiteral("b'('", b"(", 3, 4),
+                                            ParsedOpt(None, (), 4),
+                                            ParsedLiteral("b')'", b")", 4, 5),
+                                        ),
+                                        3,
+                                    ),
+                                ),
+                                3,
+                            ),
+                            ParsedLiteral("b')'", b")", 5, 6),
+                        ),
+                        2,
+                    ),
+                ),
+                2,
+            ),
+            ParsedLiteral("b')'", b")", 6, 7),
+        ),
+        1,
+    )
+
+
+@pytest.mark.asyncio
+async def test_forward_failure():
+    buffer = ParserBuffer(MockReader(b" ((()) foo"))
+    forward = Forward()
+    forward.assign(Literal(b"(") + Opt(forward) + Literal(b")"))
+
+    with pytest.raises(UnmetExpectationError):
+        await forward.parse(buffer, 1)
