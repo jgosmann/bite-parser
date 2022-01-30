@@ -1,6 +1,6 @@
 import itertools
 from dataclasses import dataclass
-from typing import Any, Generic, Iterable, Optional, Tuple, TypeVar, Union
+from typing import Any, Generic, Iterable, NoReturn, Optional, Tuple, TypeVar, Union
 
 from typing_extensions import Protocol
 
@@ -50,6 +50,28 @@ class ParsedLeaf(ParsedBaseNode[T]):
         return (self.parse_tree,)
 
 
+@dataclass(frozen=True)
+class ParsedNil:
+    name: Optional[str]
+    loc: int
+
+    @property
+    def parse_tree(self) -> None:
+        return None
+
+    @property
+    def values(self) -> Tuple[()]:
+        return ()
+
+    @property
+    def start_loc(self) -> int:
+        return self.loc
+
+    @property
+    def end_loc(self) -> int:
+        return self.loc
+
+
 class Parser(Generic[T, V]):
     def __init__(self, name=None):
         self.name = name
@@ -65,6 +87,9 @@ class Parser(Generic[T, V]):
 
     def __or__(self, other: "Parser") -> "MatchFirst":
         return MatchFirst((self, other), name=f"({self}) | ({other})")
+
+    def __invert__(self) -> "Not":
+        return Not(self)
 
     def __getitem__(
         self, repeats: Union[int, Tuple[int, Union[int, "ellipsis", None]]]
@@ -208,6 +233,20 @@ class Repeat(Parser[Tuple[ParsedNode[T, V], ...], V]):
         return ParsedRepeat(self.name, tuple(parsed), loc)
 
 
+class Not(Parser[None, NoReturn]):
+    def __init__(self, parser: Parser[Any, Any], *, name: str = None):
+        super().__init__(name if name else f"Not({parser})")
+        self.parser = parser
+
+    async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedNil:
+        try:
+            await self.parser.parse(buf, loc)
+        except UnmetExpectationError:
+            return ParsedNil(self.name, loc)
+        else:
+            raise UnmetExpectationError(self, loc)
+
+
 class ParseError(Exception):
     pass
 
@@ -222,6 +261,7 @@ class UnmetExpectationError(ParseError):
 __all__ = [
     "And",
     "MatchFirst",
+    "Not",
     "Parser",
     "ParseError",
     "ParsedNode",

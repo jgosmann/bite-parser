@@ -1,5 +1,6 @@
 import pytest
 
+from bite.core import Not, ParsedNil
 from bite.io import ParserBuffer
 from bite.parsers import (
     And,
@@ -222,6 +223,8 @@ from bite.transformers import ParsedTransform, Suppress
             Combine(OneOrMore(CharacterSet(b"ABC")), name="combine"),
             ParsedCombine("combine", b"AB", 4, 6),
         ),
+        # Not
+        (b"A foo", Not(Literal(b"B"), name="not"), ParsedNil("not", 4)),
         # Operators
         (
             b"AB",
@@ -305,6 +308,7 @@ from bite.transformers import ParsedTransform, Suppress
             Literal(b"A", name="A")[1],
             ParsedRepeat("(A)[1, 1]", (ParsedLiteral("A", b"A", 4, 5),), loc=4),
         ),
+        (b"A", ~Literal(b"B"), ParsedNil("Not(b'B')", 4)),
     ],
 )
 async def test_successful_parsing(input_buf, grammar, expected):
@@ -365,6 +369,7 @@ async def test_unsuccessful_counted_parsing(input_buf, at_loc):
         (b"A", CharacterSet(b"0123456789")),
         (b"0", CharacterSet(b"0123456789", invert=True)),
         (b"0123", FixedByteCount(6)),
+        (b"A", Not(Literal(b"A"))),
     ],
 )
 async def test_parsing_failure(input_buf, grammar):
