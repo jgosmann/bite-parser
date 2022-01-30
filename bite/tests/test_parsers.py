@@ -1,7 +1,7 @@
 import pytest
 
 from bite.core import Forward, Not, ParsedNil
-from bite.io import ParserBuffer
+from bite.io import BytesBuffer
 from bite.parsers import (
     And,
     CaselessLiteral,
@@ -28,7 +28,6 @@ from bite.parsers import (
     UnmetExpectationError,
     ZeroOrMore,
 )
-from bite.tests.mock_reader import MockReader
 from bite.transformers import ParsedTransform, Suppress
 
 
@@ -312,13 +311,13 @@ from bite.transformers import ParsedTransform, Suppress
     ],
 )
 async def test_successful_parsing(input_buf, grammar, expected):
-    buffer = ParserBuffer(MockReader(b"foo " + input_buf))
+    buffer = BytesBuffer(b"foo " + input_buf)
     assert await grammar.parse(buffer, 4) == expected
 
 
 @pytest.mark.asyncio
 async def test_successful_counted_parsing():
-    buffer = ParserBuffer(MockReader(b"foo [4]0123456789"))
+    buffer = BytesBuffer(b"foo [4]0123456789")
     grammar = Counted(
         And(
             [
@@ -343,7 +342,7 @@ async def test_successful_counted_parsing():
 @pytest.mark.asyncio
 @pytest.mark.parametrize("input_buf, at_loc", [(b"[4x012345689]", 2), (b"[4]01", 3)])
 async def test_unsuccessful_counted_parsing(input_buf, at_loc):
-    buffer = ParserBuffer(MockReader(input_buf))
+    buffer = BytesBuffer(input_buf)
     grammar = Counted(
         And(
             [
@@ -373,7 +372,7 @@ async def test_unsuccessful_counted_parsing(input_buf, at_loc):
     ],
 )
 async def test_parsing_failure(input_buf, grammar):
-    buffer = ParserBuffer(MockReader(input_buf))
+    buffer = BytesBuffer(input_buf)
     with pytest.raises(UnmetExpectationError) as excinfo:
         await grammar.parse(buffer)
     assert excinfo.value.expected == grammar
@@ -382,7 +381,7 @@ async def test_parsing_failure(input_buf, grammar):
 
 @pytest.mark.asyncio
 async def test_parsing_failure_and():
-    buffer = ParserBuffer(MockReader(b"AB"))
+    buffer = BytesBuffer(b"AB")
 
     grammar = And([Literal(b"C"), Literal(b"B")])
     with pytest.raises(UnmetExpectationError) as excinfo:
@@ -402,12 +401,12 @@ async def test_parsing_failure_repeat():
     grammar = Repeat(Literal(b"A"), min_repeats=2, max_repeats=3)
 
     with pytest.raises(UnmetExpectationError) as excinfo:
-        await grammar.parse(ParserBuffer(MockReader(b"A")))
+        await grammar.parse(BytesBuffer(b"A"))
     assert excinfo.value.expected == grammar.parser
     assert excinfo.value.at_loc == 1
 
     with pytest.raises(UnmetExpectationError) as excinfo:
-        await grammar.parse(ParserBuffer(MockReader(b"Abbb")))
+        await grammar.parse(BytesBuffer(b"Abbb"))
     assert excinfo.value.expected == grammar.parser
     assert excinfo.value.at_loc == 1
 
@@ -417,7 +416,7 @@ async def test_parsing_failure_one_or_more():
     grammar = OneOrMore(Literal(b"A"))
 
     with pytest.raises(UnmetExpectationError) as excinfo:
-        await grammar.parse(ParserBuffer(MockReader(b"B")))
+        await grammar.parse(BytesBuffer(b"B"))
     assert excinfo.value.expected == grammar.parser
     assert excinfo.value.at_loc == 0
 
@@ -497,7 +496,7 @@ def test_parsed_opt():
 
 @pytest.mark.asyncio
 async def test_forward():
-    buffer = ParserBuffer(MockReader(b" ((())) foo"))
+    buffer = BytesBuffer(b" ((())) foo")
     forward = Forward()
     forward.assign(Literal(b"(") + Opt(forward) + Literal(b")"))
     parse_tree = await forward.parse(buffer, 1)
@@ -543,7 +542,7 @@ async def test_forward():
 
 @pytest.mark.asyncio
 async def test_forward_failure():
-    buffer = ParserBuffer(MockReader(b" ((()) foo"))
+    buffer = BytesBuffer(b" ((()) foo")
     forward = Forward()
     forward.assign(Literal(b"(") + Opt(forward) + Literal(b")"))
 

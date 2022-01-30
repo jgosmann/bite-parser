@@ -1,8 +1,29 @@
 from asyncio import StreamReader
 from typing import Union
 
+from typing_extensions import Protocol
 
-class ParserBuffer:
+
+class ParserBuffer(Protocol):
+    async def get(self, key: Union[int, slice]) -> bytes:
+        ...
+
+
+class BytesBuffer:
+    def __init__(self, data: bytes):
+        self._data = data
+
+    async def get(self, key: Union[int, slice]) -> bytes:
+        if not isinstance(key, slice):
+            key = slice(key, key + 1)
+        return self._data[key]
+
+    # pylint: disable=no-self-use
+    def at_eof(self) -> bool:
+        return True
+
+
+class StreamReaderBuffer:
     def __init__(self, reader: StreamReader):
         self._reader = reader
         self._buf = bytearray()
@@ -11,7 +32,13 @@ class ParserBuffer:
         if not isinstance(key, slice):
             key = slice(key, key + 1)
 
-        max_index = key.stop if (key.step is None or key.step > 0) else key.start
+        if key.step is None or key.step > 0:
+            max_index = key.stop
+        elif key.start is not None:
+            max_index = key.start + 1
+        else:
+            max_index = None
+
         if max_index is None or max_index < 0:
             self._buf.extend(await self._reader.read())
         elif len(self._buf) <= max_index:

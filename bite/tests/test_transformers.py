@@ -1,8 +1,7 @@
 import pytest
 
-from bite.io import ParserBuffer
+from bite.io import BytesBuffer
 from bite.parsers import Literal, ParsedLiteral
-from bite.tests.mock_reader import MockReader
 from bite.transformers import (
     Group,
     ParsedTransform,
@@ -61,6 +60,6 @@ def test_parsed_transform():
     ],
 )
 async def test_successful_parsing(input_buf, grammar, expected_values):
-    buffer = ParserBuffer(MockReader(input_buf))
+    buffer = BytesBuffer(input_buf)
     parse_tree = await grammar.parse(buffer)
     assert parse_tree.values == expected_values
