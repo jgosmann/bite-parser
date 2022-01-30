@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Callable, Generic, Iterable, TypeVar
+from typing import Callable, Generic, Iterable, Tuple, TypeVar
 
 from bite.core import ParsedBaseNode, ParsedNode, Parser
 from bite.io import ParserBuffer
@@ -66,6 +66,15 @@ class TransformValues(Transform[T, VIn, VOut]):
             parser,
             lambda parse_tree: transform(parse_tree.values),
             name=name if name else f"TransformValue({parser.name})",
+        )
+
+
+class Group(TransformValues[T, VIn, Tuple[VIn, ...]]):
+    def __init__(self, parser: Parser[T, VIn], *, name: str = None):
+        super().__init__(
+            parser,
+            lambda values: (tuple(values),),
+            name=name if name else f"Group({parser.name})",
         )
 
 

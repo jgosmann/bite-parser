@@ -3,7 +3,13 @@ import pytest
 from bite.io import ParserBuffer
 from bite.parsers import Literal, ParsedLiteral
 from bite.tests.mock_reader import MockReader
-from bite.transformers import ParsedTransform, Suppress, Transform, TransformValues
+from bite.transformers import (
+    Group,
+    ParsedTransform,
+    Suppress,
+    Transform,
+    TransformValues,
+)
 
 
 def test_parsed_transform():
@@ -24,6 +30,14 @@ def test_parsed_transform():
 @pytest.mark.parametrize(
     "input_buf,grammar,expected_values",
     [
+        # Group
+        (
+            b"ABBA",
+            Literal(b"A", name="A")
+            + Group(Literal(b"B", name="B")[1, ...])
+            + Literal(b"A", name="A"),
+            (b"A", (b"B", b"B"), b"A"),
+        ),
         # Suppress
         (
             b"LITERAL",
