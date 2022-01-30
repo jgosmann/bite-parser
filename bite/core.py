@@ -1,6 +1,6 @@
 import itertools
 from dataclasses import dataclass
-from typing import Any, Generic, Iterable, List, Optional, Tuple, TypeVar, Union
+from typing import Any, Generic, Iterable, Optional, Tuple, TypeVar, Union
 
 from typing_extensions import Protocol
 
@@ -20,7 +20,7 @@ class ParsedNode(Protocol[T, V]):
         ...
 
     @property
-    def value(self) -> V:
+    def values(self) -> Iterable[V]:
         ...
 
     @property
@@ -46,8 +46,8 @@ class ParsedLeaf(ParsedBaseNode[T]):
     end_loc: int
 
     @property
-    def value(self) -> T:
-        return self.parse_tree
+    def values(self) -> Tuple[T]:
+        return (self.parse_tree,)
 
 
 class Parser(Generic[T, V]):
@@ -84,12 +84,12 @@ class Parser(Generic[T, V]):
 
 
 @dataclass(frozen=True)
-class ParsedMatchFirst(ParsedBaseNode[ParsedNode[T, T]]):
+class ParsedMatchFirst(ParsedBaseNode[ParsedNode[T, V]]):
     choice_index: int
 
     @property
-    def value(self) -> T:
-        return self.parse_tree.value
+    def values(self) -> Iterable[V]:
+        return self.parse_tree.values
 
     @property
     def start_loc(self) -> int:
@@ -126,9 +126,10 @@ class ParsedList(ParsedBaseNode[Tuple[ParsedNode[T, V], ...]]):
     loc: int
 
     @property
-    def value(self) -> List[V]:
-        values = (node.value for node in self.parse_tree)
-        return [value for value in values if value is not None]
+    def values(self) -> Tuple[V, ...]:
+        return tuple(
+            itertools.chain.from_iterable(node.values for node in self.parse_tree)
+        )
 
     @property
     def start_loc(self) -> int:
@@ -148,7 +149,7 @@ class ParsedList(ParsedBaseNode[Tuple[ParsedNode[T, V], ...]]):
 ParsedAnd = ParsedList[Any, Any]
 
 
-class And(Parser[Tuple[ParsedNode, ...], List]):
+class And(Parser[Tuple[ParsedNode, ...], Any]):
     def __init__(self, parsers: Iterable[Parser], *, name: str = None):
         super().__init__(name)
         self.parsers = parsers
@@ -171,7 +172,7 @@ class And(Parser[Tuple[ParsedNode, ...], List]):
 ParsedRepeat = ParsedList
 
 
-class Repeat(Parser[Tuple[ParsedNode[T, V], ...], List[V]]):
+class Repeat(Parser[Tuple[ParsedNode[T, V], ...], V]):
     def __init__(
         self,
         parser: Parser[T, V],

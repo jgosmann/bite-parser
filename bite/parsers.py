@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Callable, Generic, Iterable, Optional, TypeVar
+from typing import Any, Callable, Generic, Iterable, TypeVar
 
 from bite.core import (
     And,
@@ -107,43 +107,12 @@ class OneOrMore(Repeat[T, V]):
         super().__init__(parser, min_repeats=1, name=name)
 
 
-@dataclass(frozen=True)
-class ParsedOpt(ParsedBaseNode[Optional[ParsedNode[T, V]]]):
-    loc: int
-
-    @property
-    def value(self) -> Optional[V]:
-        if self.parse_tree:
-            return self.parse_tree.value
-        else:
-            return None
-
-    @property
-    def start_loc(self) -> int:
-        if self.parse_tree:
-            return self.parse_tree.start_loc
-        else:
-            return self.loc
-
-    @property
-    def end_loc(self) -> int:
-        if self.parse_tree:
-            return self.parse_tree.end_loc
-        else:
-            return self.loc
+ParsedOpt = ParsedRepeat
 
 
-class Opt(Parser[Optional[ParsedNode[T, V]], Optional[V]]):
+class Opt(Repeat[T, V]):
     def __init__(self, parser: Parser[T, V], *, name: str = None):
-        super().__init__(name if name else f"Opt({parser})")
-        self.parser = parser
-
-    async def parse(self, buf: ParserBuffer, loc: int = 0):
-        try:
-            return ParsedOpt(self.name, await self.parser.parse(buf, loc), loc)
-        except UnmetExpectationError:
-            # Somehow mypy doesn't recognize the parse tree as optional
-            return ParsedOpt(self.name, None, loc)  # type: ignore
+        super().__init__(parser, min_repeats=0, max_repeats=1, name=name)
 
 
 @dataclass(frozen=True)
@@ -163,8 +132,8 @@ class CountedParseTree:
 @dataclass(frozen=True)
 class ParsedCounted(ParsedBaseNode[CountedParseTree], Generic[V]):
     @property
-    def value(self) -> V:
-        return self.parse_tree.counted_expr.value
+    def values(self) -> Iterable[V]:
+        return self.parse_tree.counted_expr.values
 
     @property
     def start_loc(self) -> int:
@@ -190,18 +159,28 @@ class Counted(Parser[CountedParseTree, V]):
         self.counted_parser_factory = counted_parser_factory
 
     async def parse(self, buf: ParserBuffer, loc: int = 0) -> ParsedCounted[V]:
-        count = await self.count_parser.parse(buf, loc)
-        counted = await self.counted_parser_factory(count.value).parse(
-            buf, count.end_loc
-        )
-        return ParsedCounted(self.name, CountedParseTree(count, counted))
+        count_parse_tree = await self.count_parser.parse(buf, loc)
+        values_iter = iter(count_parse_tree.values)
+        try:
+            count = int(next(values_iter))
+        except StopIteration:
+            raise ValueError("count expression did not return a value") from None
+        try:
+            next(values_iter)
+        except StopIteration:
+            counted = await self.counted_parser_factory(count).parse(
+                buf, count_parse_tree.end_loc
+            )
+            return ParsedCounted(self.name, CountedParseTree(count_parse_tree, counted))
+        else:
+            raise ValueError("count expression returned more than one value")
 
 
 ParsedCombine = ParsedLeaf[bytes]
 
 
 class Combine(Parser[bytes, bytes]):
-    def __init__(self, parser: Parser[Any, Iterable[bytes]], *, name: str = None):
+    def __init__(self, parser: Parser[Any, bytes], *, name: str = None):
         super().__init__(name if name else f"Combine({parser})")
         self.parser = parser
 
@@ -209,7 +188,7 @@ class Combine(Parser[bytes, bytes]):
         parse_tree = await self.parser.parse(buf, loc)
         return ParsedCombine(
             self.name,
-            b"".join(parse_tree.value),
+            b"".join(parse_tree.values),
             parse_tree.start_loc,
             parse_tree.end_loc,
         )

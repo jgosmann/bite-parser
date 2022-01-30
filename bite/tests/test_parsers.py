@@ -28,7 +28,7 @@ from bite.parsers import (
     ZeroOrMore,
 )
 from bite.tests.mock_reader import MockReader
-from bite.transformers import ParsedTransform, Suppress, TransformValue
+from bite.transformers import ParsedTransform, Suppress
 
 
 @pytest.mark.asyncio
@@ -156,12 +156,12 @@ from bite.transformers import ParsedTransform, Suppress, TransformValue
         (
             b"foo",
             Opt(Literal(b"A", name="A"), name="opt"),
-            ParsedOpt("opt", None, 4),  # type: ignore
+            ParsedOpt("opt", (), 4),  # type: ignore
         ),
         (
             b"A foo",
             Opt(Literal(b"A", name="A"), name="opt"),
-            ParsedOpt("opt", ParsedLiteral("A", b"A", 4, 5), 4),
+            ParsedOpt("opt", (ParsedLiteral("A", b"A", 4, 5),), 4),
         ),
         # ZeroOrMore
         (
@@ -316,27 +316,24 @@ async def test_successful_parsing(input_buf, grammar, expected):
 async def test_successful_counted_parsing():
     buffer = ParserBuffer(MockReader(b"foo [4]0123456789"))
     grammar = Counted(
-        TransformValue(
-            And(
-                [
-                    Suppress(Literal(b"[")),
-                    CharacterSet(b"0123456789"),
-                    Suppress(Literal(b"]")),
-                ]
-            ),
-            lambda value: int(value[0]),
-            name="transform",
+        And(
+            [
+                Suppress(Literal(b"[")),
+                CharacterSet(b"0123456789"),
+                Suppress(Literal(b"]")),
+            ],
+            name="and",
         ),
         lambda count: FixedByteCount(count, name="fixed byte count"),
     )
     parsed = await grammar.parse(buffer, 4)
 
-    assert parsed.parse_tree.count_expr.name == "transform"
-    assert parsed.parse_tree.count_expr.value == 4
+    assert parsed.parse_tree.count_expr.name == "and"
+    assert parsed.parse_tree.count_expr.values == (b"4",)
     assert parsed.parse_tree.counted_expr == ParsedFixedByteCount(
         "fixed byte count", b"0123", 7, 11
     )
-    assert parsed.value == b"0123"
+    assert parsed.values == (b"0123",)
 
 
 @pytest.mark.asyncio
@@ -344,16 +341,12 @@ async def test_successful_counted_parsing():
 async def test_unsuccessful_counted_parsing(input_buf, at_loc):
     buffer = ParserBuffer(MockReader(input_buf))
     grammar = Counted(
-        TransformValue(
-            And(
-                [
-                    Suppress(Literal(b"[")),
-                    CharacterSet(b"0123456789"),
-                    Suppress(Literal(b"]")),
-                ]
-            ),
-            lambda value: int(value[0]),
-            name="transform",
+        And(
+            [
+                Suppress(Literal(b"[")),
+                CharacterSet(b"0123456789"),
+                Suppress(Literal(b"]")),
+            ]
         ),
         lambda count: FixedByteCount(count, name="fixed byte count"),
     )
@@ -425,27 +418,30 @@ async def test_parsing_failure_one_or_more():
 
 
 @pytest.mark.parametrize(
-    "parse_tree,expected_value",
+    "parse_tree,expected_values",
     [
-        (ParsedLeaf("leaf", b"foo", 0, 3), b"foo"),
-        (ParsedMatchFirst("match-first", ParsedLeaf("leaf", b"foo", 0, 3), 0), b"foo"),
+        (ParsedLeaf("leaf", b"foo", 0, 3), (b"foo",)),
+        (
+            ParsedMatchFirst("match-first", ParsedLeaf("leaf", b"foo", 0, 3), 0),
+            (b"foo",),
+        ),
         (
             ParsedAnd(
                 "and",
                 (
                     ParsedTransform(
-                        "suppress", ParsedLeaf("x", b"x", 0, 1), lambda _: None
+                        "suppress", ParsedLeaf("x", b"x", 0, 1), lambda _: []
                     ),
                     ParsedLeaf("leaf", b"foo", 1, 4),
                 ),
                 loc=0,
             ),
-            [b"foo"],
+            (b"foo",),
         ),
     ],
 )
-def test_parsed_vaule(parse_tree, expected_value):
-    assert parse_tree.value == expected_value
+def test_parsed_vaule(parse_tree, expected_values):
+    assert parse_tree.values == expected_values
 
 
 def test_parsed_match_first_loc_range():
@@ -483,12 +479,12 @@ def test_parsed_repeat_loc_range():
 
 
 def test_parsed_opt():
-    parsed_opt = ParsedOpt(None, ParsedLiteral(None, b"0123", 4, 8), 4)
-    assert parsed_opt.value == b"0123"
+    parsed_opt = ParsedOpt(None, (ParsedLiteral(None, b"0123", 4, 8),), 4)
+    assert parsed_opt.values == (b"0123",)
     assert parsed_opt.start_loc == 4
     assert parsed_opt.end_loc == 8
 
-    parsed_opt = ParsedOpt(None, None, 4)
-    assert parsed_opt.value is None
+    parsed_opt = ParsedOpt(None, (), 4)
+    assert not parsed_opt.values
     assert parsed_opt.start_loc == 4
     assert parsed_opt.end_loc == 4
