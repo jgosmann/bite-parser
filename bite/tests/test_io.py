@@ -1,4 +1,5 @@
-from asyncio import IncompleteReadError
+from asyncio import Future, IncompleteReadError
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -20,8 +21,8 @@ from bite.tests.mock_reader import MockReader
         (slice(8, None), b"89"),
         (slice(2, 6, 2), b"24"),
         (slice(-8, -4, 2), b"24"),
-        (slice(6, 2, -2), b"64"),
-        (slice(6, None, -2), b"6420"),
+        (slice(6, 2, -2), b"53"),
+        (slice(6, None, -2), b"531"),
         (slice(None, 2, -2), b"9753"),
         (11, b""),
         (slice(5, 11), b"56789"),
@@ -32,6 +33,17 @@ from bite.tests.mock_reader import MockReader
 async def test_parser_buffer_random_access(index, expected):
     buffer = ParserBuffer(MockReader(b"0123456789"))
     assert await buffer.get(index) == expected
+
+
+@pytest.mark.asyncio
+async def test_parser_buffer_reads_not_more_than_necessary():
+    future = Future()
+    future.set_result(b"abc")
+
+    reader = MagicMock()
+    reader.read.return_value = future
+    await ParserBuffer(reader).get(slice(0, 3))
+    reader.read.assert_called_once_with(3)
 
 
 @pytest.mark.asyncio

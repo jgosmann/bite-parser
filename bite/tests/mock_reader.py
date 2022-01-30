@@ -5,7 +5,7 @@ from asyncio import IncompleteReadError
 class MockReader:
     def __init__(self, input_buf: bytes):
         self.reader = io.BytesIO(input_buf)
-        self.eol_pos = self.reader.seek(0, io.SEEK_END) + 1
+        self.eol_pos = self.reader.seek(0, io.SEEK_END)
         self.read_eol = False
         self.reader.seek(0, io.SEEK_SET)
 

@@ -15,7 +15,7 @@ class ParserBuffer:
         if max_index is None or max_index < 0:
             self._buf.extend(await self._reader.read())
         elif len(self._buf) <= max_index:
-            self._buf.extend(await self._reader.read(max_index + 1 - len(self._buf)))
+            self._buf.extend(await self._reader.read(max_index - len(self._buf)))
 
         return self._buf[key]
 
