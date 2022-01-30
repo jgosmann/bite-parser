@@ -272,6 +272,10 @@ class UnmetExpectationError(ParseError):
         self.at_loc = at_loc
 
 
+class TrailingBytesError(ParseError):
+    pass
+
+
 __all__ = [
     "And",
     "MatchFirst",
@@ -280,5 +284,6 @@ __all__ = [
     "ParseError",
     "ParsedNode",
     "Repeat",
+    "TrailingBytesError",
     "UnmetExpectationError",
 ]
