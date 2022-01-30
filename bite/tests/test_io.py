@@ -68,4 +68,5 @@ async def test_parser_buffer_at_eof():
     await buffer.get(9)
     assert not buffer.at_eof()
     await buffer.drop_prefix(10)
+    assert await buffer.get(slice(0, 1)) == b""
     assert buffer.at_eof()

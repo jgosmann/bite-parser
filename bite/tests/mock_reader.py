@@ -5,10 +5,13 @@ from asyncio import IncompleteReadError
 class MockReader:
     def __init__(self, input_buf: bytes):
         self.reader = io.BytesIO(input_buf)
-        self.eol_pos = self.reader.seek(0, io.SEEK_END)
+        self.eol_pos = self.reader.seek(0, io.SEEK_END) + 1
+        self.read_eol = False
         self.reader.seek(0, io.SEEK_SET)
 
     async def read(self, n=-1) -> bytes:
+        if n < 0 or self.reader.tell() + n > self.eol_pos:
+            self.read_eol = True
         return self.reader.read(n)
 
     async def readline(self) -> bytes:
@@ -24,4 +27,4 @@ class MockReader:
         raise NotImplementedError()
 
     def at_eof(self) -> bool:
-        return self.reader.tell() >= self.eol_pos
+        return self.read_eol

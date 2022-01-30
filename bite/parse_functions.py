@@ -16,3 +16,4 @@ async def parse_incremental(
         parse_tree = await grammar.parse(buffer, 0)
         yield parse_tree
         await buffer.drop_prefix(parse_tree.end_loc)
+        await buffer.get(slice(0, 1))  # Ensure to read EOF state
