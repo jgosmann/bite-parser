@@ -38,6 +38,7 @@ pytest-cov = "^3.0.0"
 typing-extensions = "^4.0.1"
 Sphinx = "^4.4.0"
 sphinx-rtd-theme = "^1.0.0"
+darglint = "^1.8.1"
 
 [tool.isort]
 force_grid_wrap = 0
