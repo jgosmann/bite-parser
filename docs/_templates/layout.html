@@ -1,0 +1,15 @@
+{% extends "!layout.html" %}
+
+{% block extrahead %}
+<script>
+    initializeVersioningFromManifest({
+        currentVersion: "{{ version }}",
+        baseUrl: "https://jgosmann.github.io/bite-parser/docs",
+    })
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="version-banner"></div>
+{{ super() }}
+{% endblock %}

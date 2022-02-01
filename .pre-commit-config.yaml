@@ -20,6 +20,7 @@ repos:
   rev: pylint-2.6.0
   hooks:
   - id: pylint
+    files: ^bite/
     additional_dependencies:
     - aioimaplib==0.9.0
     - aiohttp==3.7.3
@@ -33,4 +34,5 @@ repos:
   rev: v0.910
   hooks:
   - id: mypy
+    files: ^bite/
     additional_dependencies: ["types-requests==2.25.11"]
