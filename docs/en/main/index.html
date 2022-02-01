@@ -20,6 +20,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="getting-started.html" />
 <script>
     initializeVersioningFromManifest({
         currentVersion: "main",
@@ -44,12 +45,13 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Welcome to bite-parser’s documentation!</a></li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -78,7 +80,60 @@
              
   <section id="welcome-to-bite-parser-s-documentation">
 <h1>Welcome to bite-parser’s documentation!<a class="headerlink" href="#welcome-to-bite-parser-s-documentation" title="Permalink to this headline"></a></h1>
+<blockquote>
+<div><p>Asynchronous parser taking incremental bites out of your byte input stream.</p>
+</div></blockquote>
+<p>The bite-parser is a parser combinator library for Python.
+It is similar to <a class="reference external" href="https://github.com/pyparsing/pyparsing">PyParsing</a>
+in that it allows the construction of grammars for parsing
+from simple building blocks in pure Python.
+This approach is also known as <a class="reference external" href="https://en.wikipedia.org/wiki/Parsing_expression_grammar">Parsing Expression Grammar (PEG)</a>.
+While PyParsing
+(and many other Python parsing libraries)
+only support string,
+bite-parser operates on bytes.
+In addition,
+bite-parser makes use of <cite>asyncio</cite>
+and can asynchronously generate parsed items
+from an input stream.</p>
+<p>A typical use-case would be the parsing of a network protocol
+like IMAP.
+In fact,
+I wrote this library for the IMAP implementation of my
+<a class="reference external" href="https://github.com/jgosmann/dmarc-metrics-exporter">dmarc-metrics-exporter</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I have implemented the fundamental set of parsers,
+which should allow constructing most or all grammars
+recognizable by this type of parser.
+However, many convenience or higher level parsers are not yet implemented.</p>
+<p>Other areas that still need improvement are:</p>
+<ul class="simple">
+<li><p>Abilitiy to debug the parsing.</p></li>
+<li><p>Better error messages.</p></li>
+<li><p>Performance: Currently, only a basic recursive descent parser is
+implemented which can exhibit exponential worst case performance.
+This could be improved by implementing a packrat parser.</p></li>
+</ul>
+</div>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#implementing-your-first-parser">Implementing your first parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#using-the-parser">Using the parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#introducing-structure-in-the-parse-result">Introducing structure in the parse result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#parsing-asynchronous-streams">Parsing asynchronous streams</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">[0.1.1] - 2022-01-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">[0.1.0] - 2022-01-29</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
 </div>
 </section>
 <section id="indices-and-tables">
@@ -93,7 +148,9 @@
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting-started.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
