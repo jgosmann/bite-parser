@@ -278,6 +278,7 @@ class TrailingBytesError(ParseError):
 
 __all__ = [
     "And",
+    "Forward",
     "MatchFirst",
     "Not",
     "Parser",
