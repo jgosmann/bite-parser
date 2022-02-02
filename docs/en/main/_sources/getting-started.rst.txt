@@ -12,7 +12,7 @@ Run the following in your command line::
 Implementing your first parser
 ------------------------------
 
-.. testcode:: getting-started
+.. testcode:: getting-started-0
 
     from bite import Combine, CharacterSet, Forward, Literal
 
@@ -68,7 +68,7 @@ that can be used interchangeably.
 Using the parser
 ----------------
 
-.. testcode:: getting-started
+.. testcode:: getting-started-0
 
     import asyncio
     from bite import parse_bytes
@@ -85,11 +85,11 @@ For example,
 we can take a look at the first child of ``result``
 which corresponds to ``123`` from the parsed expression:
 
-.. testcode:: getting-started
+.. testcode:: getting-started-0
 
    print(result.parse_tree[0])
 
-.. testoutput:: getting-started
+.. testoutput:: getting-started-0
 
     ParsedMatchFirst(name="(number) | ((b'(') + ((forward) + ((((b'*') | (b'/')) + (forward))[0, None]) + ((((b'+') | (b'-')) + ((forward) + ((((b'*') | (b'/')) + (forward))[0, None])))[0, None])) + (b')'))", parse_tree=ParsedLeaf(name='number', parse_tree=b'123', start_loc=0, end_loc=3), choice_index=0)
 
@@ -101,20 +101,20 @@ On each node in the parse tree,
 you can query ``start_loc`` and ``end_loc`` to find out to what extent in the input the parsed node corresponds.
 The ``end_loc`` is exclusive.
 
-.. testcode:: getting-started
+.. testcode:: getting-started-0
 
     print(
         "Extent from", result.parse_tree[0].start_loc,
         "to", result.parse_tree[0].end_loc
     )
 
-.. testoutput:: getting-started
+.. testoutput:: getting-started-0
 
     Extent from 0 to 3
 
 The leaf nodes of the parse tree will have the bytes itself as ``parse_tree`` attribute:
 
-.. testcode:: getting-started
+.. testcode:: getting-started-0
 
     print("The leaf:", result.parse_tree[0].parse_tree)
     print(
@@ -122,7 +122,7 @@ The leaf nodes of the parse tree will have the bytes itself as ``parse_tree`` at
         result.parse_tree[0].parse_tree.parse_tree
     )
 
-.. testoutput:: getting-started
+.. testoutput:: getting-started-0
 
     The leaf: ParsedLeaf(name='number', parse_tree=b'123', start_loc=0, end_loc=3)
     The children of the leaf are the bytes itself: b'123'
@@ -132,11 +132,11 @@ it is often more than you need and sometimes cumbersome to work with.
 Often you only want a transformed representation
 that you can get with the ``values`` attribute on a node.
 
-.. testcode:: getting-started
+.. testcode:: getting-started-0
 
     print(result.values)
 
-.. testoutput:: getting-started
+.. testoutput:: getting-started-0
 
     (b'123', b'+', b'45', b'*', b'(', b'67', b'+', b'89', b')')
 
@@ -148,9 +148,152 @@ we will introduce some more structure to retain the operator precedence.
 Introducing structure in the parse result
 -----------------------------------------
 
-TODO
+A simple way to introduce more structure into the parse values is the ``Group``
+transform.
+It will put the values of its sub-parsers into a tuple.
+In addition,
+``Suppress`` allows to remove parsed tokens completely from the values.
+In this example,
+we use this to insert grouping according to the precedence.
+
+.. testcode:: getting-started-1
+
+    import asyncio
+    from bite import Combine, CharacterSet, Forward, Group, Literal, Suppress
+    from bite import parse_bytes
+
+    value = Forward()
+    product = Group(value + ((Literal(b'*') | Literal(b'/')) + value)[0, ...])
+    sum = product + ((Literal(b'+') | Literal(b'-')) + product)[0, ...]
+    expr = sum
+    value.assign(
+        Combine(CharacterSet(b'0123456789')[1, ...], name="number")
+        | Group(Suppress(Literal(b'(')) + expr + Suppress(Literal(b')')))
+    )
+
+    result = asyncio.run(parse_bytes(expr, b'123+45*(67+89)'))
+
+    print(result.values)
+
+.. testoutput:: getting-started-1
+
+    ((b'123',), b'+', (b'45', b'*', ((b'67',), b'+', (b'89',))))
+
+It is also possible to define custom transforms
+and use this,
+for example,
+to evaluate the whole expression.
+
+.. testcode:: getting-started-1
+
+    import asyncio
+    from bite import Combine, CharacterSet, Forward, Literal, Suppress, TransformValues
+    from bite import parse_bytes
+
+    def eval_product(values):
+        acc = values[0]
+        for i in range(1, len(values), 2):
+            if values[i] == b'*':
+                acc *= values[i + 1]
+            elif values[i] == b'/':
+                acc /= values[i + 1]
+            else:
+                raise ValueError()
+        return (acc,)
+
+    def eval_sum(values):
+        acc = values[0]
+        for i in range(1, len(values), 2):
+            if values[i] == b'+':
+                acc += values[i + 1]
+            elif values[i] == b'-':
+                acc -= values[i + 1]
+            else:
+                raise ValueError()
+        return (acc,)
+
+    value = Forward()
+    product = TransformValues(
+        value + ((Literal(b'*') | Literal(b'/')) + value)[0, ...],
+        eval_product
+    )
+    sum = TransformValues(
+        product + ((Literal(b'+') | Literal(b'-')) + product)[0, ...],
+        eval_sum
+    )
+    expr = sum
+    value.assign(
+        TransformValues(
+            Combine(CharacterSet(b'0123456789')[1, ...], name="number"),
+            lambda values: (int(v) for v in values)
+        )
+        | Suppress(Literal(b'(')) + expr + Suppress(Literal(b')'))
+    )
+
+    result = asyncio.run(parse_bytes(expr, b'123+45*(67+89)'))
+
+    print(result.values)
+
+.. testoutput:: getting-started-1
+
+    (7143,)
+
 
 Parsing asynchronous streams
 ----------------------------
 
-TODO
+So far we only parsed complete byte arrays.
+However, bite-parser is asynchronous
+and can emit parsed results as they come in.
+For this the ``parse_incremental`` method is used.
+It returns an asynchronous iterator
+that returns each successive complete parse tree.
+
+The following example implements a simple server
+that parses and evaluates each incoming line
+with the grammar defined in the previous section.
+
+.. testcode:: getting-started-1
+
+    from bite import Opt
+
+    request = expr + Opt(Literal(b'\r')) + Literal(b'\n')
+
+    async def handle_connection(reader, writer):
+        try:
+            # The following line is where the magic happens
+            async for result in parse_incremental(request, reader):
+                writer.write(b'Result: ')
+                writer.write(str(result.values[0]).encode('ascii'))
+                writer.write(b'\n')
+                await writer.drain()
+        finally:
+            writer.write_eof()
+            await writer.drain()
+            writer.close()
+
+    async def main():
+        server = await asyncio.start_server(handle_connection, 'localhost', 4000)
+
+        addrs = ', '.join(str(sock.getsockname()) for sock in server.sockets)
+        print(f'Serving on {addrs}')
+
+        async with server:
+            await server.serve_forever()
+
+    if __name__ == '__main__':
+        asyncio.run(main())
+
+After starting the server,
+you can test the server with netcat (for example):
+
+.. code-block:: bash
+
+    nc localhost 4000
+
+.. code-block::
+
+    1+1
+    Result: 2
+    21+4*(5+6)-4/2
+    Result: 63.0
