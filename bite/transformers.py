@@ -79,6 +79,7 @@ class Group(TransformValues[T, VIn, Tuple[VIn, ...]]):
 
 
 __all__ = [
+    "Group",
     "Suppress",
     "Transform",
     "TransformValues",
