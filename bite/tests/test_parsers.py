@@ -1,6 +1,5 @@
 import pytest
 
-from bite.core import Forward, Not, ParsedNil
 from bite.io import BytesBuffer
 from bite.parsers import (
     And,
@@ -9,8 +8,10 @@ from bite.parsers import (
     Combine,
     Counted,
     FixedByteCount,
+    Forward,
     Literal,
     MatchFirst,
+    Not,
     OneOrMore,
     Opt,
     ParsedAnd,
@@ -20,6 +21,7 @@ from bite.parsers import (
     ParsedLeaf,
     ParsedLiteral,
     ParsedMatchFirst,
+    ParsedNil,
     ParsedOneOrMore,
     ParsedOpt,
     ParsedRepeat,

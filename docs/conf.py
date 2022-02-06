@@ -45,6 +45,7 @@ else:
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
     "sphinx.ext.linkcode",
@@ -60,7 +61,7 @@ templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 
-autodoc_typehints = "description"
+autodoc_typehints = "signature"
 
 
 def linkcode_resolve(domain, info):

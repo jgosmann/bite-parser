@@ -1,8 +1,8 @@
 from asyncio import StreamReader
 from typing import AsyncGenerator, TypeVar
 
-from bite.core import ParsedNode, Parser, TrailingBytesError
 from bite.io import BytesBuffer, StreamReaderBuffer
+from bite.parsers import ParsedNode, Parser, TrailingBytesError
 
 T = TypeVar("T", covariant=True)
 V = TypeVar("V", covariant=True)

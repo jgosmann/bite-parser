@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Callable, Generic, Iterable, Tuple, TypeVar
 
-from bite.core import ParsedBaseNode, ParsedNode, Parser
 from bite.io import ParserBuffer
+from bite.parsers import ParsedBaseNode, ParsedNode, Parser
 
 T = TypeVar("T", covariant=True)
 VIn = TypeVar("VIn", covariant=True)

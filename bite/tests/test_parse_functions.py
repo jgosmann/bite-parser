@@ -1,8 +1,7 @@
 import pytest
 
-from bite.core import TrailingBytesError
 from bite.parse_functions import parse_bytes, parse_incremental
-from bite.parsers import Literal, ParsedLiteral
+from bite.parsers import Literal, ParsedLiteral, TrailingBytesError
 from bite.tests.mock_reader import MockReader
 
 
