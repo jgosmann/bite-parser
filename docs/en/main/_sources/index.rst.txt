@@ -49,6 +49,7 @@ I wrote this library for the IMAP implementation of my
    :caption: Contents:
 
    getting-started
+   api/api
    changelog
    license
 
