@@ -20,7 +20,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="License" href="license.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
     <link rel="prev" title="bite.transformers module" href="api/transformers.html" />
 <script>
     initializeVersioningFromManifest({
@@ -46,21 +46,27 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Documentation contents</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/api.html">API reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">[0.1.1] - 2022-01-30</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">[0.1.2] - 2022-02-13</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#added">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#changed">Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">[0.1.1] - 2022-01-30</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#removed">Removed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fixed">Fixed</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">[0.1.0] - 2022-01-29</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">[0.1.0] - 2022-01-29</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
@@ -96,9 +102,27 @@
 <p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
 and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <section id="id1">
-<h2>[0.1.1] - 2022-01-30<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<h2>[0.1.2] - 2022-02-13<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <section id="added">
 <h3>Added<a class="headerlink" href="#added" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Documentation</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">Forward</span></code> and <code class="docutils literal notranslate"><span class="pre">Group</span></code> to <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">*</span> <span class="pre">from</span> <span class="pre">bite</span></code> import.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">Forward</span></code> to <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">*</span> <span class="pre">from</span> <span class="pre">bite.parsers</span></code> import.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">Group</span></code> to <code class="docutils literal notranslate"><span class="pre">miport</span> <span class="pre">*</span> <span class="pre">from</span> <span class="pre">bite.transforms</span></code> import.</p></li>
+</ul>
+</section>
+<section id="changed">
+<h3>Changed<a class="headerlink" href="#changed" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Merged <code class="docutils literal notranslate"><span class="pre">bite.core</span></code> into <code class="docutils literal notranslate"><span class="pre">bite.parsers</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id2">
+<h2>[0.1.1] - 2022-01-30<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<section id="id3">
+<h3>Added<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Group</span></code> transform to introduce explicit groupings, now that parse values
 are flattened otherwise (see below).</p></li>
@@ -107,8 +131,8 @@ are flattened otherwise (see below).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">BytesBuffer</span></code> and <code class="docutils literal notranslate"><span class="pre">parse_bytes</span></code> for easier usage without asyncio streams.</p></li>
 </ul>
 </section>
-<section id="changed">
-<h3>Changed<a class="headerlink" href="#changed" title="Permalink to this headline"></a></h3>
+<section id="id4">
+<h3>Changed<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
 <ul class="simple">
 <li><p>Renamed the <code class="docutils literal notranslate"><span class="pre">value</span></code> property of <code class="docutils literal notranslate"><span class="pre">ParseNode</span></code> to <code class="docutils literal notranslate"><span class="pre">values</span></code>. All nodes
 return now iterables and sub-values will be flattened into a common iterable.</p></li>
@@ -135,8 +159,8 @@ byte that never will be sent.</p></li>
 </ul>
 </section>
 </section>
-<section id="id2">
-<h2>[0.1.0] - 2022-01-29<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<section id="id5">
+<h2>[0.1.0] - 2022-01-29<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
 <p>Initial release.</p>
 </section>
 </section>
@@ -146,7 +170,7 @@ byte that never will be sent.</p></li>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="api/transformers.html" class="btn btn-neutral float-left" title="bite.transformers module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
