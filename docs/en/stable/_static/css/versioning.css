@@ -1,0 +1,21 @@
+.version-banner {
+    position: sticky;
+    top: 16px;
+    margin-bottom: 16px;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    font-size: 0.9em;
+    z-index: 1;
+    display: none;
+}
+
+.version-banner.dev {
+    background-color: #fff3cd;
+    display: block;
+}
+
+.version-banner.outdated {
+    background-color: #f8d7d8;
+    display: block;
+}
