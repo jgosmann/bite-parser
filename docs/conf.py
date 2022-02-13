@@ -76,6 +76,8 @@ def linkcode_resolve(domain, info):
     return f"https://github.com/py-plato/plato/blob/{ref}/{filename}.py"
 
 
+intersphinx_mapping = {"python": ("https://docs.python.org/3", None)}
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for

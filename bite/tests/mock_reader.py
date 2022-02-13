@@ -3,6 +3,14 @@ from asyncio import IncompleteReadError
 
 
 class MockReader:
+    """Mocks a :class:`asyncio.StreamReader` with a static ``bytes`` object.
+
+    Parameters
+    ----------
+    input_buf:
+        The input data to provide via the :class:`asyncio.StreamReader` interface.
+    """
+
     def __init__(self, input_buf: bytes):
         self.reader = io.BytesIO(input_buf)
         self.eol_pos = self.reader.seek(0, io.SEEK_END)
@@ -24,7 +32,11 @@ class MockReader:
         return buf
 
     async def readuntil(self, separator=b"\n") -> bytes:
+        """Not implemented!"""
         raise NotImplementedError()
 
     def at_eof(self) -> bool:
         return self.read_eol
+
+
+__all__ = ["MockReader"]
