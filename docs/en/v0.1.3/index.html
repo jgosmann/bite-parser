@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to bite-parser &mdash; bite-parser 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/versioning.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/js/versioning.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting started" href="getting-started.html" />
+<script>
+    initializeVersioningFromManifest({
+        currentVersion: "0.1.3",
+        baseUrl: "https://jgosmann.github.io/bite-parser/docs",
+    })
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> bite-parser
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">bite-parser</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div class="version-banner"></div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Welcome to bite-parser</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <a class="reference external image-reference" href="https://github.com/jgosmann/bite-parser/actions/workflows/ci.yml"><img alt="CI and release pipeline" src="https://github.com/jgosmann/bite-parser/actions/workflows/ci.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://codecov.io/gh/jgosmann/bite-parser"><img alt="Codecov coverage" src="https://codecov.io/gh/jgosmann/bite-parser/branch/main/graph/badge.svg?token=O4M05YWNQK" /></a>
+<a class="reference external image-reference" href="https://pypi.org/project/bite-parser/"><img alt="PyPI" src="https://img.shields.io/pypi/v/bite-parser" /></a>
+<a class="reference external image-reference" href="https://pypi.org/project/bite-parser/"><img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/bite-parser" /></a>
+<a class="reference external image-reference" href="https://pypi.org/project/bite-parser/"><img alt="PyPI - License" src="https://img.shields.io/pypi/l/bite-parser" /></a>
+<section id="welcome-to-bite-parser">
+<h1>Welcome to bite-parser<a class="headerlink" href="#welcome-to-bite-parser" title="Permalink to this headline"></a></h1>
+<blockquote>
+<div><p>Asynchronous parser taking incremental bites out of your byte input stream.</p>
+</div></blockquote>
+<p>The bite-parser is a parser combinator library for Python.
+It is similar to <a class="reference external" href="https://github.com/pyparsing/pyparsing">PyParsing</a>
+in that it allows the construction of grammars for parsing
+from simple building blocks in pure Python.
+This approach is also known as <a class="reference external" href="https://en.wikipedia.org/wiki/Parsing_expression_grammar">Parsing Expression Grammar (PEG)</a>.
+While PyParsing
+(and many other Python parsing libraries)
+only support string,
+bite-parser operates on bytes.
+In addition,
+bite-parser makes use of <cite>asyncio</cite>
+and can asynchronously generate parsed items
+from an input stream.</p>
+<p>A typical use-case would be the parsing of a network protocol
+like IMAP.
+In fact,
+I wrote this library for the IMAP implementation of my
+<a class="reference external" href="https://github.com/jgosmann/dmarc-metrics-exporter">dmarc-metrics-exporter</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I have implemented the fundamental set of parsers,
+which should allow constructing most or all grammars
+recognizable by this type of parser.
+However, many convenience or higher level parsers are not yet implemented.</p>
+<p>Other areas that still need improvement are:</p>
+<ul class="simple">
+<li><p>Abilitiy to debug the parsing.</p></li>
+<li><p>Better error messages.</p></li>
+<li><p>Performance: Currently, only a basic recursive descent parser is
+implemented which can exhibit exponential worst case performance.
+This could be improved by implementing a packrat parser.</p></li>
+</ul>
+</div>
+<section id="important-links">
+<h2>Important links<a class="headerlink" href="#important-links" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jgosmann.github.io/bite-parser/docs/en/main/">Documentation</a></p></li>
+<li><p><a class="reference external" href="https://github.com/jgosmann/bite-parser">GitHub repository</a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Documentation contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#implementing-your-first-parser">Implementing your first parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#using-the-parser">Using the parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#introducing-structure-in-the-parse-result">Introducing structure in the parse result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#parsing-asynchronous-streams">Parsing asynchronous streams</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/api.html#parsing-functions">Parsing functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/api.html#parser-combinators">Parser combinators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/api.html#parse-tree-nodes">Parse tree nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/api.html#module-reference">Module reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">[0.1.3] - 2022-06-11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">[0.1.2] - 2022-02-13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">[0.1.1] - 2022-01-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">[0.1.0] - 2022-01-29</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting-started.html" class="btn btn-neutral float-right" title="Getting started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Jan Gosmann.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-github" style="float: left;"></span>
+        v: 0.1.3
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Versions</dt>
+        </dl>
+        <dl>
+            <dt>On GitHub</dt>
+            <dd><a href="https://github.com/jgosmann/bite-parser/">Repository</a></dd>
+        </dl>
+    </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
