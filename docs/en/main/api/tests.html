@@ -15,7 +15,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/js/versioning.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -57,7 +59,10 @@
 <li class="toctree-l3"><a class="reference internal" href="io.html">bite.io module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parse_functions.html">bite.parse_functions module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parsers.html">bite.parsers module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">bite.tests module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bite.tests module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bite.tests.MockReader"><code class="docutils literal notranslate"><span class="pre">MockReader</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="transformers.html">bite.transformers module</a></li>
 </ul>
 </li>
@@ -83,9 +88,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="api.html">API reference</a> &raquo;</li>
-      <li>bite.tests module</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="api.html">API reference</a></li>
+      <li class="breadcrumb-item active">bite.tests module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/tests.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -96,39 +101,39 @@
            <div itemprop="articleBody">
              
   <section id="bite-tests-module">
-<h1>bite.tests module<a class="headerlink" href="#bite-tests-module" title="Permalink to this headline"></a></h1>
+<h1>bite.tests module<a class="headerlink" href="#bite-tests-module" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.tests.MockReader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.tests.</span></span><span class="sig-name descname"><span class="pre">MockReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_buf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/tests.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.tests.MockReader" title="Permalink to this definition"></a></dt>
-<dd><p>Mocks a <a class="reference external" href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamReader" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">asyncio.StreamReader</span></code></a> with a static <code class="docutils literal notranslate"><span class="pre">bytes</span></code> object.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.tests.</span></span><span class="sig-name descname"><span class="pre">MockReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_buf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/tests.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.tests.MockReader" title="Permalink to this definition"></a></dt>
+<dd><p>Mocks a <a class="reference external" href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamReader" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">asyncio.StreamReader</span></code></a> with a static <code class="docutils literal notranslate"><span class="pre">bytes</span></code> object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>input_buf</strong> – The input data to provide via the <a class="reference external" href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamReader" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">asyncio.StreamReader</span></code></a> interface.</p>
+<dd class="field-odd"><p><strong>input_buf</strong> – The input data to provide via the <a class="reference external" href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamReader" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">asyncio.StreamReader</span></code></a> interface.</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="bite.tests.MockReader.at_eof">
-<span class="sig-name descname"><span class="pre">at_eof</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/tests.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.tests.MockReader.at_eof" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">at_eof</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/tests.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.tests.MockReader.at_eof" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="bite.tests.MockReader.read">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/tests.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.tests.MockReader.read" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/tests.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.tests.MockReader.read" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="bite.tests.MockReader.readexactly">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">readexactly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/tests.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.tests.MockReader.readexactly" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">readexactly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/tests.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.tests.MockReader.readexactly" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="bite.tests.MockReader.readline">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">readline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/tests.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.tests.MockReader.readline" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">readline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/tests.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.tests.MockReader.readline" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="bite.tests.MockReader.readuntil">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">readuntil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'\n'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/tests.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.tests.MockReader.readuntil" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">readuntil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">b'\n'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/tests.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.tests.MockReader.readuntil" title="Permalink to this definition"></a></dt>
 <dd><p>Not implemented!</p>
 </dd></dl>
 

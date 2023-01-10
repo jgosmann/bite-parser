@@ -15,7 +15,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/js/versioning.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -77,8 +79,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Getting started</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Getting started</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/getting-started.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -89,17 +91,17 @@
            <div itemprop="articleBody">
              
   <section id="getting-started">
-<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h1>
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
 <section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
 <p>Run the following in your command line:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">bite</span><span class="o">-</span><span class="n">parser</span>
 </pre></div>
 </div>
 </section>
 <section id="implementing-your-first-parser">
-<h2>Implementing your first parser<a class="headerlink" href="#implementing-your-first-parser" title="Permalink to this headline"></a></h2>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">Combine</span><span class="p">,</span> <span class="n">CharacterSet</span><span class="p">,</span> <span class="n">Forward</span><span class="p">,</span> <span class="n">Literal</span>
+<h2>Implementing your first parser<a class="headerlink" href="#implementing-your-first-parser" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">Combine</span><span class="p">,</span> <span class="n">CharacterSet</span><span class="p">,</span> <span class="n">Forward</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="n">value</span> <span class="o">=</span> <span class="n">Forward</span><span class="p">()</span>
 <span class="n">product</span> <span class="o">=</span> <span class="n">value</span> <span class="o">+</span> <span class="p">((</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;*&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;/&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">value</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
@@ -148,8 +150,8 @@ that for each operator an equivalent class exists
 that can be used interchangeably.</p>
 </section>
 <section id="using-the-parser">
-<h2>Using the parser<a class="headerlink" href="#using-the-parser" title="Permalink to this headline"></a></h2>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<h2>Using the parser<a class="headerlink" href="#using-the-parser" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
 <span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">parse_bytes</span>
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">parse_bytes</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;123+45*(67+89)&#39;</span><span class="p">))</span>
@@ -164,7 +166,7 @@ The children of each node will be stored in the <code class="docutils literal no
 For example,
 we can take a look at the first child of <code class="docutils literal notranslate"><span class="pre">result</span></code>
 which corresponds to <code class="docutils literal notranslate"><span class="pre">123</span></code> from the parsed expression:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ParsedMatchFirst(name=&quot;(number) | ((b&#39;(&#39;) + ((forward) + ((((b&#39;*&#39;) | (b&#39;/&#39;)) + (forward))[0, None]) + ((((b&#39;+&#39;) | (b&#39;-&#39;)) + ((forward) + ((((b&#39;*&#39;) | (b&#39;/&#39;)) + (forward))[0, None])))[0, None])) + (b&#39;)&#39;))&quot;, parse_tree=ParsedLeaf(name=&#39;number&#39;, parse_tree=b&#39;123&#39;, start_loc=0, end_loc=3), choice_index=0)
@@ -177,7 +179,7 @@ besides some other attributes.
 On each node in the parse tree,
 you can query <code class="docutils literal notranslate"><span class="pre">start_loc</span></code> and <code class="docutils literal notranslate"><span class="pre">end_loc</span></code> to find out to what extent in the input the parsed node corresponds.
 The <code class="docutils literal notranslate"><span class="pre">end_loc</span></code> is exclusive.</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
     <span class="s2">&quot;Extent from&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_loc</span><span class="p">,</span>
     <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">end_loc</span>
 <span class="p">)</span>
@@ -187,7 +189,7 @@ The <code class="docutils literal notranslate"><span class="pre">end_loc</span><
 </pre></div>
 </div>
 <p>The leaf nodes of the parse tree will have the bytes itself as <code class="docutils literal notranslate"><span class="pre">parse_tree</span></code> attribute:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The leaf:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The leaf:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
     <span class="s2">&quot;The children of the leaf are the bytes itself:&quot;</span><span class="p">,</span>
     <span class="n">result</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">parse_tree</span>
@@ -202,7 +204,7 @@ The children of the leaf are the bytes itself: b&#39;123&#39;
 it is often more than you need and sometimes cumbersome to work with.
 Often you only want a transformed representation
 that you can get with the <code class="docutils literal notranslate"><span class="pre">values</span></code> attribute on a node.</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(b&#39;123&#39;, b&#39;+&#39;, b&#39;45&#39;, b&#39;*&#39;, b&#39;(&#39;, b&#39;67&#39;, b&#39;+&#39;, b&#39;89&#39;, b&#39;)&#39;)
@@ -213,7 +215,7 @@ In the next section,
 we will introduce some more structure to retain the operator precedence.</p>
 </section>
 <section id="introducing-structure-in-the-parse-result">
-<h2>Introducing structure in the parse result<a class="headerlink" href="#introducing-structure-in-the-parse-result" title="Permalink to this headline"></a></h2>
+<h2>Introducing structure in the parse result<a class="headerlink" href="#introducing-structure-in-the-parse-result" title="Permalink to this heading"></a></h2>
 <p>A simple way to introduce more structure into the parse values is the <code class="docutils literal notranslate"><span class="pre">Group</span></code>
 transform.
 It will put the values of its sub-parsers into a tuple.
@@ -221,7 +223,7 @@ In addition,
 <code class="docutils literal notranslate"><span class="pre">Suppress</span></code> allows to remove parsed tokens completely from the values.
 In this example,
 we use this to insert grouping according to the precedence.</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
 <span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">Combine</span><span class="p">,</span> <span class="n">CharacterSet</span><span class="p">,</span> <span class="n">Forward</span><span class="p">,</span> <span class="n">Group</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Suppress</span>
 <span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">parse_bytes</span>
 
@@ -246,7 +248,7 @@ we use this to insert grouping according to the precedence.</p>
 and use this,
 for example,
 to evaluate the whole expression.</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
 <span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">Combine</span><span class="p">,</span> <span class="n">CharacterSet</span><span class="p">,</span> <span class="n">Forward</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Suppress</span><span class="p">,</span> <span class="n">TransformValues</span>
 <span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">parse_bytes</span>
 
@@ -300,7 +302,7 @@ to evaluate the whole expression.</p>
 </div>
 </section>
 <section id="parsing-asynchronous-streams">
-<h2>Parsing asynchronous streams<a class="headerlink" href="#parsing-asynchronous-streams" title="Permalink to this headline"></a></h2>
+<h2>Parsing asynchronous streams<a class="headerlink" href="#parsing-asynchronous-streams" title="Permalink to this heading"></a></h2>
 <p>So far we only parsed complete byte arrays.
 However, bite-parser is asynchronous
 and can emit parsed results as they come in.
@@ -310,7 +312,7 @@ that returns each successive complete parse tree.</p>
 <p>The following example implements a simple server
 that parses and evaluates each incoming line
 with the grammar defined in the previous section.</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">Opt</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">Opt</span>
 
 <span class="n">request</span> <span class="o">=</span> <span class="n">expr</span> <span class="o">+</span> <span class="n">Opt</span><span class="p">(</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
@@ -342,7 +344,7 @@ with the grammar defined in the previous section.</p>
 </div>
 <p>After starting the server,
 you can test the server with netcat (for example):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nc localhost <span class="m">4000</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nc<span class="w"> </span>localhost<span class="w"> </span><span class="m">4000</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
