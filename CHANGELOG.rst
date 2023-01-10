@@ -14,6 +14,7 @@ Added
 
 * Better error reporting if parsing fails: the current input is included in
   the message with the error position highlighted.
+* Declare official Python 3.11 support.
 
 Changed
 ^^^^^^^
