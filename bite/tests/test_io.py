@@ -57,6 +57,15 @@ async def test_stream_reader_buffer_repeated_random_access():
 
 
 @pytest.mark.asyncio
+async def test_stream_reader_buffer_get_current():
+    buffer = StreamReaderBuffer(MockReader(b"0123456789"))
+    await buffer.get(4)
+    await buffer.drop_prefix(2)
+    await buffer.get(4)
+    assert buffer.get_current().startswith(b"2345")
+
+
+@pytest.mark.asyncio
 async def test_stream_reader_buffer_drop_prefix():
     buffer = StreamReaderBuffer(MockReader(b"0123456789"))
     await buffer.get(2)
@@ -110,3 +119,8 @@ async def test_stream_reader_buffer_at_eof():
 async def test_bytes_buffer_random_access(index, expected):
     buffer = BytesBuffer(b"0123456789")
     assert await buffer.get(index) == expected
+
+
+def test_bytes_buffer_get_current():
+    buffer = BytesBuffer(b"0123456789")
+    assert buffer.get_current() == b"0123456789"

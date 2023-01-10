@@ -270,7 +270,7 @@ class MatchFirst(Parser[ParsedNode[Any, V], V]):
                 return ParsedMatchFirst(self.name, parsed_node, i)
             except UnmetExpectationError:
                 pass
-        raise UnmetExpectationError(self, loc)
+        raise UnmetExpectationError(self, loc, buf)
 
     def __or__(self, other: "Parser") -> "MatchFirst":
         return MatchFirst(tuple(self.choices) + (other,), name=f"{self} | ({other})")
@@ -502,7 +502,7 @@ class Not(Parser[None, NoReturn]):
         except UnmetExpectationError:
             return ParsedNil(self.name, loc)
         else:
-            raise UnmetExpectationError(self, loc)
+            raise UnmetExpectationError(self, loc, buf)
 
 
 class Forward(Parser[T, V]):
@@ -592,7 +592,7 @@ class Literal(Parser[bytes, bytes]):
         if peek == self.literal:
             return ParsedLiteral(self.name, self.literal, loc, end_loc)
         else:
-            raise UnmetExpectationError(self, loc)
+            raise UnmetExpectationError(self, loc, buf)
 
 
 class CaselessLiteral(Parser[bytes, bytes]):
@@ -635,7 +635,7 @@ class CaselessLiteral(Parser[bytes, bytes]):
         if peek.lower() == self._lowercased_literal:
             return ParsedLiteral(self.name, self.literal, loc, end_loc)
         else:
-            raise UnmetExpectationError(self, loc)
+            raise UnmetExpectationError(self, loc, buf)
 
 
 ParsedCharacterSet = ParsedLeaf[bytes]
@@ -691,7 +691,7 @@ class CharacterSet(Parser[bytes, bytes]):
         if len(char) == 1 and (char[0] in self.charset) != self.invert:
             return ParsedCharacterSet(self.name, char, loc, loc + 1)
         else:
-            raise UnmetExpectationError(self, loc)
+            raise UnmetExpectationError(self, loc, buf)
 
 
 ParsedFixedByteCount = ParsedLeaf[bytes]
@@ -733,7 +733,7 @@ class FixedByteCount(Parser[bytes, bytes]):
                 self.name, read_bytes, loc, loc + len(read_bytes)
             )
         else:
-            raise UnmetExpectationError(self, loc)
+            raise UnmetExpectationError(self, loc, buf)
 
 
 ParsedZeroOrMore = ParsedRepeat
@@ -1027,10 +1027,20 @@ class UnmetExpectationError(ParseError):
     """Error raised when the input does not match the syntax expected by a
     parser."""
 
-    def __init__(self, expected: Parser, at_loc: int):
-        super().__init__(f"expected {expected} at position {at_loc}")
+    def __init__(self, expected: Parser, at_loc: int, buf: ParserBuffer):
+        super().__init__(self._format_message(expected, at_loc, buf))
         self.expected = expected
         self.at_loc = at_loc
+        self.buf = buf
+
+    @classmethod
+    def _format_message(cls, expected: Parser, at_loc: int, buf: ParserBuffer) -> str:
+        return (
+            f"expected {expected} at position {at_loc}\n\n"
+            + f"Input: {buf.get_current()!r}\n"
+            + (9 + at_loc) * " "
+            + "^ location of error\n"
+        )
 
 
 class TrailingBytesError(ParseError):

@@ -41,6 +41,9 @@ class ParserBuffer(Protocol):
         # noqa: DAR202
         """
 
+    def get_current(self) -> bytes:
+        """Get all bytes currently stored in the buffer."""
+
     def at_eof(self) -> bool:
         """Whether the end of file has been found.
 
@@ -68,6 +71,10 @@ class BytesBuffer:
         if not isinstance(key, slice):
             key = slice(key, key + 1)
         return self._data[key]
+
+    @_copy_doc(ParserBuffer.get_current)
+    def get_current(self) -> bytes:
+        return self._data
 
     def at_eof(self) -> bool:
         """Always returns True as the complete buffer is provided at
@@ -106,6 +113,10 @@ class StreamReaderBuffer:
             self._buf.extend(await self._reader.read(max_index - len(self._buf)))
 
         return self._buf[key]
+
+    @_copy_doc(ParserBuffer.get_current)
+    def get_current(self) -> bytes:
+        return self._buf[:]
 
     async def drop_prefix(self, n: int):
         """Drop the first *n* bytes in the buffer."""

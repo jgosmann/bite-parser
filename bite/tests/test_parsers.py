@@ -1,6 +1,6 @@
 import pytest
 
-from bite.io import BytesBuffer
+from bite.io import BytesBuffer, ParserBuffer
 from bite.parsers import (
     And,
     CaselessLiteral,
@@ -22,10 +22,12 @@ from bite.parsers import (
     ParsedLiteral,
     ParsedMatchFirst,
     ParsedNil,
+    ParsedNode,
     ParsedOneOrMore,
     ParsedOpt,
     ParsedRepeat,
     ParsedZeroOrMore,
+    Parser,
     Repeat,
     UnmetExpectationError,
     ZeroOrMore,
@@ -550,3 +552,26 @@ async def test_forward_failure():
 
     with pytest.raises(UnmetExpectationError):
         await forward.parse(buffer, 1)
+
+
+def test_unmet_expectation_error_string_representation():
+    class ParserStub(Parser[None, None]):
+        def __init__(self):
+            super().__init__("ParserStubName")
+
+        async def parse(
+            self, buf: ParserBuffer, loc: int = 0
+        ) -> ParsedNode[None, None]:
+            raise NotImplementedError
+
+    buf = BytesBuffer(b"01234567890abcdef")
+    err = UnmetExpectationError(ParserStub(), 12, buf)
+
+    assert (
+        str(err)
+        == """expected ParserStubName at position 12
+
+Input: b'01234567890abcdef'
+                     ^ location of error
+"""
+    )

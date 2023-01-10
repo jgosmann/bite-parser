@@ -9,6 +9,12 @@ and this project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0
 [0.2.0] - [unreleased]
 ----------------------
 
+Added
+^^^^^
+
+* Better error reporting if parsing fails: the current input is included in
+  the message with the error position highlighted.
+
 Changed
 ^^^^^^^
 
