@@ -21,24 +21,23 @@ jobs:
           - name: Check static typing
             run: poetry run mypy bite
     steps:
-      - uses: actions/checkout@v2
-      - run: git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
+      - uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: .venv
-          key: ${{ runner.os }}-py3.10-venv-0-${{ hashFiles('pyproject.toml') }}
+          key: ${{ runner.os }}-py3.11-venv-0-${{ hashFiles('pyproject.toml') }}
           restore-keys: |
-            ${{ runner.os }}-py3.10-venv-0-
+            ${{ runner.os }}-py3.11-venv-0-
       - uses: ./.github/actions/setup-project
 
       - name: ${{ matrix.check.name }}
@@ -51,18 +50,18 @@ jobs:
         python-version: ['3.8', '3.9', '3.10', '3.11']
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: .venv
           key: ${{ runner.os }}-py${{ matrix.python-version }}-venv-0-${{ hashFiles('pyproject.toml') }}
@@ -72,28 +71,28 @@ jobs:
 
       - name: Test and measure coverage with pytest
         run: poetry run pytest --verbose --cov=bite --cov-report=xml
-      - uses: codecov/codecov-action@v1
+      - uses: codecov/codecov-action@v3
 
   documentation:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: .venv
-          key: ${{ runner.os }}-py3.10-venv-0-${{ hashFiles('pyproject.toml') }}
+          key: ${{ runner.os }}-py3.11-venv-0-${{ hashFiles('pyproject.toml') }}
           restore-keys: |
-            ${{ runner.os }}-py3.10-venv-0-
+            ${{ runner.os }}-py3.11-venv-0-
       - uses: ./.github/actions/setup-project
 
       - name: Check documentated arguments match function signature
@@ -113,7 +112,7 @@ jobs:
 
       - name: Set version_name
         id: version_name
-        run: echo ::set-output name=version_name::${GITHUB_REF#refs/*/}
+        run: echo "version_name=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
 
       - name: Deploy documentation
         uses: peaceiris/actions-gh-pages@v3
@@ -124,7 +123,7 @@ jobs:
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
 
       - name: Checkout gh-pages branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: gh-pages
           path: gh-pages
@@ -146,23 +145,23 @@ jobs:
     needs: [static-analysis, test]
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: .venv
-          key: ${{ runner.os }}-py3.10-venv-0-${{ hashFiles('pyproject.toml') }}
+          key: ${{ runner.os }}-py3.11-venv-0-${{ hashFiles('pyproject.toml') }}
           restore-keys: |
-            ${{ runner.os }}-py3.10-venv-0-
+            ${{ runner.os }}-py3.11-venv-0-
       - uses: ./.github/actions/setup-project
 
       - name: Publish to PyPI
@@ -172,13 +171,13 @@ jobs:
 
       - name: Set version
         id: version
-        run: echo ::set-output name=version::${GITHUB_REF#refs/*/v}
+        run: echo "version=${GITHUB_REF#refs/*/v}" >> $GITHUB_OUTPUT
 
       - name: Extract changelog
         id: changelog
         run: sed -E -n '/^\[${{ steps.version.outputs.version }}\]/,/^\[[0-9\.]+\]/{/^\[[0-9\.]+\]|^-+$/!p;}' CHANGELOG.rst > release-body.rst
 
-      - uses: docker://pandoc/core:2.10
+      - uses: docker://pandoc/core:2.19
         with:
           args: --standalone --wrap none -f rst -t gfm --output=release-body.md release-body.rst
 
