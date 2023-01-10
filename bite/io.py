@@ -40,7 +40,6 @@ class ParserBuffer(Protocol):
 
         # noqa: DAR202
         """
-        ...
 
     def at_eof(self) -> bool:
         """Whether the end of file has been found.
@@ -48,7 +47,6 @@ class ParserBuffer(Protocol):
         If the end of file has been found, all possible bytes have been read
         into the buffer and no new bytes will be added.
         """
-        ...
 
 
 class BytesBuffer:
@@ -71,7 +69,6 @@ class BytesBuffer:
             key = slice(key, key + 1)
         return self._data[key]
 
-    # pylint: disable=no-self-use
     def at_eof(self) -> bool:
         """Always returns True as the complete buffer is provided at
         construction time."""

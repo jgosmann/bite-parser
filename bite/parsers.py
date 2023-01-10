@@ -26,12 +26,10 @@ class ParsedNode(Protocol[T, V]):
     @property
     def name(self) -> Optional[str]:
         """Name of the node."""
-        ...
 
     @property
     def parse_tree(self) -> T:
         """Children of the node."""
-        ...
 
     @property
     def values(self) -> Iterable[V]:
@@ -42,19 +40,16 @@ class ParsedNode(Protocol[T, V]):
         for other nodes. However, it can be overridden to produce any other
         type.
         """
-        ...
 
     @property
     def start_loc(self) -> int:
         """Start index into the input buffer of the segmend parsed by the
         node."""
-        ...
 
     @property
     def end_loc(self) -> int:
         """End index (exclusive) into the input buffer of the segmend parsed by
         the node."""
-        ...
 
 
 @dataclass(frozen=True)
@@ -261,7 +256,7 @@ class MatchFirst(Parser[ParsedNode[Any, V], V]):
         (b'b',)
     """
 
-    def __init__(self, choices: Iterable[Parser], *, name: str = None):
+    def __init__(self, choices: Iterable[Parser], *, name: Optional[str] = None):
         super().__init__(name)
         self.choices = choices
 
@@ -342,7 +337,7 @@ class And(Parser[Tuple[ParsedNode, ...], Any]):
         (b'a', b'b')
     """
 
-    def __init__(self, parsers: Iterable[Parser], *, name: str = None):
+    def __init__(self, parsers: Iterable[Parser], *, name: Optional[str] = None):
         super().__init__(name)
         self.parsers = parsers
 
@@ -426,9 +421,9 @@ class Repeat(Parser[Tuple[ParsedNode[T, V], ...], V]):
         self,
         parser: Parser[T, V],
         min_repeats: int = 0,
-        max_repeats: int = None,
+        max_repeats: Optional[int] = None,
         *,
-        name: str = None,
+        name: Optional[str] = None,
     ):
         super().__init__(name)
         self.parser = parser
@@ -497,7 +492,7 @@ class Not(Parser[None, NoReturn]):
         bite.parsers.UnmetExpectationError: expected Not(b'a') at position 0
     """
 
-    def __init__(self, parser: Parser[Any, Any], *, name: str = None):
+    def __init__(self, parser: Parser[Any, Any], *, name: Optional[str] = None):
         super().__init__(name if name else f"Not({parser})")
         self.parser = parser
 
@@ -545,7 +540,7 @@ class Forward(Parser[T, V]):
 
     parser: Optional[Parser[T, V]]
 
-    def __init__(self, *, name: str = None):
+    def __init__(self, *, name: Optional[str] = None):
         super().__init__(name if name else "forward")
         self.parser = None
 
@@ -587,7 +582,7 @@ class Literal(Parser[bytes, bytes]):
         (b'abc',)
     """
 
-    def __init__(self, literal: bytes, *, name: str = None):
+    def __init__(self, literal: bytes, *, name: Optional[str] = None):
         super().__init__(name if name else str(literal))
         self.literal = literal
 
@@ -629,7 +624,7 @@ class CaselessLiteral(Parser[bytes, bytes]):
         (b'abc',)
     """
 
-    def __init__(self, literal: bytes, *, name: str = None):
+    def __init__(self, literal: bytes, *, name: Optional[str] = None):
         super().__init__(name if name else str(literal))
         self.literal = literal
         self._lowercased_literal = self.literal.lower()
@@ -681,7 +676,11 @@ class CharacterSet(Parser[bytes, bytes]):
     """
 
     def __init__(
-        self, charset: Iterable[int], *, invert: bool = False, name: str = None
+        self,
+        charset: Iterable[int],
+        *,
+        invert: bool = False,
+        name: Optional[str] = None,
     ):
         super().__init__(name if name else f"CharacterSet({charset})")
         self.charset = frozenset(charset)
@@ -723,7 +722,7 @@ class FixedByteCount(Parser[bytes, bytes]):
         (b'012',)
     """
 
-    def __init__(self, count: int, *, name: str = None):
+    def __init__(self, count: int, *, name: Optional[str] = None):
         super().__init__(name if name else f"FixedByteCount({count})")
         self.count = count
 
@@ -770,7 +769,7 @@ class ZeroOrMore(Repeat[T, V]):
         (b'a', b'a', b'a')
     """
 
-    def __init__(self, parser: Parser[T, V], *, name: str = None):
+    def __init__(self, parser: Parser[T, V], *, name: Optional[str] = None):
         super().__init__(parser, min_repeats=0, name=name)
 
 
@@ -817,7 +816,7 @@ class OneOrMore(Repeat[T, V]):
         (b'a', b'a', b'a')
     """
 
-    def __init__(self, parser: Parser[T, V], *, name: str = None):
+    def __init__(self, parser: Parser[T, V], *, name: Optional[str] = None):
         super().__init__(parser, min_repeats=1, name=name)
 
 
@@ -854,7 +853,7 @@ class Opt(Repeat[T, V]):
         (b'a',)
     """
 
-    def __init__(self, parser: Parser[T, V], *, name: str = None):
+    def __init__(self, parser: Parser[T, V], *, name: Optional[str] = None):
         super().__init__(parser, min_repeats=0, max_repeats=1, name=name)
 
 
@@ -944,7 +943,7 @@ class Counted(Parser[CountedParseTree, V]):
         count_parser: Parser[Any, int],
         counted_parser_factory: Callable[[int], Parser[Any, V]],
         *,
-        name: str = None,
+        name: Optional[str] = None,
     ):
         super().__init__(
             name if name else f"Counted({count_parser.name}, {counted_parser_factory})"
@@ -1006,7 +1005,7 @@ class Combine(Parser[bytes, bytes]):
         (b'12345',)
     """
 
-    def __init__(self, parser: Parser[Any, bytes], *, name: str = None):
+    def __init__(self, parser: Parser[Any, bytes], *, name: Optional[str] = None):
         super().__init__(name if name else f"Combine({parser})")
         self.parser = parser
 

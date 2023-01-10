@@ -1,21 +1,23 @@
 from dataclasses import dataclass
-from typing import Callable, Generic, Iterable, Tuple, TypeVar
+from typing import Callable, Generic, Iterable, Optional, Tuple, TypeVar
 
 from bite.io import ParserBuffer
 from bite.parsers import ParsedBaseNode, ParsedNode, Parser
 
 T = TypeVar("T", covariant=True)
-VIn = TypeVar("VIn", covariant=True)
-VOut = TypeVar("VOut", covariant=True)
+VIn_co = TypeVar("VIn_co", covariant=True)
+VOut_co = TypeVar("VOut_co", covariant=True)
 
 
 @dataclass(frozen=True)
-class ParsedTransform(ParsedBaseNode[ParsedNode[T, VIn]], Generic[T, VIn, VOut]):
-    transform: Callable[[ParsedNode[T, VIn]], Iterable[VOut]]
+class ParsedTransform(
+    ParsedBaseNode[ParsedNode[T, VIn_co]], Generic[T, VIn_co, VOut_co]
+):
+    transform: Callable[[ParsedNode[T, VIn_co]], Iterable[VOut_co]]
     """Function to transfrom the child nodes."""
 
     @property
-    def values(self) -> Iterable[VOut]:
+    def values(self) -> Iterable[VOut_co]:
         """Transformed values of the child nodes."""
         # for some reason mypy thinks transform is a bare object
         return self.transform(self.parse_tree)  # type: ignore
@@ -33,7 +35,7 @@ class ParsedTransform(ParsedBaseNode[ParsedNode[T, VIn]], Generic[T, VIn, VOut])
         return self.parse_tree.end_loc
 
 
-class Transform(Parser[ParsedNode[T, VIn], VOut]):
+class Transform(Parser[ParsedNode[T, VIn_co], VOut_co]):
     """Transform a resulting parse tree node to produce different values.
 
     Parameters
@@ -74,10 +76,10 @@ class Transform(Parser[ParsedNode[T, VIn], VOut]):
 
     def __init__(
         self,
-        parser: Parser[T, VIn],
-        transform: Callable[[ParsedNode[T, VIn]], Iterable[VOut]],
+        parser: Parser[T, VIn_co],
+        transform: Callable[[ParsedNode[T, VIn_co]], Iterable[VOut_co]],
         *,
-        name: str = None,
+        name: Optional[str] = None,
     ):
         super().__init__(name if name else f"Transform({parser.name})")
         self.parser = parser
@@ -85,13 +87,13 @@ class Transform(Parser[ParsedNode[T, VIn], VOut]):
 
     async def parse(
         self, buf: ParserBuffer, loc: int = 0
-    ) -> ParsedTransform[T, VIn, VOut]:
+    ) -> ParsedTransform[T, VIn_co, VOut_co]:
         return ParsedTransform(
             self.name, await self.parser.parse(buf, loc), self.transform
         )
 
 
-class Suppress(Transform[T, VIn, None]):
+class Suppress(Transform[T, VIn_co, None]):
     """Suppresses a parse tree from the values.
 
     Parameters
@@ -120,13 +122,13 @@ class Suppress(Transform[T, VIn, None]):
         (b'42',)
     """
 
-    def __init__(self, parser: Parser[T, VIn], *, name: str = None):
+    def __init__(self, parser: Parser[T, VIn_co], *, name: Optional[str] = None):
         super().__init__(
             parser, lambda _: [], name=name if name else f"Suppress({parser.name})"
         )
 
 
-class TransformValues(Transform[T, VIn, VOut]):
+class TransformValues(Transform[T, VIn_co, VOut_co]):
     """Transform parsed values.
 
     Parameters
@@ -168,10 +170,10 @@ class TransformValues(Transform[T, VIn, VOut]):
 
     def __init__(
         self,
-        parser: Parser[T, VIn],
-        transform: Callable[[Iterable[VIn]], Iterable[VOut]],
+        parser: Parser[T, VIn_co],
+        transform: Callable[[Iterable[VIn_co]], Iterable[VOut_co]],
         *,
-        name: str = None,
+        name: Optional[str] = None,
     ):
         super().__init__(
             parser,
@@ -180,7 +182,7 @@ class TransformValues(Transform[T, VIn, VOut]):
         )
 
 
-class Group(TransformValues[T, VIn, Tuple[VIn, ...]]):
+class Group(TransformValues[T, VIn_co, Tuple[VIn_co, ...]]):
     """Group the values of a resulting parse tree node into a tuple.
 
     This allows to introduce structure into the otherwise flat
@@ -218,7 +220,7 @@ class Group(TransformValues[T, VIn, Tuple[VIn, ...]]):
         ((b'A', b'B'), (b'1', b'2', b'3'))
     """
 
-    def __init__(self, parser: Parser[T, VIn], *, name: str = None):
+    def __init__(self, parser: Parser[T, VIn_co], *, name: Optional[str] = None):
         super().__init__(
             parser,
             lambda values: (tuple(values),),
