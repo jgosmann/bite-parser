@@ -1,4 +1,4 @@
-from asyncio import StreamReader
+from asyncio import IncompleteReadError, StreamReader
 from typing import Union
 
 from typing_extensions import Protocol
@@ -110,7 +110,12 @@ class StreamReaderBuffer:
         if max_index is None or max_index < 0:
             self._buf.extend(await self._reader.read())
         elif len(self._buf) <= max_index:
-            self._buf.extend(await self._reader.read(max_index - len(self._buf)))
+            try:
+                self._buf.extend(
+                    await self._reader.readexactly(max_index - len(self._buf))
+                )
+            except IncompleteReadError as err:
+                self._buf.extend(err.partial)
 
         return self._buf[key]
 

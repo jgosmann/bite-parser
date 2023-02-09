@@ -41,9 +41,15 @@ async def test_stream_reader_buffer_reads_not_more_than_necessary():
     future.set_result(b"abc")
 
     reader = MagicMock()
-    reader.read.return_value = future
+    reader.readexactly.return_value = future
     await StreamReaderBuffer(reader).get(slice(0, 3))
-    reader.read.assert_called_once_with(3)
+    reader.readexactly.assert_called_once_with(3)
+
+
+@pytest.mark.asyncio
+async def test_stream_reader_buffer_reads_requested_length_with_partial_reads():
+    buffer = StreamReaderBuffer(MockReader(b"0123456789", chunk_size=2))
+    assert await buffer.get(slice(0, 4)) == b"0123"
 
 
 @pytest.mark.asyncio
