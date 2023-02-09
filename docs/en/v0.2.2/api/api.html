@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API reference &mdash; bite-parser 0.2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/versioning.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/js/versioning.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bite.io module" href="io.html" />
+    <link rel="prev" title="Getting started" href="../getting-started.html" />
+<script>
+    initializeVersioningFromManifest({
+        currentVersion: "0.2.2",
+        baseUrl: "https://jgosmann.github.io/bite-parser/docs",
+    })
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> bite-parser
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#parsing-functions">Parsing functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parser-combinators">Parser combinators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parsing-concrete-bytes">Parsing concrete bytes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#combining-parsers">Combining parsers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#repetition-of-parsers">Repetition of parsers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transforming-parsed-values">Transforming parsed values</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#parse-tree-nodes">Parse tree nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-reference">Module reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="io.html">bite.io module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parse_functions.html">bite.parse_functions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html">bite.parsers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.html">bite.tests module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="transformers.html">bite.transformers module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">bite-parser</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div class="version-banner"></div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">API reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-reference">
+<h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this heading"></a></h1>
+<section id="parsing-functions">
+<h2>Parsing functions<a class="headerlink" href="#parsing-functions" title="Permalink to this heading"></a></h2>
+<p>These functions are intended as the main entry points to parsing something
+with a grammar defined with the <a class="reference internal" href="#parser-combinators">Parser combinators</a>. All parsing functions
+can also be directly imported from the <code class="docutils literal notranslate"><span class="pre">bite</span></code> package.</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="parse_functions.html#bite.parse_functions.parse_bytes" title="bite.parse_functions.parse_bytes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_functions.parse_bytes</span></code></a>(grammar, data, *)</p></td>
+<td><p>Parse an in-memory bytes object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="parse_functions.html#bite.parse_functions.parse_incremental" title="bite.parse_functions.parse_incremental"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_functions.parse_incremental</span></code></a>(grammar, ...)</p></td>
+<td><p>Parse bytes from an asynchronous stream incrementally.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="parser-combinators">
+<h2>Parser combinators<a class="headerlink" href="#parser-combinators" title="Permalink to this heading"></a></h2>
+<p>These classes can be combined to create the desired parser for a given grammar.
+All parser combinators can also be directly imported from the <code class="docutils literal notranslate"><span class="pre">bite</span></code> package.</p>
+<section id="parsing-concrete-bytes">
+<h3>Parsing concrete bytes<a class="headerlink" href="#parsing-concrete-bytes" title="Permalink to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.CaselessLiteral" title="bite.parsers.CaselessLiteral"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.CaselessLiteral</span></code></a></p></td>
+<td><p>Parses a case-insensitive sequence of bytes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="parsers.html#bite.parsers.CharacterSet" title="bite.parsers.CharacterSet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.CharacterSet</span></code></a></p></td>
+<td><p>Parses a single byte from a given set.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.FixedByteCount" title="bite.parsers.FixedByteCount"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.FixedByteCount</span></code></a></p></td>
+<td><p>Parses a fixed number of bytes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="parsers.html#bite.parsers.Literal" title="bite.parsers.Literal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.Literal</span></code></a></p></td>
+<td><p>Parses an exact sequence of bytes.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="combining-parsers">
+<h3>Combining parsers<a class="headerlink" href="#combining-parsers" title="Permalink to this heading"></a></h3>
+<p>Parser instances can also be combined with the following operators:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">+</span></code> (<code class="xref py py-class docutils literal notranslate"><span class="pre">And</span></code>): Apply parsers in sequence.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">|</span></code> (<code class="xref py py-class docutils literal notranslate"><span class="pre">MatchFirst</span></code>): Apply the first parser that succeeds parsing
+the input.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~</span></code> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Not</span></code>): Negative look-ahead.</p></li>
+</ul>
+</div></blockquote>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.And" title="bite.parsers.And"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.And</span></code></a></p></td>
+<td><p>Apply multiple parsers in sequence.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="parsers.html#bite.parsers.Combine" title="bite.parsers.Combine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.Combine</span></code></a></p></td>
+<td><p>Combine parse tree leaves into a single node.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.Forward" title="bite.parsers.Forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.Forward</span></code></a></p></td>
+<td><p>Forward declaration allowing the definition of recursive rules.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="parsers.html#bite.parsers.MatchFirst" title="bite.parsers.MatchFirst"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.MatchFirst</span></code></a></p></td>
+<td><p>Apply the first parser that succeeds parsing the input.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.Not" title="bite.parsers.Not"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.Not</span></code></a></p></td>
+<td><p>Negative look-ahead.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="repetition-of-parsers">
+<h3>Repetition of parsers<a class="headerlink" href="#repetition-of-parsers" title="Permalink to this heading"></a></h3>
+<p>Repetition of a parser instance can also be declared with indexing/bracket
+notation as <code class="docutils literal notranslate"><span class="pre">parser[x,</span> <span class="pre">y]</span></code>. `` x`` must be a non-negative integer. <code class="docutils literal notranslate"><span class="pre">y</span></code> must
+be either a positive integer or the ellipsis <code class="docutils literal notranslate"><span class="pre">...</span></code> to allow for unlimited
+repetitions.</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.Counted" title="bite.parsers.Counted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.Counted</span></code></a></p></td>
+<td><p>Read a count and create a parser from it.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="parsers.html#bite.parsers.OneOrMore" title="bite.parsers.OneOrMore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.OneOrMore</span></code></a></p></td>
+<td><p>Require a parser to apply one or more times.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.Opt" title="bite.parsers.Opt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.Opt</span></code></a></p></td>
+<td><p>Make a parser optional.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="parsers.html#bite.parsers.Repeat" title="bite.parsers.Repeat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.Repeat</span></code></a></p></td>
+<td><p>Apply a parser repeatedly.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.ZeroOrMore" title="bite.parsers.ZeroOrMore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.ZeroOrMore</span></code></a></p></td>
+<td><p>Require a parser to apply zero or more times.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="transforming-parsed-values">
+<h3>Transforming parsed values<a class="headerlink" href="#transforming-parsed-values" title="Permalink to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="transformers.html#bite.transformers.Group" title="bite.transformers.Group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transformers.Group</span></code></a></p></td>
+<td><p>Group the values of a resulting parse tree node into a tuple.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="transformers.html#bite.transformers.Suppress" title="bite.transformers.Suppress"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transformers.Suppress</span></code></a></p></td>
+<td><p>Suppresses a parse tree from the values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="transformers.html#bite.transformers.Transform" title="bite.transformers.Transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transformers.Transform</span></code></a></p></td>
+<td><p>Transform a resulting parse tree node to produce different values.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="transformers.html#bite.transformers.TransformValues" title="bite.transformers.TransformValues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transformers.TransformValues</span></code></a></p></td>
+<td><p>Transform parsed values.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="parse-tree-nodes">
+<h2>Parse tree nodes<a class="headerlink" href="#parse-tree-nodes" title="Permalink to this heading"></a></h2>
+<p>These classes define the structure of the parse tree returned from a parser.
+The general protocol of these classes is given by <a class="reference internal" href="parsers.html#bite.parsers.ParsedNode" title="bite.parsers.ParsedNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">parsers.ParsedNode</span></code></a>.
+Besides the fundamental class listed here, many parsers define their
+specialized implemenations.</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.ParsedLeaf" title="bite.parsers.ParsedLeaf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.ParsedLeaf</span></code></a></p></td>
+<td><p>A leaf node in a parse tree.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="parsers.html#bite.parsers.ParsedNil" title="bite.parsers.ParsedNil"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.ParsedNil</span></code></a></p></td>
+<td><p>A leaf node in a parse tree representing a zero-length segment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.ParsedNode" title="bite.parsers.ParsedNode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.ParsedNode</span></code></a></p></td>
+<td><p>A single node in a parse tree.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-reference">
+<h2>Module reference<a class="headerlink" href="#module-reference" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="io.html">bite.io module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="io.html#bite.io.BytesBuffer"><code class="docutils literal notranslate"><span class="pre">BytesBuffer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="io.html#bite.io.BytesBuffer.at_eof"><code class="docutils literal notranslate"><span class="pre">BytesBuffer.at_eof()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#bite.io.BytesBuffer.get"><code class="docutils literal notranslate"><span class="pre">BytesBuffer.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#bite.io.BytesBuffer.get_current"><code class="docutils literal notranslate"><span class="pre">BytesBuffer.get_current()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="io.html#bite.io.ParserBuffer"><code class="docutils literal notranslate"><span class="pre">ParserBuffer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="io.html#bite.io.ParserBuffer.at_eof"><code class="docutils literal notranslate"><span class="pre">ParserBuffer.at_eof()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#bite.io.ParserBuffer.get"><code class="docutils literal notranslate"><span class="pre">ParserBuffer.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#bite.io.ParserBuffer.get_current"><code class="docutils literal notranslate"><span class="pre">ParserBuffer.get_current()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="io.html#bite.io.StreamReaderBuffer"><code class="docutils literal notranslate"><span class="pre">StreamReaderBuffer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="io.html#bite.io.StreamReaderBuffer.at_eof"><code class="docutils literal notranslate"><span class="pre">StreamReaderBuffer.at_eof()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#bite.io.StreamReaderBuffer.drop_prefix"><code class="docutils literal notranslate"><span class="pre">StreamReaderBuffer.drop_prefix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#bite.io.StreamReaderBuffer.get"><code class="docutils literal notranslate"><span class="pre">StreamReaderBuffer.get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#bite.io.StreamReaderBuffer.get_current"><code class="docutils literal notranslate"><span class="pre">StreamReaderBuffer.get_current()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="parse_functions.html">bite.parse_functions module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="parse_functions.html#bite.parse_functions.parse_bytes"><code class="docutils literal notranslate"><span class="pre">parse_bytes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_functions.html#bite.parse_functions.parse_incremental"><code class="docutils literal notranslate"><span class="pre">parse_incremental()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="parsers.html">bite.parsers module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.ParseError"><code class="docutils literal notranslate"><span class="pre">ParseError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.TrailingBytesError"><code class="docutils literal notranslate"><span class="pre">TrailingBytesError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.UnmetExpectationError"><code class="docutils literal notranslate"><span class="pre">UnmetExpectationError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.And"><code class="docutils literal notranslate"><span class="pre">And</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.And.parse"><code class="docutils literal notranslate"><span class="pre">And.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.CaselessLiteral"><code class="docutils literal notranslate"><span class="pre">CaselessLiteral</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.CaselessLiteral.parse"><code class="docutils literal notranslate"><span class="pre">CaselessLiteral.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.CharacterSet"><code class="docutils literal notranslate"><span class="pre">CharacterSet</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.CharacterSet.parse"><code class="docutils literal notranslate"><span class="pre">CharacterSet.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.Combine"><code class="docutils literal notranslate"><span class="pre">Combine</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.Combine.parse"><code class="docutils literal notranslate"><span class="pre">Combine.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.Counted"><code class="docutils literal notranslate"><span class="pre">Counted</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.Counted.parse"><code class="docutils literal notranslate"><span class="pre">Counted.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.CountedParseTree"><code class="docutils literal notranslate"><span class="pre">CountedParseTree</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.CountedParseTree.count_expr"><code class="docutils literal notranslate"><span class="pre">CountedParseTree.count_expr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.CountedParseTree.counted_expr"><code class="docutils literal notranslate"><span class="pre">CountedParseTree.counted_expr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.CountedParseTree.end_loc"><code class="docutils literal notranslate"><span class="pre">CountedParseTree.end_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.CountedParseTree.start_loc"><code class="docutils literal notranslate"><span class="pre">CountedParseTree.start_loc</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.FixedByteCount"><code class="docutils literal notranslate"><span class="pre">FixedByteCount</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.FixedByteCount.parse"><code class="docutils literal notranslate"><span class="pre">FixedByteCount.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.Forward"><code class="docutils literal notranslate"><span class="pre">Forward</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.Forward.assign"><code class="docutils literal notranslate"><span class="pre">Forward.assign()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.Forward.parse"><code class="docutils literal notranslate"><span class="pre">Forward.parse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.Forward.parser"><code class="docutils literal notranslate"><span class="pre">Forward.parser</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.Literal"><code class="docutils literal notranslate"><span class="pre">Literal</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.Literal.parse"><code class="docutils literal notranslate"><span class="pre">Literal.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.MatchFirst"><code class="docutils literal notranslate"><span class="pre">MatchFirst</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.MatchFirst.parse"><code class="docutils literal notranslate"><span class="pre">MatchFirst.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.Not"><code class="docutils literal notranslate"><span class="pre">Not</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.Not.parse"><code class="docutils literal notranslate"><span class="pre">Not.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.OneOrMore"><code class="docutils literal notranslate"><span class="pre">OneOrMore</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.OneOrMore.parse"><code class="docutils literal notranslate"><span class="pre">OneOrMore.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.Opt"><code class="docutils literal notranslate"><span class="pre">Opt</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.Opt.parse"><code class="docutils literal notranslate"><span class="pre">Opt.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.ParsedBaseNode"><code class="docutils literal notranslate"><span class="pre">ParsedBaseNode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedBaseNode.name"><code class="docutils literal notranslate"><span class="pre">ParsedBaseNode.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedBaseNode.parse_tree"><code class="docutils literal notranslate"><span class="pre">ParsedBaseNode.parse_tree</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.ParsedCounted"><code class="docutils literal notranslate"><span class="pre">ParsedCounted</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedCounted.end_loc"><code class="docutils literal notranslate"><span class="pre">ParsedCounted.end_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedCounted.name"><code class="docutils literal notranslate"><span class="pre">ParsedCounted.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedCounted.parse_tree"><code class="docutils literal notranslate"><span class="pre">ParsedCounted.parse_tree</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedCounted.start_loc"><code class="docutils literal notranslate"><span class="pre">ParsedCounted.start_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedCounted.values"><code class="docutils literal notranslate"><span class="pre">ParsedCounted.values</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.ParsedLeaf"><code class="docutils literal notranslate"><span class="pre">ParsedLeaf</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedLeaf.end_loc"><code class="docutils literal notranslate"><span class="pre">ParsedLeaf.end_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedLeaf.name"><code class="docutils literal notranslate"><span class="pre">ParsedLeaf.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedLeaf.parse_tree"><code class="docutils literal notranslate"><span class="pre">ParsedLeaf.parse_tree</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedLeaf.start_loc"><code class="docutils literal notranslate"><span class="pre">ParsedLeaf.start_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedLeaf.values"><code class="docutils literal notranslate"><span class="pre">ParsedLeaf.values</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.ParsedList"><code class="docutils literal notranslate"><span class="pre">ParsedList</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedList.end_loc"><code class="docutils literal notranslate"><span class="pre">ParsedList.end_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedList.loc"><code class="docutils literal notranslate"><span class="pre">ParsedList.loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedList.name"><code class="docutils literal notranslate"><span class="pre">ParsedList.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedList.parse_tree"><code class="docutils literal notranslate"><span class="pre">ParsedList.parse_tree</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedList.start_loc"><code class="docutils literal notranslate"><span class="pre">ParsedList.start_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedList.values"><code class="docutils literal notranslate"><span class="pre">ParsedList.values</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.ParsedMatchFirst"><code class="docutils literal notranslate"><span class="pre">ParsedMatchFirst</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedMatchFirst.choice_index"><code class="docutils literal notranslate"><span class="pre">ParsedMatchFirst.choice_index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedMatchFirst.end_loc"><code class="docutils literal notranslate"><span class="pre">ParsedMatchFirst.end_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedMatchFirst.name"><code class="docutils literal notranslate"><span class="pre">ParsedMatchFirst.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedMatchFirst.parse_tree"><code class="docutils literal notranslate"><span class="pre">ParsedMatchFirst.parse_tree</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedMatchFirst.start_loc"><code class="docutils literal notranslate"><span class="pre">ParsedMatchFirst.start_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedMatchFirst.values"><code class="docutils literal notranslate"><span class="pre">ParsedMatchFirst.values</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.ParsedNil"><code class="docutils literal notranslate"><span class="pre">ParsedNil</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedNil.end_loc"><code class="docutils literal notranslate"><span class="pre">ParsedNil.end_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedNil.loc"><code class="docutils literal notranslate"><span class="pre">ParsedNil.loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedNil.name"><code class="docutils literal notranslate"><span class="pre">ParsedNil.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedNil.parse_tree"><code class="docutils literal notranslate"><span class="pre">ParsedNil.parse_tree</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedNil.start_loc"><code class="docutils literal notranslate"><span class="pre">ParsedNil.start_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedNil.values"><code class="docutils literal notranslate"><span class="pre">ParsedNil.values</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.ParsedNode"><code class="docutils literal notranslate"><span class="pre">ParsedNode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedNode.end_loc"><code class="docutils literal notranslate"><span class="pre">ParsedNode.end_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedNode.name"><code class="docutils literal notranslate"><span class="pre">ParsedNode.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedNode.parse_tree"><code class="docutils literal notranslate"><span class="pre">ParsedNode.parse_tree</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedNode.start_loc"><code class="docutils literal notranslate"><span class="pre">ParsedNode.start_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ParsedNode.values"><code class="docutils literal notranslate"><span class="pre">ParsedNode.values</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.ParsedOneOrMore"><code class="docutils literal notranslate"><span class="pre">ParsedOneOrMore</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.ParsedOpt"><code class="docutils literal notranslate"><span class="pre">ParsedOpt</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.ParsedRepeat"><code class="docutils literal notranslate"><span class="pre">ParsedRepeat</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.ParsedZeroOrMore"><code class="docutils literal notranslate"><span class="pre">ParsedZeroOrMore</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.Parser"><code class="docutils literal notranslate"><span class="pre">Parser</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.Parser.parse"><code class="docutils literal notranslate"><span class="pre">Parser.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.Repeat"><code class="docutils literal notranslate"><span class="pre">Repeat</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.Repeat.parse"><code class="docutils literal notranslate"><span class="pre">Repeat.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsers.html#bite.parsers.ZeroOrMore"><code class="docutils literal notranslate"><span class="pre">ZeroOrMore</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html#bite.parsers.ZeroOrMore.parse"><code class="docutils literal notranslate"><span class="pre">ZeroOrMore.parse()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">bite.tests module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests.html#bite.tests.MockReader"><code class="docutils literal notranslate"><span class="pre">MockReader</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.html#bite.tests.MockReader.at_eof"><code class="docutils literal notranslate"><span class="pre">MockReader.at_eof()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.html#bite.tests.MockReader.read"><code class="docutils literal notranslate"><span class="pre">MockReader.read()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.html#bite.tests.MockReader.readexactly"><code class="docutils literal notranslate"><span class="pre">MockReader.readexactly()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.html#bite.tests.MockReader.readline"><code class="docutils literal notranslate"><span class="pre">MockReader.readline()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.html#bite.tests.MockReader.readuntil"><code class="docutils literal notranslate"><span class="pre">MockReader.readuntil()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="transformers.html">bite.transformers module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="transformers.html#bite.transformers.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="transformers.html#bite.transformers.Group.parse"><code class="docutils literal notranslate"><span class="pre">Group.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="transformers.html#bite.transformers.ParsedTransform"><code class="docutils literal notranslate"><span class="pre">ParsedTransform</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="transformers.html#bite.transformers.ParsedTransform.end_loc"><code class="docutils literal notranslate"><span class="pre">ParsedTransform.end_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="transformers.html#bite.transformers.ParsedTransform.name"><code class="docutils literal notranslate"><span class="pre">ParsedTransform.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="transformers.html#bite.transformers.ParsedTransform.parse_tree"><code class="docutils literal notranslate"><span class="pre">ParsedTransform.parse_tree</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="transformers.html#bite.transformers.ParsedTransform.start_loc"><code class="docutils literal notranslate"><span class="pre">ParsedTransform.start_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="transformers.html#bite.transformers.ParsedTransform.transform"><code class="docutils literal notranslate"><span class="pre">ParsedTransform.transform</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="transformers.html#bite.transformers.ParsedTransform.values"><code class="docutils literal notranslate"><span class="pre">ParsedTransform.values</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="transformers.html#bite.transformers.Suppress"><code class="docutils literal notranslate"><span class="pre">Suppress</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="transformers.html#bite.transformers.Suppress.parse"><code class="docutils literal notranslate"><span class="pre">Suppress.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="transformers.html#bite.transformers.Transform"><code class="docutils literal notranslate"><span class="pre">Transform</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="transformers.html#bite.transformers.Transform.parse"><code class="docutils literal notranslate"><span class="pre">Transform.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="transformers.html#bite.transformers.TransformValues"><code class="docutils literal notranslate"><span class="pre">TransformValues</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="transformers.html#bite.transformers.TransformValues.parse"><code class="docutils literal notranslate"><span class="pre">TransformValues.parse()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../getting-started.html" class="btn btn-neutral float-left" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="io.html" class="btn btn-neutral float-right" title="bite.io module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Jan Gosmann.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-github" style="float: left;"></span>
+        v: 0.2.2
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Versions</dt>
+        </dl>
+        <dl>
+            <dt>On GitHub</dt>
+            <dd><a href="https://github.com/jgosmann/bite-parser/">Repository</a></dd>
+        </dl>
+    </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
