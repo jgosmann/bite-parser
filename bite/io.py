@@ -1,7 +1,5 @@
 from asyncio import IncompleteReadError, StreamReader
-from typing import Union
-
-from typing_extensions import Protocol
+from typing import Protocol, Union
 
 
 def _copy_doc(source):
