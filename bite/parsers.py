@@ -7,12 +7,11 @@ from typing import (
     Iterable,
     NoReturn,
     Optional,
+    Protocol,
     Tuple,
     TypeVar,
     Union,
 )
-
-from typing_extensions import Protocol
 
 from bite.io import ParserBuffer
 
