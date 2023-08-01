@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>bite.parsers module &mdash; bite-parser 0.2 documentation</title>
@@ -12,10 +12,9 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/js/versioning.js"></script>
@@ -26,7 +25,7 @@
     <link rel="prev" title="bite.parse_functions module" href="parse_functions.html" />
 <script>
     initializeVersioningFromManifest({
-        currentVersion: "0.2.2",
+        currentVersion: "0.2.3",
         baseUrl: "https://jgosmann.github.io/bite-parser/docs",
     })
 </script>
@@ -38,11 +37,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> bite-parser
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            bite-parser
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -117,7 +120,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="api.html">API reference</a></li>
       <li class="breadcrumb-item active">bite.parsers module</li>
       <li class="wy-breadcrumbs-aside">
@@ -156,11 +159,11 @@ parser.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.And">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">And</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parsers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.And" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">And</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parsers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.And" title="Permalink to this definition"></a></dt>
 <dd><p>Apply multiple parsers in sequence.</p>
 <p>Each parser must be able to parse the input when applied in sequence.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parsers</strong> – Parser to apply in sequence.</p></li>
 <li><p><strong>name</strong> – Name to assign to the resulting parse tree node.</p></li>
@@ -184,17 +187,17 @@ parser.</p>
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -208,13 +211,13 @@ is returned.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.CaselessLiteral">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">CaselessLiteral</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">literal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.CaselessLiteral" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">CaselessLiteral</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">literal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.CaselessLiteral" title="Permalink to this definition"></a></dt>
 <dd><p>Parses a case-insensitive sequence of bytes.</p>
 <p>The <em>literal</em> passed to the <a class="reference internal" href="#bite.parsers.CaselessLiteral" title="bite.parsers.CaselessLiteral"><code class="xref py py-class docutils literal notranslate"><span class="pre">CaselessLiteral</span></code></a> constructor will be
 treated as the canconical form, i.e. the value returned from the parse tree
 node.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>literal</strong> – The canonical form of the bytes to match.</p></li>
 <li><p><strong>name</strong> – Name to assign to the resulting parse tree node.</p></li>
@@ -238,17 +241,17 @@ node.</p>
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -262,7 +265,7 @@ is returned.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.CharacterSet">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">CharacterSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">charset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.CharacterSet" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">CharacterSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">charset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.CharacterSet" title="Permalink to this definition"></a></dt>
 <dd><p>Parses a single byte from a given set.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -272,7 +275,7 @@ you can define a range using something like
 forms: <code class="docutils literal notranslate"><span class="pre">b'abc'</span> <span class="pre">+</span> <span class="pre">bytes(range(0x7F,</span> <span class="pre">0x9F</span> <span class="pre">+</span> <span class="pre">1))</span></code>.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>charset</strong> – The set of bytes parsed by this parser.</p></li>
 <li><p><strong>invert</strong> – Set to <code class="docutils literal notranslate"><span class="pre">true</span></code> to match all bytes <em>not</em> given by the <em>charset</em>.</p></li>
@@ -297,17 +300,17 @@ forms: <code class="docutils literal notranslate"><span class="pre">b'abc'</spa
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -321,12 +324,12 @@ is returned.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.Combine">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Combine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Combine" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Combine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Combine" title="Permalink to this definition"></a></dt>
 <dd><p>Combine parse tree leaves into a single node.</p>
 <p>This parser is helpful to obtain a single byte string when using multiple
 parsers producing individual segments of this byte string.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parser</strong> – Parser to obtain the individual segments to combine.</p></li>
 <li><p><strong>name</strong> – Name to assign to the resulting parse tree node.</p></li>
@@ -355,17 +358,17 @@ parsers producing individual segments of this byte string.</p>
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -379,10 +382,10 @@ is returned.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.Counted">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Counted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count_parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">counted_parser_factory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Counted" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Counted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count_parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">counted_parser_factory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Counted" title="Permalink to this definition"></a></dt>
 <dd><p>Read a count and create a parser from it.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>count_parser</strong> – Parser to read the count. The resulting parse tree must return a single
 value that can be converted to an <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p></li>
@@ -415,17 +418,17 @@ to parse the subsequent bytes.</p></li>
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -471,10 +474,10 @@ node.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.FixedByteCount">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">FixedByteCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.FixedByteCount" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">FixedByteCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.FixedByteCount" title="Permalink to this definition"></a></dt>
 <dd><p>Parses a fixed number of bytes.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>count</strong> – How many bytes to read.</p></li>
 <li><p><strong>name</strong> – Name to assign to the resulting parse tree node.</p></li>
@@ -498,17 +501,17 @@ node.</p>
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -522,7 +525,7 @@ is returned.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.Forward">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Forward" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Forward" title="Permalink to this definition"></a></dt>
 <dd><p>Forward declaration allowing the definition of recursive rules.</p>
 <p>Use the <a class="reference internal" href="#bite.parsers.Forward.assign" title="bite.parsers.Forward.assign"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assign()</span></code></a> method to set the actual parser definition.</p>
 <div class="admonition warning">
@@ -531,7 +534,7 @@ is returned.</p>
 recursively call itself causing a stack overflow.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>name</strong> – Name to assign to the resulting parse tree node.</p>
 </dd>
 </dl>
@@ -561,17 +564,17 @@ recursively call itself causing a stack overflow.</p>
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -583,17 +586,17 @@ is returned.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bite.parsers.Forward.parser">
-<span class="sig-name descname"><span class="pre">parser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Forward.parser" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">parser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Forward.parser" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.Literal">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Literal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">literal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Literal" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Literal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">literal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Literal" title="Permalink to this definition"></a></dt>
 <dd><p>Parses an exact sequence of bytes.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>literal</strong> – The bytes to match.</p></li>
 <li><p><strong>name</strong> – Name to assign to the resulting parse tree node.</p></li>
@@ -617,17 +620,17 @@ is returned.</p>
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -641,10 +644,10 @@ is returned.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.MatchFirst">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">MatchFirst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.MatchFirst" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">MatchFirst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.MatchFirst" title="Permalink to this definition"></a></dt>
 <dd><p>Apply the first parser that succeeds parsing the input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>choices</strong> – Parsers to try in the given order until one succeeds parsing the input.</p></li>
 <li><p><strong>name</strong> – Name to assign to the resulting parse tree node.</p></li>
@@ -671,17 +674,17 @@ is returned.</p>
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -695,12 +698,12 @@ is returned.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.Not">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Not</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Not" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Not</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Not" title="Permalink to this definition"></a></dt>
 <dd><p>Negative look-ahead.</p>
 <p>This parser does not consume any input bytes, but will only succeed parsing
 if the following input bytes are not parsed by the given parser.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parser</strong> – Parser that is supposed to not match the input.</p></li>
 <li><p><strong>name</strong> – Name to assign to the resulting parse tree node.</p></li>
@@ -734,17 +737,17 @@ bite.parsers.UnmetExpectationError: expected Not(b&#39;a&#39;) at position 0
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -758,12 +761,12 @@ is returned.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.OneOrMore">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">OneOrMore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.OneOrMore" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">OneOrMore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.OneOrMore" title="Permalink to this definition"></a></dt>
 <dd><p>Require a parser to apply one or more times.</p>
 <p>This is parser is equivalent to the <a class="reference internal" href="#bite.parsers.Repeat" title="bite.parsers.Repeat"><code class="xref py py-class docutils literal notranslate"><span class="pre">Repeat</span></code></a> parser with
 <code class="docutils literal notranslate"><span class="pre">min_repeats=1</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parser</strong> – Parser for a single application.</p></li>
 <li><p><strong>name</strong> – Name to assign to the resulting parse tree node.</p></li>
@@ -797,17 +800,17 @@ bite.parsers.UnmetExpectationError: expected b&#39;a&#39; at position 0
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -821,12 +824,12 @@ is returned.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.Opt">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Opt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Opt" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Opt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Opt" title="Permalink to this definition"></a></dt>
 <dd><p>Make a parser optional.</p>
 <p>This is parser is equivalent to the <a class="reference internal" href="#bite.parsers.Repeat" title="bite.parsers.Repeat"><code class="xref py py-class docutils literal notranslate"><span class="pre">Repeat</span></code></a> parser with
 <code class="docutils literal notranslate"><span class="pre">min_repeats=0</span></code> and <code class="docutils literal notranslate"><span class="pre">max_repeats=1</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parser</strong> – Parser to apply optionally.</p></li>
 <li><p><strong>name</strong> – Name to assign to the resulting parse tree node.</p></li>
@@ -852,17 +855,17 @@ is returned.</p>
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -876,11 +879,11 @@ is returned.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.ParsedBaseNode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ParsedBaseNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedBaseNode" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ParsedBaseNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedBaseNode" title="Permalink to this definition"></a></dt>
 <dd><p>Implementation of common fields to all parse tree nodes.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bite.parsers.ParsedBaseNode.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedBaseNode.name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedBaseNode.name" title="Permalink to this definition"></a></dt>
 <dd><p>Name of the node.</p>
 </dd></dl>
 
@@ -894,7 +897,7 @@ is returned.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.ParsedCounted">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ParsedCounted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.CountedParseTree" title="bite.parsers.CountedParseTree"><span class="pre">bite.parsers.CountedParseTree</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedCounted" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ParsedCounted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.CountedParseTree" title="bite.parsers.CountedParseTree"><span class="pre">bite.parsers.CountedParseTree</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedCounted" title="Permalink to this definition"></a></dt>
 <dd><dl class="py property">
 <dt class="sig sig-object py" id="bite.parsers.ParsedCounted.end_loc">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">end_loc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedCounted.end_loc" title="Permalink to this definition"></a></dt>
@@ -904,7 +907,7 @@ the node.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bite.parsers.ParsedCounted.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedCounted.name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedCounted.name" title="Permalink to this definition"></a></dt>
 <dd><p>Name of the node.</p>
 </dd></dl>
 
@@ -932,7 +935,7 @@ node.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.ParsedLeaf">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ParsedLeaf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_loc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_loc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedLeaf" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ParsedLeaf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_loc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_loc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedLeaf" title="Permalink to this definition"></a></dt>
 <dd><p>A leaf node in a parse tree.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bite.parsers.ParsedLeaf.end_loc">
@@ -943,7 +946,7 @@ node.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bite.parsers.ParsedLeaf.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedLeaf.name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedLeaf.name" title="Permalink to this definition"></a></dt>
 <dd><p>Name of the node.</p>
 </dd></dl>
 
@@ -964,7 +967,7 @@ node.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedLeaf.values" title="Permalink to this definition"></a></dt>
 <dd><p>Value of the node.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A single element tuple with the <a class="reference internal" href="#bite.parsers.ParsedLeaf.parse_tree" title="bite.parsers.ParsedLeaf.parse_tree"><code class="xref py py-attr docutils literal notranslate"><span class="pre">parse_tree</span></code></a>.</p>
 </dd>
 </dl>
@@ -974,7 +977,7 @@ node.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.ParsedList">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ParsedList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">+T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedList" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ParsedList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">+T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedList" title="Permalink to this definition"></a></dt>
 <dd><dl class="py property">
 <dt class="sig sig-object py" id="bite.parsers.ParsedList.end_loc">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">end_loc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedList.end_loc" title="Permalink to this definition"></a></dt>
@@ -991,7 +994,7 @@ starts.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bite.parsers.ParsedList.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedList.name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedList.name" title="Permalink to this definition"></a></dt>
 <dd><p>Name of the node.</p>
 </dd></dl>
 
@@ -1017,7 +1020,7 @@ starts.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.ParsedMatchFirst">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ParsedMatchFirst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">+T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choice_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedMatchFirst" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ParsedMatchFirst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">+T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choice_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedMatchFirst" title="Permalink to this definition"></a></dt>
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="bite.parsers.ParsedMatchFirst.choice_index">
 <span class="sig-name descname"><span class="pre">choice_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedMatchFirst.choice_index" title="Permalink to this definition"></a></dt>
@@ -1033,7 +1036,7 @@ the node.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bite.parsers.ParsedMatchFirst.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedMatchFirst.name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedMatchFirst.name" title="Permalink to this definition"></a></dt>
 <dd><p>Name of the node.</p>
 </dd></dl>
 
@@ -1060,7 +1063,7 @@ node.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.ParsedNil">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ParsedNil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedNil" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ParsedNil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedNil" title="Permalink to this definition"></a></dt>
 <dd><p>A leaf node in a parse tree representing a zero-length segment.</p>
 <p>Such zero-length segments can be generated by look-aheads which do not
 actually consume any input.</p>
@@ -1079,7 +1082,7 @@ the node. Will always be equal to <cite>start_loc</cite>.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="bite.parsers.ParsedNil.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedNil.name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedNil.name" title="Permalink to this definition"></a></dt>
 <dd><p>Name of the node.</p>
 </dd></dl>
 
@@ -1116,7 +1119,7 @@ the node.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="bite.parsers.ParsedNode.name">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedNode.name" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ParsedNode.name" title="Permalink to this definition"></a></dt>
 <dd><p>Name of the node.</p>
 </dd></dl>
 
@@ -1186,7 +1189,7 @@ the input.</p></li>
 allow for unlimited repetitions.</p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>name</strong> – Name to assign to the resulting parse tree node.</p>
 </dd>
 </dl>
@@ -1197,17 +1200,17 @@ allow for unlimited repetitions.</p></li>
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -1221,10 +1224,10 @@ is returned.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.Repeat">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Repeat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_repeats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_repeats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Repeat" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">Repeat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_repeats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_repeats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.Repeat" title="Permalink to this definition"></a></dt>
 <dd><p>Apply a parser repeatedly.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parser</strong> – Parser to apply repeatedly.</p></li>
 <li><p><strong>min_repeats</strong> – Minimun number of applications of the parser.</p></li>
@@ -1273,17 +1276,17 @@ bite.parsers.UnmetExpectationError: expected b&#39;a&#39; at position 0
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -1297,12 +1300,12 @@ is returned.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="bite.parsers.ZeroOrMore">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ZeroOrMore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ZeroOrMore" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.parsers.</span></span><span class="sig-name descname"><span class="pre">ZeroOrMore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#bite.parsers.Parser" title="bite.parsers.Parser"><span class="pre">Parser</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">V</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/parsers.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.parsers.ZeroOrMore" title="Permalink to this definition"></a></dt>
 <dd><p>Require a parser to apply zero or more times.</p>
 <p>This is parser is equivalent to the <a class="reference internal" href="#bite.parsers.Repeat" title="bite.parsers.Repeat"><code class="xref py py-class docutils literal notranslate"><span class="pre">Repeat</span></code></a> parser with
 <code class="docutils literal notranslate"><span class="pre">min_repeats=0</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parser</strong> – Parser for a single application.</p></li>
 <li><p><strong>name</strong> – Name to assign to the resulting parse tree node.</p></li>
@@ -1328,17 +1331,17 @@ is returned.</p>
 <p>Starts parsing from the given location and does not need to consume
 all provided input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buf</strong> – Buffer providing access to the input.</p></li>
 <li><p><strong>loc</strong> – Index into the buffer from where to start parsing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>If parsing is successful, a parse tree representing the parse result
 is returned.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#bite.parsers.UnmetExpectationError" title="bite.parsers.UnmetExpectationError"><strong>UnmetExpectationError</strong></a> – If parsing was unsuccessful, because the input does not match what
     is expected from this parser.</p></li>
@@ -1380,7 +1383,7 @@ is returned.</p>
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-github" style="float: left;"></span>
-        v: 0.2.2
+        v: 0.2.3
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
