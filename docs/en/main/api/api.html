@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API reference &mdash; bite-parser unreleased documentation</title>
@@ -12,10 +12,9 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/js/versioning.js"></script>
@@ -38,11 +37,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> bite-parser
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            bite-parser
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -91,7 +94,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">API reference</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/api.rst.txt" rel="nofollow"> View page source</a>
@@ -110,10 +113,6 @@
 with a grammar defined with the <a class="reference internal" href="#parser-combinators">Parser combinators</a>. All parsing functions
 can also be directly imported from the <code class="docutils literal notranslate"><span class="pre">bite</span></code> package.</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="parse_functions.html#bite.parse_functions.parse_bytes" title="bite.parse_functions.parse_bytes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_functions.parse_bytes</span></code></a>(grammar, data, *)</p></td>
 <td><p>Parse an in-memory bytes object.</p></td>
@@ -131,10 +130,6 @@ All parser combinators can also be directly imported from the <code class="docut
 <section id="parsing-concrete-bytes">
 <h3>Parsing concrete bytes<a class="headerlink" href="#parsing-concrete-bytes" title="Permalink to this heading"></a></h3>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.CaselessLiteral" title="bite.parsers.CaselessLiteral"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.CaselessLiteral</span></code></a></p></td>
 <td><p>Parses a case-insensitive sequence of bytes.</p></td>
@@ -163,10 +158,6 @@ the input.</p></li>
 </ul>
 </div></blockquote>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.And" title="bite.parsers.And"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.And</span></code></a></p></td>
 <td><p>Apply multiple parsers in sequence.</p></td>
@@ -193,10 +184,6 @@ notation as <code class="docutils literal notranslate"><span class="pre">parser[
 be either a positive integer or the ellipsis <code class="docutils literal notranslate"><span class="pre">...</span></code> to allow for unlimited
 repetitions.</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.Counted" title="bite.parsers.Counted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.Counted</span></code></a></p></td>
 <td><p>Read a count and create a parser from it.</p></td>
@@ -219,10 +206,6 @@ repetitions.</p>
 <section id="transforming-parsed-values">
 <h3>Transforming parsed values<a class="headerlink" href="#transforming-parsed-values" title="Permalink to this heading"></a></h3>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="transformers.html#bite.transformers.Group" title="bite.transformers.Group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transformers.Group</span></code></a></p></td>
 <td><p>Group the values of a resulting parse tree node into a tuple.</p></td>
@@ -247,10 +230,6 @@ The general protocol of these classes is given by <a class="reference internal" 
 Besides the fundamental class listed here, many parsers define their
 specialized implemenations.</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.ParsedLeaf" title="bite.parsers.ParsedLeaf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.ParsedLeaf</span></code></a></p></td>
 <td><p>A leaf node in a parse tree.</p></td>
