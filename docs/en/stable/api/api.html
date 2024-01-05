@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API reference &mdash; bite-parser 0.2 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/versioning.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/versioning.css?v=47c7a966" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/js/versioning.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=10f1778b"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/js/versioning.js?v=125fa559"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -25,7 +27,7 @@
     <link rel="prev" title="Getting started" href="../getting-started.html" />
 <script>
     initializeVersioningFromManifest({
-        currentVersion: "0.2.3",
+        currentVersion: "0.2.4",
         baseUrl: "https://jgosmann.github.io/bite-parser/docs",
     })
 </script>
@@ -106,9 +108,9 @@
            <div itemprop="articleBody">
              
   <section id="api-reference">
-<h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this heading"></a></h1>
+<h1>API reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
 <section id="parsing-functions">
-<h2>Parsing functions<a class="headerlink" href="#parsing-functions" title="Permalink to this heading"></a></h2>
+<h2>Parsing functions<a class="headerlink" href="#parsing-functions" title="Link to this heading"></a></h2>
 <p>These functions are intended as the main entry points to parsing something
 with a grammar defined with the <a class="reference internal" href="#parser-combinators">Parser combinators</a>. All parsing functions
 can also be directly imported from the <code class="docutils literal notranslate"><span class="pre">bite</span></code> package.</p>
@@ -124,11 +126,11 @@ can also be directly imported from the <code class="docutils literal notranslate
 </table>
 </section>
 <section id="parser-combinators">
-<h2>Parser combinators<a class="headerlink" href="#parser-combinators" title="Permalink to this heading"></a></h2>
+<h2>Parser combinators<a class="headerlink" href="#parser-combinators" title="Link to this heading"></a></h2>
 <p>These classes can be combined to create the desired parser for a given grammar.
 All parser combinators can also be directly imported from the <code class="docutils literal notranslate"><span class="pre">bite</span></code> package.</p>
 <section id="parsing-concrete-bytes">
-<h3>Parsing concrete bytes<a class="headerlink" href="#parsing-concrete-bytes" title="Permalink to this heading"></a></h3>
+<h3>Parsing concrete bytes<a class="headerlink" href="#parsing-concrete-bytes" title="Link to this heading"></a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="parsers.html#bite.parsers.CaselessLiteral" title="bite.parsers.CaselessLiteral"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers.CaselessLiteral</span></code></a></p></td>
@@ -147,7 +149,7 @@ All parser combinators can also be directly imported from the <code class="docut
 </table>
 </section>
 <section id="combining-parsers">
-<h3>Combining parsers<a class="headerlink" href="#combining-parsers" title="Permalink to this heading"></a></h3>
+<h3>Combining parsers<a class="headerlink" href="#combining-parsers" title="Link to this heading"></a></h3>
 <p>Parser instances can also be combined with the following operators:</p>
 <blockquote>
 <div><ul class="simple">
@@ -178,7 +180,7 @@ the input.</p></li>
 </table>
 </section>
 <section id="repetition-of-parsers">
-<h3>Repetition of parsers<a class="headerlink" href="#repetition-of-parsers" title="Permalink to this heading"></a></h3>
+<h3>Repetition of parsers<a class="headerlink" href="#repetition-of-parsers" title="Link to this heading"></a></h3>
 <p>Repetition of a parser instance can also be declared with indexing/bracket
 notation as <code class="docutils literal notranslate"><span class="pre">parser[x,</span> <span class="pre">y]</span></code>. `` x`` must be a non-negative integer. <code class="docutils literal notranslate"><span class="pre">y</span></code> must
 be either a positive integer or the ellipsis <code class="docutils literal notranslate"><span class="pre">...</span></code> to allow for unlimited
@@ -204,7 +206,7 @@ repetitions.</p>
 </table>
 </section>
 <section id="transforming-parsed-values">
-<h3>Transforming parsed values<a class="headerlink" href="#transforming-parsed-values" title="Permalink to this heading"></a></h3>
+<h3>Transforming parsed values<a class="headerlink" href="#transforming-parsed-values" title="Link to this heading"></a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="transformers.html#bite.transformers.Group" title="bite.transformers.Group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transformers.Group</span></code></a></p></td>
@@ -224,7 +226,7 @@ repetitions.</p>
 </section>
 </section>
 <section id="parse-tree-nodes">
-<h2>Parse tree nodes<a class="headerlink" href="#parse-tree-nodes" title="Permalink to this heading"></a></h2>
+<h2>Parse tree nodes<a class="headerlink" href="#parse-tree-nodes" title="Link to this heading"></a></h2>
 <p>These classes define the structure of the parse tree returned from a parser.
 The general protocol of these classes is given by <a class="reference internal" href="parsers.html#bite.parsers.ParsedNode" title="bite.parsers.ParsedNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">parsers.ParsedNode</span></code></a>.
 Besides the fundamental class listed here, many parsers define their
@@ -244,7 +246,7 @@ specialized implemenations.</p>
 </table>
 </section>
 <section id="module-reference">
-<h2>Module reference<a class="headerlink" href="#module-reference" title="Permalink to this heading"></a></h2>
+<h2>Module reference<a class="headerlink" href="#module-reference" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="io.html">bite.io module</a><ul>
@@ -481,7 +483,7 @@ specialized implemenations.</p>
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-github" style="float: left;"></span>
-        v: 0.2.3
+        v: 0.2.4
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
