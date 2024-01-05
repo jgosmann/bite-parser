@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Getting started &mdash; bite-parser unreleased documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/versioning.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/versioning.css?v=47c7a966" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/js/versioning.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=a2495637"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/js/versioning.js?v=125fa559"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -94,16 +96,16 @@
            <div itemprop="articleBody">
              
   <section id="getting-started">
-<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h1>
 <section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
 <p>Run the following in your command line:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">bite</span><span class="o">-</span><span class="n">parser</span>
 </pre></div>
 </div>
 </section>
 <section id="implementing-your-first-parser">
-<h2>Implementing your first parser<a class="headerlink" href="#implementing-your-first-parser" title="Permalink to this heading"></a></h2>
+<h2>Implementing your first parser<a class="headerlink" href="#implementing-your-first-parser" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">Combine</span><span class="p">,</span> <span class="n">CharacterSet</span><span class="p">,</span> <span class="n">Forward</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="n">value</span> <span class="o">=</span> <span class="n">Forward</span><span class="p">()</span>
@@ -153,7 +155,7 @@ that for each operator an equivalent class exists
 that can be used interchangeably.</p>
 </section>
 <section id="using-the-parser">
-<h2>Using the parser<a class="headerlink" href="#using-the-parser" title="Permalink to this heading"></a></h2>
+<h2>Using the parser<a class="headerlink" href="#using-the-parser" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
 <span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">parse_bytes</span>
 
@@ -218,7 +220,7 @@ In the next section,
 we will introduce some more structure to retain the operator precedence.</p>
 </section>
 <section id="introducing-structure-in-the-parse-result">
-<h2>Introducing structure in the parse result<a class="headerlink" href="#introducing-structure-in-the-parse-result" title="Permalink to this heading"></a></h2>
+<h2>Introducing structure in the parse result<a class="headerlink" href="#introducing-structure-in-the-parse-result" title="Link to this heading"></a></h2>
 <p>A simple way to introduce more structure into the parse values is the <code class="docutils literal notranslate"><span class="pre">Group</span></code>
 transform.
 It will put the values of its sub-parsers into a tuple.
@@ -305,7 +307,7 @@ to evaluate the whole expression.</p>
 </div>
 </section>
 <section id="parsing-asynchronous-streams">
-<h2>Parsing asynchronous streams<a class="headerlink" href="#parsing-asynchronous-streams" title="Permalink to this heading"></a></h2>
+<h2>Parsing asynchronous streams<a class="headerlink" href="#parsing-asynchronous-streams" title="Link to this heading"></a></h2>
 <p>So far we only parsed complete byte arrays.
 However, bite-parser is asynchronous
 and can emit parsed results as they come in.
