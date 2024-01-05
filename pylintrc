@@ -77,7 +77,10 @@ disable=
         no-else-return,
         too-few-public-methods,
         duplicate-code,
-        too-many-lines
+        too-many-lines,
+        # too many false positives for dataclasses and already checked by mypy
+        redundant-keyword-arg,
+        too-many-function-args
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -531,5 +534,5 @@ min-public-methods=2
 
 # Exceptions that will emit a warning when being caught. Defaults to
 # "BaseException, Exception".
-overgeneral-exceptions=BaseException,
-                       Exception
+overgeneral-exceptions=builtins.BaseException,
+                       builtins.Exception
