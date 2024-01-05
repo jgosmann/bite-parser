@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting started &mdash; bite-parser 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/versioning.css?v=47c7a966" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=10f1778b"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/js/versioning.js?v=125fa559"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API reference" href="api/api.html" />
+    <link rel="prev" title="Welcome to bite-parser" href="index.html" />
+<script>
+    initializeVersioningFromManifest({
+        currentVersion: "0.2.4",
+        baseUrl: "https://jgosmann.github.io/bite-parser/docs",
+    })
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            bite-parser
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementing-your-first-parser">Implementing your first parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-parser">Using the parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#introducing-structure-in-the-parse-result">Introducing structure in the parse result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parsing-asynchronous-streams">Parsing asynchronous streams</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bite-parser</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div class="version-banner"></div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Getting started</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/getting-started.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h1>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>Run the following in your command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">bite</span><span class="o">-</span><span class="n">parser</span>
+</pre></div>
+</div>
+</section>
+<section id="implementing-your-first-parser">
+<h2>Implementing your first parser<a class="headerlink" href="#implementing-your-first-parser" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">Combine</span><span class="p">,</span> <span class="n">CharacterSet</span><span class="p">,</span> <span class="n">Forward</span><span class="p">,</span> <span class="n">Literal</span>
+
+<span class="n">value</span> <span class="o">=</span> <span class="n">Forward</span><span class="p">()</span>
+<span class="n">product</span> <span class="o">=</span> <span class="n">value</span> <span class="o">+</span> <span class="p">((</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;*&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;/&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">value</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="nb">sum</span> <span class="o">=</span> <span class="n">product</span> <span class="o">+</span> <span class="p">((</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;+&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;-&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">product</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span>
+<span class="n">value</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+    <span class="n">Combine</span><span class="p">(</span><span class="n">CharacterSet</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;0123456789&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;(&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">expr</span> <span class="o">+</span> <span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;)&#39;</span><span class="p">))</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This defines a grammar to accept simple mathematical expressions
+consisting of the four basic operations.
+Let us discuss the most basic elements first.
+Each <code class="docutils literal notranslate"><span class="pre">Literal</span></code> defines a byte or sequence of bytes
+that needs to be matched exactly.
+The <code class="docutils literal notranslate"><span class="pre">|</span></code> (or) operator combines parsers
+such that the first matching alternative determines the parse result.
+Order can matter here
+(but not in this example)!
+The <code class="docutils literal notranslate"><span class="pre">+</span></code> (addition) operator chains parsers together,
+i.e. first the left-hand side parser needs to match the input,
+followed by a match of the right-hand parser.
+The bracket notation declares the minimum and maximum number of repeats.
+Zero or more matches are denoted by <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">...]</span></code>,
+one or more matches with <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">...]</span></code>.</p>
+<p>Further, the <code class="docutils literal notranslate"><span class="pre">CharacterSet</span></code> matches a single byte from the given set.
+Because a number might have multiple digits,
+<code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">...]</span></code> is used to allow for more than one digit.
+However,
+we do not want to parse each digit individually,
+but combine all of the digits into a single token.
+This is done with <code class="docutils literal notranslate"><span class="pre">Combine</span></code>.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">Forward</span></code> allows to do a forward declaration of <code class="docutils literal notranslate"><span class="pre">value</span></code>
+without specifying what constitutes a value
+until <code class="docutils literal notranslate"><span class="pre">value.assign</span></code> is called.
+This allows for the definition of recursive rules.
+Be careful though, a left-recursive rule will give an infinite recursion!
+You can add names such as “number” to declarations in your grammar.
+This can come in handy when evaluating the parse result.</p>
+<p>There many more classes and operators
+that you can use to construct your grammar.
+Check the reference documentation.
+Also note,
+that for each operator an equivalent class exists
+that can be used interchangeably.</p>
+</section>
+<section id="using-the-parser">
+<h2>Using the parser<a class="headerlink" href="#using-the-parser" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">parse_bytes</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">parse_bytes</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;123+45*(67+89)&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Here the <code class="docutils literal notranslate"><span class="pre">parse_bytes</span></code> function is used
+to parse the bytes <code class="docutils literal notranslate"><span class="pre">b'123+45*(67+89)'</span></code>
+with the <code class="docutils literal notranslate"><span class="pre">expr</span></code> grammar (or parser).
+The result is the concrete parse tree
+which contains all the relevant parsing information.
+The children of each node will be stored in the <code class="docutils literal notranslate"><span class="pre">parse_tree</span></code> attribute.
+For example,
+we can take a look at the first child of <code class="docutils literal notranslate"><span class="pre">result</span></code>
+which corresponds to <code class="docutils literal notranslate"><span class="pre">123</span></code> from the parsed expression:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ParsedMatchFirst(name=&quot;(number) | ((b&#39;(&#39;) + ((forward) + ((((b&#39;*&#39;) | (b&#39;/&#39;)) + (forward))[0, None]) + ((((b&#39;+&#39;) | (b&#39;-&#39;)) + ((forward) + ((((b&#39;*&#39;) | (b&#39;/&#39;)) + (forward))[0, None])))[0, None])) + (b&#39;)&#39;))&quot;, parse_tree=ParsedLeaf(name=&#39;number&#39;, parse_tree=b&#39;123&#39;, start_loc=0, end_loc=3), choice_index=0)
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ParsedMatchFirst</span></code> corresponds to the <code class="docutils literal notranslate"><span class="pre">|</span></code> operator
+of the rule assigned to <code class="docutils literal notranslate"><span class="pre">value</span></code>.
+It has also a somewhat unwieldy, auto-generated name
+besides some other attributes.
+On each node in the parse tree,
+you can query <code class="docutils literal notranslate"><span class="pre">start_loc</span></code> and <code class="docutils literal notranslate"><span class="pre">end_loc</span></code> to find out to what extent in the input the parsed node corresponds.
+The <code class="docutils literal notranslate"><span class="pre">end_loc</span></code> is exclusive.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Extent from&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_loc</span><span class="p">,</span>
+    <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">end_loc</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Extent from 0 to 3
+</pre></div>
+</div>
+<p>The leaf nodes of the parse tree will have the bytes itself as <code class="docutils literal notranslate"><span class="pre">parse_tree</span></code> attribute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The leaf:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;The children of the leaf are the bytes itself:&quot;</span><span class="p">,</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">parse_tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">parse_tree</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>The leaf: ParsedLeaf(name=&#39;number&#39;, parse_tree=b&#39;123&#39;, start_loc=0, end_loc=3)
+The children of the leaf are the bytes itself: b&#39;123&#39;
+</pre></div>
+</div>
+<p>While the parse tree gives you all the information,
+it is often more than you need and sometimes cumbersome to work with.
+Often you only want a transformed representation
+that you can get with the <code class="docutils literal notranslate"><span class="pre">values</span></code> attribute on a node.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(b&#39;123&#39;, b&#39;+&#39;, b&#39;45&#39;, b&#39;*&#39;, b&#39;(&#39;, b&#39;67&#39;, b&#39;+&#39;, b&#39;89&#39;, b&#39;)&#39;)
+</pre></div>
+</div>
+<p>By default this gives a flat tuple of all the parsed tokens.
+In the next section,
+we will introduce some more structure to retain the operator precedence.</p>
+</section>
+<section id="introducing-structure-in-the-parse-result">
+<h2>Introducing structure in the parse result<a class="headerlink" href="#introducing-structure-in-the-parse-result" title="Link to this heading"></a></h2>
+<p>A simple way to introduce more structure into the parse values is the <code class="docutils literal notranslate"><span class="pre">Group</span></code>
+transform.
+It will put the values of its sub-parsers into a tuple.
+In addition,
+<code class="docutils literal notranslate"><span class="pre">Suppress</span></code> allows to remove parsed tokens completely from the values.
+In this example,
+we use this to insert grouping according to the precedence.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">Combine</span><span class="p">,</span> <span class="n">CharacterSet</span><span class="p">,</span> <span class="n">Forward</span><span class="p">,</span> <span class="n">Group</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Suppress</span>
+<span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">parse_bytes</span>
+
+<span class="n">value</span> <span class="o">=</span> <span class="n">Forward</span><span class="p">()</span>
+<span class="n">product</span> <span class="o">=</span> <span class="n">Group</span><span class="p">(</span><span class="n">value</span> <span class="o">+</span> <span class="p">((</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;*&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;/&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">value</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span>
+<span class="nb">sum</span> <span class="o">=</span> <span class="n">product</span> <span class="o">+</span> <span class="p">((</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;+&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;-&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">product</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span>
+<span class="n">value</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+    <span class="n">Combine</span><span class="p">(</span><span class="n">CharacterSet</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;0123456789&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">Group</span><span class="p">(</span><span class="n">Suppress</span><span class="p">(</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;(&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">expr</span> <span class="o">+</span> <span class="n">Suppress</span><span class="p">(</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;)&#39;</span><span class="p">)))</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">parse_bytes</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;123+45*(67+89)&#39;</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>((b&#39;123&#39;,), b&#39;+&#39;, (b&#39;45&#39;, b&#39;*&#39;, ((b&#39;67&#39;,), b&#39;+&#39;, (b&#39;89&#39;,))))
+</pre></div>
+</div>
+<p>It is also possible to define custom transforms
+and use this,
+for example,
+to evaluate the whole expression.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">Combine</span><span class="p">,</span> <span class="n">CharacterSet</span><span class="p">,</span> <span class="n">Forward</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Suppress</span><span class="p">,</span> <span class="n">TransformValues</span>
+<span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">parse_bytes</span>
+
+<span class="k">def</span> <span class="nf">eval_product</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;*&#39;</span><span class="p">:</span>
+            <span class="n">acc</span> <span class="o">*=</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;/&#39;</span><span class="p">:</span>
+            <span class="n">acc</span> <span class="o">/=</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">acc</span><span class="p">,)</span>
+
+<span class="k">def</span> <span class="nf">eval_sum</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;+&#39;</span><span class="p">:</span>
+            <span class="n">acc</span> <span class="o">+=</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;-&#39;</span><span class="p">:</span>
+            <span class="n">acc</span> <span class="o">-=</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">acc</span><span class="p">,)</span>
+
+<span class="n">value</span> <span class="o">=</span> <span class="n">Forward</span><span class="p">()</span>
+<span class="n">product</span> <span class="o">=</span> <span class="n">TransformValues</span><span class="p">(</span>
+    <span class="n">value</span> <span class="o">+</span> <span class="p">((</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;*&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;/&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">value</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">eval_product</span>
+<span class="p">)</span>
+<span class="nb">sum</span> <span class="o">=</span> <span class="n">TransformValues</span><span class="p">(</span>
+    <span class="n">product</span> <span class="o">+</span> <span class="p">((</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;+&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;-&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">product</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">eval_sum</span>
+<span class="p">)</span>
+<span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span>
+<span class="n">value</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+    <span class="n">TransformValues</span><span class="p">(</span>
+        <span class="n">Combine</span><span class="p">(</span><span class="n">CharacterSet</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;0123456789&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">),</span>
+        <span class="k">lambda</span> <span class="n">values</span><span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">|</span> <span class="n">Suppress</span><span class="p">(</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;(&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">expr</span> <span class="o">+</span> <span class="n">Suppress</span><span class="p">(</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;)&#39;</span><span class="p">))</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">parse_bytes</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;123+45*(67+89)&#39;</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(7143,)
+</pre></div>
+</div>
+</section>
+<section id="parsing-asynchronous-streams">
+<h2>Parsing asynchronous streams<a class="headerlink" href="#parsing-asynchronous-streams" title="Link to this heading"></a></h2>
+<p>So far we only parsed complete byte arrays.
+However, bite-parser is asynchronous
+and can emit parsed results as they come in.
+For this the <code class="docutils literal notranslate"><span class="pre">parse_incremental</span></code> method is used.
+It returns an asynchronous iterator
+that returns each successive complete parse tree.</p>
+<p>The following example implements a simple server
+that parses and evaluates each incoming line
+with the grammar defined in the previous section.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bite</span> <span class="kn">import</span> <span class="n">Opt</span>
+
+<span class="n">request</span> <span class="o">=</span> <span class="n">expr</span> <span class="o">+</span> <span class="n">Opt</span><span class="p">(</span><span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">Literal</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">handle_connection</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="n">writer</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># The following line is where the magic happens</span>
+        <span class="k">async</span> <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">parse_incremental</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">reader</span><span class="p">):</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Result: &#39;</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">))</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">drain</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write_eof</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">drain</span><span class="p">()</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">start_server</span><span class="p">(</span><span class="n">handle_connection</span><span class="p">,</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="mi">4000</span><span class="p">)</span>
+
+    <span class="n">addrs</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">getsockname</span><span class="p">())</span> <span class="k">for</span> <span class="n">sock</span> <span class="ow">in</span> <span class="n">server</span><span class="o">.</span><span class="n">sockets</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Serving on </span><span class="si">{</span><span class="n">addrs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">server</span><span class="p">:</span>
+        <span class="k">await</span> <span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>After starting the server,
+you can test the server with netcat (for example):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nc<span class="w"> </span>localhost<span class="w"> </span><span class="m">4000</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">Result</span><span class="p">:</span> <span class="mi">2</span>
+<span class="mi">21</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="mi">5</span><span class="o">+</span><span class="mi">6</span><span class="p">)</span><span class="o">-</span><span class="mi">4</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">Result</span><span class="p">:</span> <span class="mf">63.0</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to bite-parser" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api/api.html" class="btn btn-neutral float-right" title="API reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Jan Gosmann.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-github" style="float: left;"></span>
+        v: 0.2.4
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Versions</dt>
+        </dl>
+        <dl>
+            <dt>On GitHub</dt>
+            <dd><a href="https://github.com/jgosmann/bite-parser/">Repository</a></dd>
+        </dl>
+    </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
