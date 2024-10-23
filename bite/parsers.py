@@ -15,11 +15,12 @@ from typing import (
 
 from bite.io import ParserBuffer
 
-T = TypeVar("T", covariant=True)
+T = TypeVar("T")
+T_co = TypeVar("T_co", covariant=True)
 V = TypeVar("V", covariant=True)
 
 
-class ParsedNode(Protocol[T, V]):
+class ParsedNode(Protocol[T_co, V]):
     """A single node in a parse tree."""
 
     @property
@@ -27,7 +28,7 @@ class ParsedNode(Protocol[T, V]):
         """Name of the node."""
 
     @property
-    def parse_tree(self) -> T:
+    def parse_tree(self) -> T_co:
         """Children of the node."""
 
     @property

@@ -42,9 +42,9 @@ def scan_versions(path: Path) -> VersionManifest:
     released_versions.sort(reverse=True)
 
     return VersionManifest(
-        stable=format_version(released_versions[0])
-        if len(released_versions) > 0
-        else "",
+        stable=(
+            format_version(released_versions[0]) if len(released_versions) > 0 else ""
+        ),
         dev=dev_versions,
         released=[format_version(v) for v in released_versions],
     )
