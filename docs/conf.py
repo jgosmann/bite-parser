@@ -85,7 +85,7 @@ intersphinx_mapping = {"python": ("https://docs.python.org/3", None)}
 #
 html_theme = "sphinx_rtd_theme"
 
-html_theme_options = {"display_version": False}
+html_theme_options = {"version_selector": False, "language_selector": False}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
