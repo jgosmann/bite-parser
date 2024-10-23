@@ -29,14 +29,14 @@ python = "^3.9"
 
 [tool.poetry.dev-dependencies]
 Sphinx = {version = "^7.2.6", python = "^3.9"}
-black = "^23.7.0"
+black = ">23.7.0"
 darglint = "^1.8.1"
 isort = "^5.11.4"
 mypy = "^1.4.1"
 pylint = "^3.0.3"
-pytest = "^7.2.0"
-pytest-asyncio = "^0.23.3"
-pytest-cov = "^4.0.0"
+pytest = "^8.3.3"
+pytest-asyncio = "^0.24.0"
+pytest-cov = "^5.0.0"
 sphinx-rtd-theme = {version = "^2.0.0", python = "^3.9"}
 
 [tool.isort]
