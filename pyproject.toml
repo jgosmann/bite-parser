@@ -23,7 +23,7 @@ packages = [
 ]
 readme = "README.rst"
 repository = "https://github.com/jgosmann/bite-parser/"
-version = "0.2.4"
+version = "0.2.5"
 
 [tool.poetry.dependencies]
 python = "^3.9"
