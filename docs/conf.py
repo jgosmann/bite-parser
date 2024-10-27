@@ -17,15 +17,15 @@
 
 # -- Project information -----------------------------------------------------
 
+import os
+import re
+
 project = "bite-parser"
 copyright = "2022, Jan Gosmann"
 author = "Jan Gosmann"
 
 release = "unreleased"
 version = "dev"
-
-import os
-import re
 
 github_ref = os.environ.get("GITHUB_REF", "")
 version_name_match = re.match(r"^refs/heads/(.*)$", github_ref)

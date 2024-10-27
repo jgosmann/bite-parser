@@ -1,3 +1,4 @@
+import builtins
 import itertools
 from dataclasses import dataclass
 from typing import (
@@ -189,7 +190,8 @@ class Parser(Generic[T, V]):
         return Not(self)
 
     def __getitem__(
-        self, repeats: Union[int, Tuple[int, Union[int, "ellipsis", None]]]
+        self,
+        repeats: Union[int, Tuple[int, Union[int, "builtins.ellipsis", None]]],
     ) -> "Repeat":
         if isinstance(repeats, int):
             min_repeats = repeats

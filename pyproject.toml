@@ -39,7 +39,7 @@ ruff = "^0.7.1"
 sphinx-rtd-theme = {version = "^3.0.1", python = "^3.10"}
 
 [tool.ruff.lint]
-select = ["I"]
+extend-select = ["I"]
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
