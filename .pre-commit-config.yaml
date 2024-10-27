@@ -8,21 +8,11 @@ repos:
   - id: end-of-file-fixer
   - id: check-yaml
   - id: check-added-large-files
-- repo: https://github.com/PyCQA/isort
-  rev: 5.12.0
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.7.1
   hooks:
-  - id: isort
-- repo: https://github.com/psf/black
-  rev: 24.10.0
-  hooks:
-  - id: black
-- repo: https://github.com/PyCQA/pylint
-  rev: v3.3.1
-  hooks:
-  - id: pylint
-    files: ^bite/
-    additional_dependencies:
-      - "pytest==8.3.3"
+    - id: ruff
+    - id: ruff-format
 - repo: https://github.com/pre-commit/mirrors-mypy
   rev: v1.13.0
   hooks:

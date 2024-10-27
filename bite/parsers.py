@@ -646,10 +646,10 @@ class CharacterSet(Parser[bytes, bytes]):
 
     .. note::
 
-        Besides listing each byte in the set explicitly (e.g. ``b'abc\x1F'``),
+        Besides listing each byte in the set explicitly (e.g. ``b'abc\x1f'``),
         you can define a range using something like
         ``bytes(range(0x7F, 0x9F + 1))``. It is also possible to combine both
-        forms: ``b'abc\x1F' + bytes(range(0x7F, 0x9F + 1))``.
+        forms: ``b'abc\x1f' + bytes(range(0x7F, 0x9F + 1))``.
 
     Parameters
     ----------
