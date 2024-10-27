@@ -1,0 +1,316 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bite.io module &mdash; bite-parser 0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/versioning.css?v=47c7a966" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=10f1778b"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/js/versioning.js?v=125fa559"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bite.parse_functions module" href="parse_functions.html" />
+    <link rel="prev" title="API reference" href="api.html" />
+<script>
+    initializeVersioningFromManifest({
+        currentVersion: "0.2.5",
+        baseUrl: "https://jgosmann.github.io/bite-parser/docs",
+    })
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            bite-parser
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html#parsing-functions">Parsing functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#parser-combinators">Parser combinators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#parse-tree-nodes">Parse tree nodes</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="api.html#module-reference">Module reference</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bite.io module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bite.io.BytesBuffer"><code class="docutils literal notranslate"><span class="pre">BytesBuffer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bite.io.ParserBuffer"><code class="docutils literal notranslate"><span class="pre">ParserBuffer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bite.io.StreamReaderBuffer"><code class="docutils literal notranslate"><span class="pre">StreamReaderBuffer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="parse_functions.html">bite.parse_functions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsers.html">bite.parsers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.html">bite.tests module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="transformers.html">bite.transformers module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">bite-parser</a>
+      </nav>
+
+      <div class="wy-nav-content">
+<div class="version-banner"></div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="api.html">API reference</a></li>
+      <li class="breadcrumb-item active">bite.io module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/io.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-bite.io">
+<span id="bite-io-module"></span><h1>bite.io module<a class="headerlink" href="#module-bite.io" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="bite.io.BytesBuffer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.io.</span></span><span class="sig-name descname"><span class="pre">BytesBuffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><span class="pre">bytes</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/io.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.io.BytesBuffer" title="Link to this definition"></a></dt>
+<dd><p>Implements the <cite>ParserBuffer</cite> protocol for a <code class="docutils literal notranslate"><span class="pre">bytes</span></code> object.</p>
+<p>The buffer is static, i.e. all bytes are already provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – Data for the buffer.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="bite.io.BytesBuffer.at_eof">
+<span class="sig-name descname"><span class="pre">at_eof</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/io.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.io.BytesBuffer.at_eof" title="Link to this definition"></a></dt>
+<dd><p>Always returns True as the complete buffer is provided at
+construction time.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bite.io.BytesBuffer.get">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.13)"><span class="pre">slice</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/io.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.io.BytesBuffer.get" title="Link to this definition"></a></dt>
+<dd><p>Get a range from from the buffer.</p>
+<p>Blocks if the requested range is not available yet. If the requested
+range will never become available (e.g. because it would go past the
+end of file), as much as possible is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> – Range to return. An integer <code class="docutils literal notranslate"><span class="pre">i</span></code> is treated as a single byte range
+<code class="docutils literal notranslate"><span class="pre">slice(i,</span> <span class="pre">i</span> <span class="pre">+</span> <span class="pre">1)</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">bytes</span></code> object containing the requested range from the buffer.
+This should always be a <code class="docutils literal notranslate"><span class="pre">bytes</span></code> objects even if a single integer
+index was provided (this is in contrast to how indexing works on
+<code class="docutils literal notranslate"><span class="pre">bytes</span></code> objects). A smaller range than requested may be returned if
+the buffer is unable to provide that range (however, the method must
+block if that range may become available).</p></li>
+<li><p><strong># noqa</strong> (<em>DAR202</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bite.io.BytesBuffer.get_current">
+<span class="sig-name descname"><span class="pre">get_current</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/io.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.io.BytesBuffer.get_current" title="Link to this definition"></a></dt>
+<dd><p>Get all bytes currently stored in the buffer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bite.io.ParserBuffer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.io.</span></span><span class="sig-name descname"><span class="pre">ParserBuffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/io.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.io.ParserBuffer" title="Link to this definition"></a></dt>
+<dd><p>Protocol used by parsers to read from a bytes buffer.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bite.io.ParserBuffer.at_eof">
+<span class="sig-name descname"><span class="pre">at_eof</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/io.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.io.ParserBuffer.at_eof" title="Link to this definition"></a></dt>
+<dd><p>Whether the end of file has been found.</p>
+<p>If the end of file has been found, all possible bytes have been read
+into the buffer and no new bytes will be added.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bite.io.ParserBuffer.get">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.13)"><span class="pre">slice</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/io.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.io.ParserBuffer.get" title="Link to this definition"></a></dt>
+<dd><p>Get a range from from the buffer.</p>
+<p>Blocks if the requested range is not available yet. If the requested
+range will never become available (e.g. because it would go past the
+end of file), as much as possible is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> – Range to return. An integer <code class="docutils literal notranslate"><span class="pre">i</span></code> is treated as a single byte range
+<code class="docutils literal notranslate"><span class="pre">slice(i,</span> <span class="pre">i</span> <span class="pre">+</span> <span class="pre">1)</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">bytes</span></code> object containing the requested range from the buffer.
+This should always be a <code class="docutils literal notranslate"><span class="pre">bytes</span></code> objects even if a single integer
+index was provided (this is in contrast to how indexing works on
+<code class="docutils literal notranslate"><span class="pre">bytes</span></code> objects). A smaller range than requested may be returned if
+the buffer is unable to provide that range (however, the method must
+block if that range may become available).</p></li>
+<li><p><strong># noqa</strong> (<em>DAR202</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bite.io.ParserBuffer.get_current">
+<span class="sig-name descname"><span class="pre">get_current</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/io.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.io.ParserBuffer.get_current" title="Link to this definition"></a></dt>
+<dd><p>Get all bytes currently stored in the buffer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bite.io.StreamReaderBuffer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bite.io.</span></span><span class="sig-name descname"><span class="pre">StreamReaderBuffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">StreamReader</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/io.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.io.StreamReaderBuffer" title="Link to this definition"></a></dt>
+<dd><p>Implements the <cite>ParserBuffer</cite> protocol for a <a class="reference external" href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamReader" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">asyncio.StreamReader</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>reader</strong> – Reader providing the bytes to be read into the buffer.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="bite.io.StreamReaderBuffer.at_eof">
+<span class="sig-name descname"><span class="pre">at_eof</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/io.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.io.StreamReaderBuffer.at_eof" title="Link to this definition"></a></dt>
+<dd><p>Whether the end of file has been found.</p>
+<p>If the end of file has been found, all possible bytes have been read
+into the buffer and no new bytes will be added.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bite.io.StreamReaderBuffer.drop_prefix">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drop_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/io.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.io.StreamReaderBuffer.drop_prefix" title="Link to this definition"></a></dt>
+<dd><p>Drop the first <em>n</em> bytes in the buffer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bite.io.StreamReaderBuffer.get">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.13)"><span class="pre">slice</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/io.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.io.StreamReaderBuffer.get" title="Link to this definition"></a></dt>
+<dd><p>Get a range from from the buffer.</p>
+<p>Blocks if the requested range is not available yet. If the requested
+range will never become available (e.g. because it would go past the
+end of file), as much as possible is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> – Range to return. An integer <code class="docutils literal notranslate"><span class="pre">i</span></code> is treated as a single byte range
+<code class="docutils literal notranslate"><span class="pre">slice(i,</span> <span class="pre">i</span> <span class="pre">+</span> <span class="pre">1)</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">bytes</span></code> object containing the requested range from the buffer.
+This should always be a <code class="docutils literal notranslate"><span class="pre">bytes</span></code> objects even if a single integer
+index was provided (this is in contrast to how indexing works on
+<code class="docutils literal notranslate"><span class="pre">bytes</span></code> objects). A smaller range than requested may be returned if
+the buffer is unable to provide that range (however, the method must
+block if that range may become available).</p></li>
+<li><p><strong># noqa</strong> (<em>DAR202</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bite.io.StreamReaderBuffer.get_current">
+<span class="sig-name descname"><span class="pre">get_current</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.13)"><span class="pre">bytes</span></a></span></span><a class="reference external" href="https://github.com/py-plato/plato/blob/main/bite/io.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bite.io.StreamReaderBuffer.get_current" title="Link to this definition"></a></dt>
+<dd><p>Get all bytes currently stored in the buffer.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api.html" class="btn btn-neutral float-left" title="API reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="parse_functions.html" class="btn btn-neutral float-right" title="bite.parse_functions module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Jan Gosmann.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-github" style="float: left;"></span>
+        v: 0.2.5
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Versions</dt>
+        </dl>
+        <dl>
+            <dt>On GitHub</dt>
+            <dd><a href="https://github.com/jgosmann/bite-parser/">Repository</a></dd>
+        </dl>
+    </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
